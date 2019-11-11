@@ -5,10 +5,11 @@
 //Include functions
 #include "loggingFunctions.h"
 #include "realTimer.h"
+#include "input_9dof.h"
 
 
 //Declare Objects
-
+dof inputDOF;
 
 
 //Set input pins
@@ -29,13 +30,15 @@ realTimer blinkTimer;
 // the setup function runs once when you press reset or power the board
 //Runs only once at setup
 void setup() {
+  //Serial.begin(115200);
   debugPrint(debugPrioritySetting, "setup", 5, "Starting...");
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  blinkTimer.init(1000);
+  blinkTimer.init(500);
   
   //Initalize main routines
   outputSetup();
+  inputDOF.init();
 
   //Finish setup
   debugPrint(debugPrioritySetting, "setup", 5, "Startup complete");
@@ -61,6 +64,7 @@ void loop() {
       //Next state
       blinkState = ((blinkState + 1)%2);
       //debugPrint(5, routineName, 5, String("BlinkState: ") + String(blinkState));
+      inputDOF.printOutPlot();
   };
 
   // Delay so CPU doesn't run at 100% all the time
@@ -68,6 +72,7 @@ void loop() {
   
   //Run main routines
   inputsRead();
+  inputDOF.update();
   outputWrite();
 }
 
