@@ -1,21 +1,19 @@
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
-
+#include <Madgwick.h>
 #include "arduino.h"
 #include "input_9dof.h"
 
 void dof::init(){
+  
   Serial.begin(115200);
     while (!Serial) {
       ; // wait for serial port to connect. Needed for native USB port only
     }
-    
-  while (Serial.available() <= 0) {
-        Serial.print('A');   // send a capital A
-        delay(300);
-      }
-      Serial.println(' ');
-  Serial.println(F("Adafruit AHRS Fusion Example")); Serial.println("");
+  Serial.println(F("Adafruit AHRS Fusion Example"));
+
+  gyro = Adafruit_FXAS21002C(0x0021002C);
+  accelmag = Adafruit_FXOS8700(0x8700A, 0x8700B);
   
   if(!gyro.begin()){
     /* There was a problem detecting the gyro ... check your connections */
@@ -30,39 +28,32 @@ void dof::init(){
 
   filter.begin(10);
   
+}
+
+void dof::updatedof(){
   // Mag calibration values are calculated via ahrs_calibration.
   // These values must be determined for each baord/environment.
   // See the image in this sketch folder for the values used
   // below.
   
-  // Offsets applied to raw x/y/z mag values
-  float mag_offsets[3]            = { 8.16F, -21.02F, -249.24F };
-  
-  // Soft iron error compensation matrix
-  float mag_softiron_matrix[3][3] = { {  1.014,  -0.028,  0.002 },
-                                      {  -0.029,  0.974, 0.026 },
-                                      {  0.002, 0.026,  1.015 } };
-  
-  float mag_field_strength        = 61.66F;
-  
-  // Offsets applied to compensate for gyro zero-drift error for x/y/z
-  float gyro_zero_offsets[3]      = { 0.0F, 0.0F, 0.0F };
+// Offsets applied to raw x/y/z mag values
+float mag_offsets[3]            = { 8.16F, -21.02F, -249.24F };
 
-  gyro = Adafruit_FXAS21002C(0x0021002C);
-  accelmag = Adafruit_FXOS8700(0x8700A, 0x8700B);
-  
-}
+// Soft iron error compensation matrix
+float mag_softiron_matrix[3][3] = { {  1.014,  -0.028,  0.002 },
+                                    {  -0.029,  0.974, 0.026 },
+                                    {  0.002, 0.026,  1.015 } };
 
-void dof::update(){
-  sensors_event_t gyro_event;
-  sensors_event_t accel_event;
-  sensors_event_t mag_event;
+float mag_field_strength        = 61.66F;
+
+// Offsets applied to compensate for gyro zero-drift error for x/y/z
+float gyro_zero_offsets[3]      = { 0.0F, 0.0F, 0.0F };
 
   // Get new data samples
   gyro.getEvent(&gyro_event);
   accelmag.getEvent(&accel_event, &mag_event);
 
-
+  
   // Apply mag offset compensation (base values in uTesla)
   float x = mag_event.magnetic.x - mag_offsets[0];
   float y = mag_event.magnetic.y - mag_offsets[1];
@@ -85,23 +76,29 @@ void dof::update(){
   gy *= 57.2958F;
   gz *= 57.2958F;
 
+  //acceleration
+  accelX = accel_event.acceleration.x;
+  accelY = accel_event.acceleration.y;
+  accelZ = accel_event.acceleration.z;
+
   // Update the filter
   filter.update(gx, gy, gz,
-                accel_event.acceleration.x, accel_event.acceleration.y, accel_event.acceleration.z,
+                accelX, accelY, accelZ,
                 mx, my, mz);
+
   roll = filter.getRoll();
   pitch = filter.getPitch();
   heading = filter.getYaw();
+  
+  headingAdj = heading - 72;
+  if (headingAdj < 0) {headingAdj = headingAdj + 360;};
+  //headingAdj = 360-headingAdj;
+   
+                
 }
 
-void dof::printOutPlot(){
-  if (Serial.available() > 0) {
-    Serial.print(millis());
-    Serial.print(" - Orientation: Heading ");
-    Serial.print(heading);
-    Serial.print(" Pitch ");
-    Serial.print(pitch);
-    Serial.print(" Roll ");
-    Serial.println(roll);
-  }
+void dof::updateAccel(float ax, float ay, float az){
+  accelX_lowpass = ax;
+  accelY_lowpass = ay;
+  accelZ_lowpass = az;
 }

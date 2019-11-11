@@ -6,7 +6,9 @@
 #include "loggingFunctions.h"
 #include "realTimer.h"
 #include "input_9dof.h"
-
+#include "Filters.h"
+#include "FilterOnePole.h"
+#include "arduino.h"
 
 //Declare Objects
 dof inputDOF;
@@ -20,13 +22,24 @@ dof inputDOF;
 
 //global variables for main
 byte blinkState = 0;
-
+float sumX = 0;
+float sumY = 0;
+float sumZ = 0;
+      float corrected_ax; 
+      float corrected_ay; 
+      float corrected_az; 
+      
 //gloabl settings variables
 int const debugPrioritySetting = 5;
+float filterFrequency = 5;
 
 //global objects for main
 realTimer blinkTimer;
+FilterOnePole lowpassX(LOWPASS, filterFrequency);
+FilterOnePole lowpassY(LOWPASS, filterFrequency);
+FilterOnePole lowpassZ(LOWPASS, filterFrequency);
 
+  
 // the setup function runs once when you press reset or power the board
 //Runs only once at setup
 void setup() {
@@ -34,7 +47,7 @@ void setup() {
   debugPrint(debugPrioritySetting, "setup", 5, "Starting...");
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
-  blinkTimer.init(500);
+  blinkTimer.init(100);
   
   //Initalize main routines
   outputSetup();
@@ -64,15 +77,29 @@ void loop() {
       //Next state
       blinkState = ((blinkState + 1)%2);
       //debugPrint(5, routineName, 5, String("BlinkState: ") + String(blinkState));
-      inputDOF.printOutPlot();
+      corrected_ax = lowpassX.output() + 9.81*sin(inputDOF.pitch); 
+      corrected_ay = lowpassY.output() + 9.81*sin(inputDOF.roll); 
+      corrected_az = lowpassZ.output() + 9.81*cos(inputDOF.roll)*cos(inputDOF.pitch) ; 
+  
+      sumX = sumX + (100.0/1000)*abs(corrected_ax)*corrected_ax/2.0;
+      sumY = sumY + (100.0/1000)*abs(corrected_ay)*corrected_ay/2.0;
+      sumZ = sumZ + (100.0/1000)*abs(corrected_az)*corrected_az/2.0;
+  
+      printOutPlot();
+      
   };
 
   // Delay so CPU doesn't run at 100% all the time
-  delay(50);
+  delay(5);
+
+  lowpassX.input( inputDOF.accelX );
+  lowpassY.input( inputDOF.accelY );
+  lowpassZ.input( inputDOF.accelZ );
+
   
   //Run main routines
   inputsRead();
-  inputDOF.update();
+  inputDOF.updatedof();
   outputWrite();
 }
 
@@ -94,5 +121,25 @@ void outputWrite(){
   
   //Motor PWM
 
+  
+}
+
+void printOutPlot(){
+   
+  //Serial.print(millis());
+  Serial.print("Orientation: Heading ");
+  Serial.print(inputDOF.heading);
+  Serial.print(" Heading1 ");
+  Serial.print(inputDOF.headingAdj);
+  Serial.print(" Pitch ");
+  Serial.print(inputDOF.pitch);
+  Serial.print(" Roll ");
+  Serial.print(inputDOF.roll);
+  Serial.print(" AccelX ");
+  Serial.print(lowpassX.output());
+  Serial.print(" AccelY ");
+  Serial.print(lowpassY.output());
+  Serial.print(" AccelZ ");
+  Serial.println(lowpassZ.output());
   
 }
