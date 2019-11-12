@@ -6,8 +6,6 @@
 #include "loggingFunctions.h"
 #include "realTimer.h"
 #include "input_9dof.h"
-#include "Filters.h"
-#include "FilterOnePole.h"
 #include "arduino.h"
 
 //Declare Objects
@@ -35,9 +33,6 @@ float filterFrequency = 5;
 
 //global objects for main
 realTimer blinkTimer;
-FilterOnePole lowpassX(LOWPASS, filterFrequency);
-FilterOnePole lowpassY(LOWPASS, filterFrequency);
-FilterOnePole lowpassZ(LOWPASS, filterFrequency);
 
   
 // the setup function runs once when you press reset or power the board
@@ -82,7 +77,7 @@ void loop() {
       //corrected_az = lowpassZ.output() + 9.81*cos(inputDOF.roll)*cos(inputDOF.pitch) ;
       corrected_ax = 0.9*corrected_ax + 0.1*(inputDOF.accelX- 0.42);
       corrected_ay = 0.9*corrected_ay + 0.1*(inputDOF.accelY + 0.46);
-      corrected_az = 0.9*corrected_az + 0.1*(inputDOF.accelZ -0.46 );
+      corrected_az = 0.9*corrected_az + 0.1*(inputDOF.accelZ - 0.46);
 
        
   
@@ -96,10 +91,6 @@ void loop() {
 
   // Delay so CPU doesn't run at 100% all the time
   delay(5);
-
-  lowpassX.input( inputDOF.accelX );
-  lowpassY.input( inputDOF.accelY );
-  lowpassZ.input( inputDOF.accelZ );
 
   
   //Run main routines
