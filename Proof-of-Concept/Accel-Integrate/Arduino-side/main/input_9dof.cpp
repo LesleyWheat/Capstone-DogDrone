@@ -37,14 +37,14 @@ void dof::updatedof(){
   // below.
   
 // Offsets applied to raw x/y/z mag values
-float mag_offsets[3]            = { 8.16F, -21.02F, -249.24F };
+float mag_offsets[3]            = { 9.48F, -20.76F, -251.61F };
 
 // Soft iron error compensation matrix
-float mag_softiron_matrix[3][3] = { {  1.014,  -0.028,  0.002 },
-                                    {  -0.029,  0.974, 0.026 },
-                                    {  0.002, 0.026,  1.015 } };
+float mag_softiron_matrix[3][3] = { {  0.982,  -0.012,  0.019 },
+                                    {  -0.012,  0.973, 0.013 },
+                                    {  0.019, 0.013,  1.048 } };
 
-float mag_field_strength        = 61.66F;
+float mag_field_strength        = 39.48F;
 
 // Offsets applied to compensate for gyro zero-drift error for x/y/z
 float gyro_zero_offsets[3]      = { 0.0F, 0.0F, 0.0F };
