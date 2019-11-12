@@ -6,11 +6,11 @@
 
 void dof::init(){
   
-  Serial.begin(115200);
-    while (!Serial) {
-      ; // wait for serial port to connect. Needed for native USB port only
-    }
-  Serial.println(F("Adafruit AHRS Fusion Example"));
+  //Serial.begin(115200);
+    //while (!Serial) {
+      //; // wait for serial port to connect. Needed for native USB port only
+    //}
+  //Serial.println(F("Adafruit AHRS Fusion Example"));
 
   gyro = Adafruit_FXAS21002C(0x0021002C);
   accelmag = Adafruit_FXOS8700(0x8700A, 0x8700B);

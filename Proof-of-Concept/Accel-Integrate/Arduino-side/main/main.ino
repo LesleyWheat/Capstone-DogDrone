@@ -3,10 +3,19 @@
 */
 
 //Include functions
-#include "loggingFunctions.h"
+#include <ros.h>
+#include <std_msgs/String.h>
 #include "realTimer.h"
 #include "input_9dof.h"
 #include "arduino.h"
+#include "loggingFunctions.h"
+
+//ros::NodeHandle nh;
+
+//std_msgs::String str_msg;
+//ros::Publisher chatter("chatter", &str_msg);
+
+//char hello[13] = "hello world!";
 
 //Declare Objects
 dof inputDOF;
@@ -38,8 +47,15 @@ realTimer blinkTimer;
 // the setup function runs once when you press reset or power the board
 //Runs only once at setup
 void setup() {
-  //Serial.begin(115200);
-  debugPrint(debugPrioritySetting, "setup", 5, "Starting...");
+  //nh.initNode();
+  //nh.advertise(chatter);
+  
+  Serial.begin(115200);
+    while (!Serial) {
+      ; // wait for serial port to connect. Needed for native USB port only
+    }
+  //Serial.println(F("Adafruit AHRS Fusion Example"));
+  //debugPrint(debugPrioritySetting, "setup", 5, "Starting...");
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
   blinkTimer.init(100);
@@ -49,11 +65,16 @@ void setup() {
   inputDOF.init();
 
   //Finish setup
-  debugPrint(debugPrioritySetting, "setup", 5, "Startup complete");
+  //debugPrint(debugPrioritySetting, "setup", 5, "Startup complete");
 }
 
 // the loop function runs over and over again forever
 void loop() {
+  
+  //str_msg.data = hello;
+  //chatter.publish( &str_msg );
+  //nh.spinOnce();
+  
   //local variables
   String routineName = "main";
 
@@ -123,21 +144,21 @@ void outputWrite(){
 void printOutPlot(){
    
   //Serial.print(millis());
-  Serial.print("Orientation:Heading ");
+  Serial.print("Heading: ");
   Serial.print(inputDOF.heading);
-  Serial.print(" Heading1 ");
-  Serial.print(inputDOF.headingAdj);
-  Serial.print(" Pitch ");
+  //Serial.print(" Heading1 ");
+  //Serial.print(inputDOF.headingAdj);
+  Serial.print(" Pitch: ");
   Serial.print(inputDOF.pitch);
-  Serial.print(" Roll ");
+  Serial.print(" Roll: ");
   Serial.print(inputDOF.roll);
-  Serial.print(" AccelX ");
-  Serial.print(corrected_ax );
-  Serial.print(" AccelY ");
-  Serial.print(corrected_ay );
-  Serial.print(" AccelZ ");
-  Serial.print(corrected_az );
-  Serial.print(" Total Force ");
-  Serial.println(pow(pow(corrected_ax ,2) +pow(corrected_ay,2) +pow(corrected_az,2) , 0.5));
+  Serial.print(" AccelX: ");
+  Serial.print(inputDOF.accelX*10 );
+  Serial.print(" AccelY: ");
+  Serial.print(inputDOF.accelY*10 );
+  Serial.print(" AccelZ: ");
+  Serial.println(inputDOF.accelZ*10 );
+  //Serial.print(" Total Force ");
+  //Serial.println(pow(pow(corrected_ax ,2) +pow(corrected_ay,2) +pow(corrected_az,2) , 0.5));
   
 }
