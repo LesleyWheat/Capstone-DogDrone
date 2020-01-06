@@ -1,0 +1,78 @@
+Partlist
+
+Exported from Rover V0.sch at 2020-01-06 4:28 PM
+
+EAGLE Version 8.3.1 Copyright (c) 1988-2017 Autodesk, Inc.
+
+Assembly variant: 
+
+Part     Value                                 Device                                Package                             Library                      Sheet
+
+ASSOC    GREEN                                 LED'0603'                             LED-0603                            Discrete                     2
+BT1                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+BT2                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+BT3                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+BT4                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+BT5                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+BT6                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+BT7                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+BT8                                            BATTERY-AA                            BATTERY-AA                          SparkFun-Batteries           1
+C1       0.1uF                                 0.1UF-0402-16V-10%                    0402                                SparkFun-Capacitors          1
+C2       0.1uF                                 0.1UF-0402-16V-10%                    0402                                SparkFun-Capacitors          1
+C3       100nF                                 C-0603                                C0603                               Discrete                     2
+C4       10uF_16V                              CAP-AVX-A                             AVX-A                               Discrete                     2
+C5       10uF_16V                              CAP-AVX-A                             AVX-A                               Discrete                     2
+C6       100nF                                 C-0603                                C0603                               Discrete                     2
+C7       10uF                                  10UF-0603-6.3V-20%                    0603                                SparkFun-Capacitors          2
+C8       0.1uF                                 0.1UF-0402-16V-10%                    0402                                SparkFun-Capacitors          2
+C9       22pF                                  CAP_CERAMIC0805-NOOUTLINE             0805-NO                             microbuilder                 3
+C10      22pF                                  CAP_CERAMIC0805-NOOUTLINE             0805-NO                             microbuilder                 3
+C11      0.1uF                                 CAP_CERAMIC0805-NOOUTLINE             0805-NO                             microbuilder                 3
+C12      0.1uF                                 CAP_CERAMIC0805_10MGAP                0805_10MGAP                         microbuilder                 3
+C13      10uF                                  CAP_CERAMIC0805-NOOUTLINE             0805-NO                             microbuilder                 3
+C14      10uF                                  CAP_CERAMIC0805_10MGAP                0805_10MGAP                         microbuilder                 3
+D1       1n4148                                DIODESOD-323                          SOD-323                             microbuilder                 3
+G1       CR2032V                               CR2032V                               CR2032V                             battery                      1
+J1       RASPBERRYPI-40-PIN-GPIO_PTH_NO_SHROUD RASPBERRYPI-40-PIN-GPIO_PTH_NO_SHROUD 2X20                                SparkFun-Connectors          4
+J8       DNP                                   CK1X10DD                              CK1X10                              CONNECTER                    2
+J9       DNP                                   CK1X10DD                              CK1X10                              CONNECTER                    2
+JP1                                            HEADER-1X676MIL                       1X06_ROUND_76                       microbuilder                 3
+JP2                                            HEADER-1X476MIL                       1X04_ROUND_76                       microbuilder                 3
+M1       SERVO                                 SERVO                                 1X03                                SparkFun-Electromechanical   3
+ON/SLEEP GREEN                                 LED'0603'                             LED-0603                            Discrete                     2
+PWR      GREEN                                 LED'0603'                             LED-0603                            Discrete                     2
+Q1       BSS138                                MOSFET-NWIDE                          SOT23-WIDE                          microbuilder                 3
+Q2       BSS138                                MOSFET-NWIDE                          SOT23-WIDE                          microbuilder                 3
+R1       33                                    R-0603                                R0603                               Discrete                     2
+R2       1k                                    R-0603                                R0603                               Discrete                     2
+R3       1k                                    R-0603                                R0603                               Discrete                     2
+R4       1k                                    R-0603                                R0603                               Discrete                     2
+R5       1k                                    R-0603                                R0603                               Discrete                     2
+R6       1k                                    R-0603                                R0603                               Discrete                     2
+R7       1M                                    1MOHM-0603-1/4W-5%                    0603                                SparkFun-Resistors           2
+R8       1.8M                                  1.8MOHM                               0603                                SparkFun-Resistors           2
+R9       10K                                   RESISTOR0805_NOOUTLINE                0805-NO                             microbuilder                 3
+R10      10K                                   RESISTOR0805_NOOUTLINE                0805-NO                             microbuilder                 3
+R11      10K                                   RESISTOR0805_NOOUTLINE                0805-NO                             microbuilder                 3
+R12      10K                                   RESISTOR0805_NOOUTLINE                0805-NO                             microbuilder                 3
+R13      10K                                   RESISTOR0805_NOOUTLINE                0805-NO                             microbuilder                 3
+R14      10K                                   RESISTOR_0805MP                       _0805MP                             microbuilder                 3
+R15      10K                                   RESISTOR_0805MP                       _0805MP                             microbuilder                 3
+R16      10K                                   RESISTOR0805_NOOUTLINE                0805-NO                             microbuilder                 3
+R17      1.6k                                  1.6KOHM-0603-1/10W-1%                 0603                                SparkFun-Resistors           4
+R18      3.3k                                  3.3KOHM-0603-1/10W-1%                 0603                                SparkFun-Resistors           4
+RESET                                          FOR_TEST_ALBERT_V6_BUTTON_4P_SMD      FOR_TEST_ALBERT_V6_4P-SMD-7X3.5X3.5 TFT_Touch                    2
+RSSI     RED                                   LED'0603'                             LED-0603                            Discrete                     2
+S1       DIP-04SMD                             DIP-04SMD                             DIPSWITCH-04-SMD                    SparkFun-Switches            4
+S3                                             M9040P                                M9040P                              switch                       1
+S4                                             M9040P                                M9040P                              switch                       1
+U$1      POWERBOOST500C                        POWERBOOST500C                        POWERBOOST500                       jos-ph                       1
+U$2      TB6612FNG                             TB6612FNG                             SSOP24                              SparkFun-IC-Special-Function 2
+U$3      BNO055                                BNO055                                BNO055                              microbuilder                 3
+U$10     ULTRASONIC-HC-SR04                    ULTRASONIC-HC-SR04                    ULTRASONIC-HC-SR04                  diy-modules                  3
+U1       MIC5225-3.3                           VREG_SOT23-5                          SOT23-5                             microbuilder                 3
+U2       CJT1117-3.3                           LD1117S                               SOT-223                             IC                           2
+U3       SN74LVC1G125DCKR                      SN74LVC1G125DCKR                      SOT353                              Test                         2
+U4       ARDUINOR3-BPLACE                      ARDUINOR3-BPLACE                      ARDUINOR3-BPLACE                    adafruit                     2
+XBEE     XBEEEXT                               XBEEEXT                               XBEE_PLUG                           EXT_moudle                   2
+Y1       32.768kHz                             CRYSTAL8.0X3.8                        CRYSTAL_8X3.8                       microbuilder                 3

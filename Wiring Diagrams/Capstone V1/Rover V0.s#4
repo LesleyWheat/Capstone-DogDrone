@@ -8174,6 +8174,161 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </deviceset>
 </devicesets>
 </library>
+<library name="diy-modules">
+<description>&lt;b&gt;DIY Modules for Arduino, Raspberry Pi, CubieBoard etc.&lt;/b&gt;
+&lt;br&gt;&lt;br&gt;
+The library contains a list of symbols and footprints for popular, cheap and easy-to-use electronic modules.&lt;br&gt;
+The modules are intend to work with microprocessor-based platforms such as &lt;a href="http://arduino.cc"&gt;Arduino&lt;/a&gt;, &lt;a href="http://raspberrypi.org/"&gt;Raspberry Pi&lt;/a&gt;, &lt;a href="http://cubieboard.org/"&gt;CubieBoard&lt;/a&gt;, &lt;a href="http://beagleboard.org/"&gt;BeagleBone&lt;/a&gt; and many others. There are many manufacturers of the modules in the world. Almost all of them can be bought on &lt;a href="ebay.com"&gt;ebay.com&lt;/a&gt;.&lt;br&gt;
+&lt;br&gt;
+By using this library, you can design a PCB for devices created with usage of modules. Even if you do not need to create PCB design, you can also use the library to quickly document your work by drawing schematics of devices built by you.&lt;br&gt;
+&lt;br&gt;
+The latest version, examples, photos and much more can be found at: &lt;b&gt;&lt;a href="http://diymodules.org/eagle"&gt;diymodules.org/eagle&lt;/a&gt;&lt;/b&gt;&lt;br&gt;&lt;br&gt;
+Comments, suggestions and bug reports please send to: &lt;b&gt;&lt;a href="mailto:eagle@diymodules.org"&gt;eagle@diymodules.org&lt;/b&gt;&lt;br&gt;&lt;br&gt;
+&lt;i&gt;Version: 1.0.0 (2015-Feb-02)&lt;/i&gt;&lt;br&gt;
+&lt;i&gt;Created by: Miroslaw Brudnowski&lt;/i&gt;&lt;br&gt;&lt;br&gt;
+&lt;i&gt;Released under the Creative Commons Attribution 4.0 International License: &lt;a href="http://creativecommons.org/licenses/by/4.0"&gt;http://creativecommons.org/licenses/by/4.0&lt;/a&gt;&lt;/i&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;center&gt;&lt;a href="http://diymodules.org"&gt;&lt;img src="http://diymodules.org/img/diymodules-page-logo.png" alt="DIYmodules.org"&gt;&lt;/a&gt;&lt;/center&gt;</description>
+<packages>
+<package name="ULTRASONIC-HC-SR04">
+<description>&lt;b&gt;Ultrasonic Ranging Module HC-SR04&lt;/b&gt;</description>
+<wire x1="-22.5" y1="9.8" x2="22.5" y2="9.8" width="0.127" layer="21"/>
+<wire x1="22.5" y1="9.8" x2="22.5" y2="-10.2" width="0.127" layer="21"/>
+<wire x1="22.5" y1="-10.2" x2="-22.5" y2="-10.2" width="0.127" layer="21"/>
+<wire x1="-22.5" y1="-10.2" x2="-22.5" y2="9.8" width="0.127" layer="21"/>
+<hole x="-21.1" y="8.4" drill="1.8"/>
+<hole x="-21.1" y="-8.8" drill="1.8"/>
+<hole x="21.1" y="-8.8" drill="1.8"/>
+<hole x="21.1" y="8.4" drill="1.8"/>
+<circle x="-13" y="0" radius="8" width="0.127" layer="21"/>
+<circle x="13" y="0" radius="8" width="0.127" layer="21"/>
+<pad name="1" x="-3.81" y="-8.89" drill="1" shape="square"/>
+<pad name="2" x="-1.27" y="-8.89" drill="1"/>
+<pad name="3" x="1.27" y="-8.89" drill="1"/>
+<pad name="4" x="3.81" y="-8.89" drill="1"/>
+<wire x1="-5.08" y1="-8.255" x2="-4.445" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="-4.445" y1="-7.62" x2="-3.175" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="-3.175" y1="-7.62" x2="-2.54" y2="-8.255" width="0.127" layer="21"/>
+<wire x1="-2.54" y1="-8.255" x2="-1.905" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="-1.905" y1="-7.62" x2="-0.635" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="-0.635" y1="-7.62" x2="0" y2="-8.255" width="0.127" layer="21"/>
+<wire x1="0" y1="-8.255" x2="0.635" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="0.635" y1="-7.62" x2="1.905" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="1.905" y1="-7.62" x2="2.54" y2="-8.255" width="0.127" layer="21"/>
+<wire x1="2.54" y1="-8.255" x2="3.175" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="3.175" y1="-7.62" x2="4.445" y2="-7.62" width="0.127" layer="21"/>
+<wire x1="4.445" y1="-7.62" x2="5.08" y2="-8.255" width="0.127" layer="21"/>
+<wire x1="5.08" y1="-8.255" x2="5.08" y2="-9.525" width="0.127" layer="21"/>
+<wire x1="5.08" y1="-9.525" x2="4.445" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="4.445" y1="-10.16" x2="3.175" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="3.175" y1="-10.16" x2="2.54" y2="-9.525" width="0.127" layer="21"/>
+<wire x1="2.54" y1="-9.525" x2="1.905" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="1.905" y1="-10.16" x2="0.635" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="0.635" y1="-10.16" x2="0" y2="-9.525" width="0.127" layer="21"/>
+<wire x1="0" y1="-9.525" x2="-0.635" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="-0.635" y1="-10.16" x2="-1.905" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="-1.905" y1="-10.16" x2="-2.54" y2="-9.525" width="0.127" layer="21"/>
+<wire x1="-2.54" y1="-9.525" x2="-3.175" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="-3.175" y1="-10.16" x2="-4.445" y2="-10.16" width="0.127" layer="21"/>
+<wire x1="-4.445" y1="-10.16" x2="-5.08" y2="-9.525" width="0.127" layer="21"/>
+<wire x1="-5.08" y1="-9.525" x2="-5.08" y2="-8.255" width="0.127" layer="21"/>
+<text x="0" y="10.795" size="1.27" layer="25" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-11.43" size="1.27" layer="27" align="top-center">&gt;VALUE</text>
+</package>
+<package name="ULTRASONIC-HC-SR04#V">
+<description>&lt;b&gt;Ultrasonic Ranging Module HC-SR04&lt;/b&gt; vertically mounted</description>
+<wire x1="-22.5" y1="-4.064" x2="22.5" y2="-4.064" width="0.127" layer="21"/>
+<wire x1="22.5" y1="-4.064" x2="22.5" y2="-5.7" width="0.127" layer="21"/>
+<wire x1="22.5" y1="-5.7" x2="21" y2="-5.7" width="0.127" layer="21"/>
+<wire x1="21" y1="-5.7" x2="5" y2="-5.7" width="0.127" layer="21"/>
+<wire x1="5" y1="-5.7" x2="-5" y2="-5.7" width="0.127" layer="21"/>
+<wire x1="-5" y1="-5.7" x2="-21" y2="-5.7" width="0.127" layer="21"/>
+<wire x1="-21" y1="-5.7" x2="-22.5" y2="-5.7" width="0.127" layer="21"/>
+<wire x1="-22.5" y1="-5.7" x2="-22.5" y2="-4.064" width="0.127" layer="21"/>
+<wire x1="-5.08" y1="-4.064" x2="5.08" y2="-4.064" width="0.127" layer="21"/>
+<pad name="1" x="-3.81" y="0" drill="1" shape="square" rot="R180"/>
+<pad name="2" x="-1.27" y="0" drill="1" rot="R180"/>
+<pad name="3" x="1.27" y="0" drill="1" rot="R180"/>
+<pad name="4" x="3.81" y="0" drill="1" rot="R180"/>
+<text x="0" y="1.905" size="1.27" layer="25" align="bottom-center">&gt;NAME</text>
+<text x="0" y="-18.415" size="1.27" layer="27" align="top-center">&gt;VALUE</text>
+<wire x1="-5.08" y1="-4.064" x2="-5.08" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="-5.08" y1="-1.524" x2="-4.191" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="-4.191" y1="-1.524" x2="-3.429" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="-3.429" y1="-1.524" x2="-1.651" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="-1.651" y1="-1.524" x2="-0.889" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="-0.889" y1="-1.524" x2="0.889" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="0.889" y1="-1.524" x2="1.651" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="1.651" y1="-1.524" x2="3.429" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="3.429" y1="-1.524" x2="4.191" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="4.191" y1="-1.524" x2="5.08" y2="-1.524" width="0.127" layer="21"/>
+<wire x1="5.08" y1="-1.524" x2="5.08" y2="-4.064" width="0.127" layer="21"/>
+<wire x1="4.191" y1="-1.524" x2="4.191" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="3.429" y1="-1.524" x2="3.429" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="1.651" y1="-1.524" x2="1.651" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="-0.889" y1="-1.524" x2="-0.889" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="-3.429" y1="-1.524" x2="-3.429" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="0.889" y1="-1.524" x2="0.889" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="-1.651" y1="-1.524" x2="-1.651" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="-4.191" y1="-1.524" x2="-4.191" y2="-0.889" width="0.127" layer="21"/>
+<wire x1="-21" y1="-5.7" x2="-21" y2="-17.7" width="0.127" layer="21"/>
+<wire x1="-21" y1="-17.7" x2="-5" y2="-17.7" width="0.127" layer="21"/>
+<wire x1="-5" y1="-17.7" x2="-5" y2="-5.7" width="0.127" layer="21"/>
+<wire x1="5" y1="-5.7" x2="5" y2="-17.7" width="0.127" layer="21"/>
+<wire x1="5" y1="-17.7" x2="21" y2="-17.7" width="0.127" layer="21"/>
+<wire x1="21" y1="-17.7" x2="21" y2="-5.7" width="0.127" layer="21"/>
+</package>
+</packages>
+<symbols>
+<symbol name="ULTRASONIC-HC-SR04">
+<description>&lt;b&gt;Ultrasonic Ranging Module HC-SR04&lt;/b&gt;</description>
+<pin name="VCC" x="-2.54" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<pin name="TRIG" x="0" y="-15.24" length="middle" direction="in" rot="R90"/>
+<pin name="ECHO" x="2.54" y="-15.24" length="middle" direction="out" rot="R90"/>
+<pin name="GND" x="5.08" y="-15.24" length="middle" direction="pwr" rot="R90"/>
+<wire x1="-22.86" y1="-10.16" x2="-22.86" y2="10.16" width="0.254" layer="94"/>
+<wire x1="-22.86" y1="10.16" x2="25.4" y2="10.16" width="0.254" layer="94"/>
+<wire x1="25.4" y1="10.16" x2="25.4" y2="-10.16" width="0.254" layer="94"/>
+<wire x1="25.4" y1="-10.16" x2="-22.86" y2="-10.16" width="0.254" layer="94"/>
+<circle x="-12.7" y="0" radius="7.62" width="0.254" layer="94"/>
+<circle x="15.24" y="0" radius="7.62" width="0.254" layer="94"/>
+<circle x="15.24" y="0" radius="3.81845625" width="0.254" layer="94"/>
+<circle x="-12.7" y="0" radius="3.81845625" width="0.254" layer="94"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="ULTRASONIC-HC-SR04">
+<description>&lt;b&gt;Ultrasonic Ranging Module HC-SR04&lt;/b&gt;</description>
+<gates>
+<gate name="G$1" symbol="ULTRASONIC-HC-SR04" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="ULTRASONIC-HC-SR04">
+<connects>
+<connect gate="G$1" pin="ECHO" pad="3"/>
+<connect gate="G$1" pin="GND" pad="4"/>
+<connect gate="G$1" pin="TRIG" pad="2"/>
+<connect gate="G$1" pin="VCC" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+<device name="#V" package="ULTRASONIC-HC-SR04#V">
+<connects>
+<connect gate="G$1" pin="ECHO" pad="3"/>
+<connect gate="G$1" pin="GND" pad="4"/>
+<connect gate="G$1" pin="TRIG" pad="2"/>
+<connect gate="G$1" pin="VCC" pad="1"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -8297,10 +8452,13 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="U4" library="adafruit" deviceset="ARDUINOR3" device="-BPLACE"/>
 <part name="GND7" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="S2" library="SparkFun-Switches" deviceset="BUTTON-CONDUCTIVE" device="SMD"/>
+<part name="U$10" library="diy-modules" deviceset="ULTRASONIC-HC-SR04" device=""/>
 </parts>
 <sheets>
 <sheet>
 <plain>
+<text x="166.37" y="11.43" size="2.54" layer="94">Lesley Wheat</text>
+<text x="238.76" y="7.62" size="2.54" layer="94">1.0</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
@@ -8455,21 +8613,23 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </sheet>
 <sheet>
 <plain>
+<text x="165.1" y="11.43" size="2.54" layer="94">Lesley Wheat</text>
+<text x="237.49" y="7.62" size="2.54" layer="94">1.0</text>
 </plain>
 <instances>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
 <instance part="FRAME2" gate="V" x="147.32" y="0"/>
 <instance part="XBEE" gate="G$1" x="168.91" y="99.06"/>
-<instance part="R3" gate="R" x="218.44" y="85.09" rot="R180"/>
-<instance part="R4" gate="R" x="218.44" y="72.39" rot="R180"/>
+<instance part="R3" gate="R" x="212.09" y="76.2" rot="R180"/>
+<instance part="R4" gate="R" x="212.09" y="63.5" rot="R180"/>
 <instance part="C3" gate="C" x="127" y="124.46" rot="R180"/>
 <instance part="J8" gate="G$1" x="95.25" y="96.52" rot="MR0"/>
 <instance part="J9" gate="G$1" x="95.25" y="67.31" rot="MR0"/>
-<instance part="R5" gate="R" x="218.44" y="59.69" rot="R180"/>
-<instance part="ON/SLEEP" gate="LED" x="231.14" y="97.79"/>
-<instance part="ASSOC" gate="LED" x="231.14" y="85.09"/>
-<instance part="RSSI" gate="LED" x="231.14" y="72.39"/>
-<instance part="PWR" gate="LED" x="231.14" y="59.69"/>
+<instance part="R5" gate="R" x="212.09" y="50.8" rot="R180"/>
+<instance part="ON/SLEEP" gate="LED" x="224.79" y="88.9"/>
+<instance part="ASSOC" gate="LED" x="224.79" y="76.2"/>
+<instance part="RSSI" gate="LED" x="224.79" y="63.5"/>
+<instance part="PWR" gate="LED" x="224.79" y="50.8"/>
 <instance part="U3" gate="G$1" x="118.11" y="11.43"/>
 <instance part="C4" gate="C" x="63.5" y="27.94" rot="MR90"/>
 <instance part="C5" gate="C" x="20.32" y="27.94" rot="MR90"/>
@@ -8478,7 +8638,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="R1" gate="R" x="132.08" y="106.68"/>
 <instance part="U2" gate="G$1" x="39.37" y="22.86" rot="MR180"/>
 <instance part="RESET" gate="SW" x="53.34" y="11.43" rot="R180"/>
-<instance part="R2" gate="R" x="218.44" y="97.79" rot="R180"/>
+<instance part="R2" gate="R" x="212.09" y="88.9" rot="R180"/>
 <instance part="GND3" gate="1" x="121.92" y="116.84"/>
 <instance part="C7" gate="G$1" x="124.46" y="44.45"/>
 <instance part="GND4" gate="1" x="104.14" y="35.56"/>
@@ -8488,7 +8648,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="R7" gate="G$1" x="76.2" y="64.77" rot="R90"/>
 <instance part="R8" gate="G$1" x="82.55" y="83.82" rot="R90"/>
 <instance part="U$2" gate="G$1" x="213.36" y="140.97" rot="MR270"/>
-<instance part="GND5" gate="1" x="215.9" y="105.41"/>
+<instance part="GND5" gate="1" x="215.9" y="101.6"/>
 <instance part="SUPPLY6" gate="G$1" x="242.57" y="132.08"/>
 <instance part="SUPPLY7" gate="G$1" x="236.22" y="132.08"/>
 <instance part="MOTOR_A_V+" gate="1" x="175.26" y="177.8">
@@ -8522,16 +8682,16 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="J8" gate="G$1" pin="10"/>
 </segment>
 <segment>
-<wire x1="246.38" y1="72.39" x2="246.38" y2="59.69" width="0.1524" layer="91"/>
-<wire x1="246.38" y1="59.69" x2="234.95" y2="59.69" width="0.1524" layer="91"/>
-<wire x1="246.38" y1="97.79" x2="246.38" y2="85.09" width="0.1524" layer="91"/>
-<wire x1="246.38" y1="85.09" x2="246.38" y2="72.39" width="0.1524" layer="91"/>
-<wire x1="234.95" y1="97.79" x2="246.38" y2="97.79" width="0.1524" layer="91"/>
-<wire x1="234.95" y1="85.09" x2="246.38" y2="85.09" width="0.1524" layer="91"/>
-<wire x1="246.38" y1="72.39" x2="234.95" y2="72.39" width="0.1524" layer="91"/>
-<junction x="246.38" y="85.09"/>
-<junction x="246.38" y="72.39"/>
-<label x="242.57" y="85.09" size="1.778" layer="95"/>
+<wire x1="240.03" y1="63.5" x2="240.03" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="240.03" y1="50.8" x2="228.6" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="240.03" y1="88.9" x2="240.03" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="240.03" y1="76.2" x2="240.03" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="88.9" x2="240.03" y2="88.9" width="0.1524" layer="91"/>
+<wire x1="228.6" y1="76.2" x2="240.03" y2="76.2" width="0.1524" layer="91"/>
+<wire x1="240.03" y1="63.5" x2="228.6" y2="63.5" width="0.1524" layer="91"/>
+<junction x="240.03" y="76.2"/>
+<junction x="240.03" y="63.5"/>
+<label x="236.22" y="76.2" size="1.778" layer="95"/>
 <pinref part="ON/SLEEP" gate="LED" pin="-"/>
 <pinref part="ASSOC" gate="LED" pin="-"/>
 <pinref part="RSSI" gate="LED" pin="-"/>
@@ -8632,10 +8792,15 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </segment>
 <segment>
 <pinref part="U$2" gate="G$1" pin="GND"/>
-<wire x1="215.9" y1="125.73" x2="215.9" y2="107.95" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="125.73" x2="215.9" y2="104.14" width="0.1524" layer="91"/>
 <pinref part="GND5" gate="1" pin="GND"/>
-<wire x1="215.9" y1="109.22" x2="215.9" y2="107.95" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="109.22" x2="215.9" y2="104.14" width="0.1524" layer="91"/>
 <label x="215.9" y="123.19" size="1.016" layer="95" rot="R90"/>
+</segment>
+<segment>
+<pinref part="U4" gate="G$1" pin="GND"/>
+<wire x1="21.59" y1="156.21" x2="21.59" y2="161.29" width="0.1524" layer="91"/>
+<label x="21.59" y="157.48" size="1.016" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="RST" class="0">
@@ -8679,8 +8844,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="XBEE" gate="G$1" pin="PWM0/RSSI"/>
 </segment>
 <segment>
-<wire x1="214.63" y1="72.39" x2="200.66" y2="72.39" width="0.1524" layer="91"/>
-<label x="200.66" y="72.39" size="1.778" layer="95"/>
+<wire x1="208.28" y1="63.5" x2="194.31" y2="63.5" width="0.1524" layer="91"/>
+<label x="194.31" y="63.5" size="1.778" layer="95"/>
 <pinref part="R4" gate="R" pin="2"/>
 </segment>
 <segment>
@@ -8704,8 +8869,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="XBEE" gate="G$1" pin="ON/!SLEEP"/>
 </segment>
 <segment>
-<wire x1="214.63" y1="97.79" x2="200.66" y2="97.79" width="0.1524" layer="91"/>
-<label x="200.66" y="97.79" size="1.778" layer="95"/>
+<wire x1="208.28" y1="88.9" x2="194.31" y2="88.9" width="0.1524" layer="91"/>
+<label x="194.31" y="88.9" size="1.778" layer="95"/>
 <pinref part="R2" gate="R" pin="2"/>
 </segment>
 <segment>
@@ -8728,7 +8893,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="N$9" class="0">
 <segment>
-<wire x1="222.25" y1="97.79" x2="227.33" y2="97.79" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="88.9" x2="220.98" y2="88.9" width="0.1524" layer="91"/>
 <pinref part="ON/SLEEP" gate="LED" pin="+"/>
 <pinref part="R2" gate="R" pin="1"/>
 </segment>
@@ -8740,7 +8905,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="N$10" class="0">
 <segment>
-<wire x1="222.25" y1="85.09" x2="227.33" y2="85.09" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="76.2" x2="220.98" y2="76.2" width="0.1524" layer="91"/>
 <pinref part="R3" gate="R" pin="1"/>
 <pinref part="ASSOC" gate="LED" pin="+"/>
 </segment>
@@ -8752,7 +8917,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="N$11" class="0">
 <segment>
-<wire x1="222.25" y1="72.39" x2="227.33" y2="72.39" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="63.5" x2="220.98" y2="63.5" width="0.1524" layer="91"/>
 <pinref part="R4" gate="R" pin="1"/>
 <pinref part="RSSI" gate="LED" pin="+"/>
 </segment>
@@ -8764,8 +8929,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="J8" gate="G$1" pin="1"/>
 </segment>
 <segment>
-<wire x1="214.63" y1="59.69" x2="200.66" y2="59.69" width="0.1524" layer="91"/>
-<label x="200.66" y="59.69" size="1.778" layer="95"/>
+<wire x1="208.28" y1="50.8" x2="194.31" y2="50.8" width="0.1524" layer="91"/>
+<label x="194.31" y="50.8" size="1.778" layer="95"/>
 <pinref part="R5" gate="R" pin="2"/>
 </segment>
 </net>
@@ -8800,8 +8965,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="XBEE" gate="G$1" pin="ASSOC/AD5/DIO5"/>
 </segment>
 <segment>
-<wire x1="214.63" y1="85.09" x2="200.66" y2="85.09" width="0.1524" layer="91"/>
-<label x="200.66" y="85.09" size="1.778" layer="95"/>
+<wire x1="208.28" y1="76.2" x2="194.31" y2="76.2" width="0.1524" layer="91"/>
+<label x="194.31" y="76.2" size="1.778" layer="95"/>
 <pinref part="R3" gate="R" pin="2"/>
 </segment>
 <segment>
@@ -8896,10 +9061,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="J8" gate="G$1" pin="3"/>
 <wire x1="99.06" y1="102.87" x2="113.03" y2="102.87" width="0.1524" layer="91"/>
 <wire x1="113.03" y1="102.87" x2="113.03" y2="109.22" width="0.1524" layer="91"/>
-<wire x1="113.03" y1="109.22" x2="113.03" y2="161.29" width="0.1524" layer="91"/>
-<wire x1="113.03" y1="161.29" x2="54.61" y2="161.29" width="0.1524" layer="91"/>
+<wire x1="113.03" y1="109.22" x2="113.03" y2="167.64" width="0.1524" layer="91"/>
+<wire x1="113.03" y1="167.64" x2="54.61" y2="167.64" width="0.1524" layer="91"/>
 <pinref part="U4" gate="G$1" pin="D2"/>
-<wire x1="54.61" y1="161.29" x2="54.61" y2="156.21" width="0.1524" layer="91"/>
+<wire x1="54.61" y1="167.64" x2="54.61" y2="156.21" width="0.1524" layer="91"/>
 <label x="54.61" y="156.21" size="1.016" layer="95" rot="R90"/>
 <pinref part="XBEE" gate="G$1" pin="DIN/!CONFIG"/>
 <wire x1="153.67" y1="109.22" x2="113.03" y2="109.22" width="0.1524" layer="91"/>
@@ -8916,7 +9081,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="N$14" class="0">
 <segment>
-<wire x1="222.25" y1="59.69" x2="227.33" y2="59.69" width="0.1524" layer="91"/>
+<wire x1="215.9" y1="50.8" x2="220.98" y2="50.8" width="0.1524" layer="91"/>
 <pinref part="R5" gate="R" pin="1"/>
 <pinref part="PWR" gate="LED" pin="+"/>
 </segment>
@@ -9028,10 +9193,10 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="J8" gate="G$1" pin="2"/>
 <wire x1="99.06" y1="105.41" x2="110.49" y2="105.41" width="0.1524" layer="91"/>
-<wire x1="110.49" y1="105.41" x2="110.49" y2="165.1" width="0.1524" layer="91"/>
-<wire x1="110.49" y1="165.1" x2="52.07" y2="165.1" width="0.1524" layer="91"/>
+<wire x1="110.49" y1="105.41" x2="110.49" y2="170.18" width="0.1524" layer="91"/>
+<wire x1="110.49" y1="170.18" x2="52.07" y2="170.18" width="0.1524" layer="91"/>
 <pinref part="U4" gate="G$1" pin="D3"/>
-<wire x1="52.07" y1="165.1" x2="52.07" y2="156.21" width="0.1524" layer="91"/>
+<wire x1="52.07" y1="170.18" x2="52.07" y2="156.21" width="0.1524" layer="91"/>
 <label x="52.07" y="156.21" size="1.016" layer="95" rot="R90"/>
 </segment>
 <segment>
@@ -9076,17 +9241,17 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <net name="IN1" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="AIN1"/>
-<wire x1="208.28" y1="110.49" x2="208.28" y2="125.73" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="106.68" x2="208.28" y2="125.73" width="0.1524" layer="91"/>
 <pinref part="U$2" gate="G$1" pin="BIN1"/>
-<wire x1="218.44" y1="125.73" x2="218.44" y2="110.49" width="0.1524" layer="91"/>
-<wire x1="218.44" y1="110.49" x2="208.28" y2="110.49" width="0.1524" layer="91"/>
-<wire x1="208.28" y1="110.49" x2="187.96" y2="110.49" width="0.1524" layer="91"/>
-<junction x="208.28" y="110.49"/>
-<wire x1="187.96" y1="110.49" x2="187.96" y2="146.05" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="125.73" x2="218.44" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="218.44" y1="106.68" x2="208.28" y2="106.68" width="0.1524" layer="91"/>
+<wire x1="208.28" y1="106.68" x2="187.96" y2="106.68" width="0.1524" layer="91"/>
+<junction x="208.28" y="106.68"/>
+<wire x1="187.96" y1="106.68" x2="187.96" y2="146.05" width="0.1524" layer="91"/>
 <pinref part="U4" gate="G$1" pin="D4"/>
-<wire x1="49.53" y1="167.64" x2="49.53" y2="156.21" width="0.1524" layer="91"/>
-<wire x1="49.53" y1="167.64" x2="163.83" y2="167.64" width="0.1524" layer="91"/>
-<wire x1="163.83" y1="167.64" x2="163.83" y2="146.05" width="0.1524" layer="91"/>
+<wire x1="49.53" y1="172.72" x2="49.53" y2="156.21" width="0.1524" layer="91"/>
+<wire x1="49.53" y1="172.72" x2="163.83" y2="172.72" width="0.1524" layer="91"/>
+<wire x1="163.83" y1="172.72" x2="163.83" y2="146.05" width="0.1524" layer="91"/>
 <wire x1="163.83" y1="146.05" x2="187.96" y2="146.05" width="0.1524" layer="91"/>
 <label x="49.53" y="157.48" size="1.016" layer="95" rot="R90"/>
 <label x="208.28" y="123.19" size="1.016" layer="95" rot="R90"/>
@@ -9197,10 +9362,26 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <label x="213.36" y="158.75" size="1.016" layer="95" rot="R90"/>
 </segment>
 </net>
+<net name="TRIG" class="0">
+<segment>
+<pinref part="U4" gate="G$1" pin="D13"/>
+<wire x1="24.13" y1="156.21" x2="24.13" y2="162.56" width="0.1524" layer="91"/>
+<label x="24.13" y="157.48" size="1.016" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="ECHO" class="0">
+<segment>
+<pinref part="U4" gate="G$1" pin="D12"/>
+<wire x1="26.67" y1="156.21" x2="26.67" y2="162.56" width="0.1524" layer="91"/>
+<label x="26.67" y="157.48" size="1.016" layer="95" rot="R90"/>
+</segment>
+</net>
 </nets>
 </sheet>
 <sheet>
 <plain>
+<text x="166.37" y="11.43" size="2.54" layer="94">Lesley Wheat</text>
+<text x="238.76" y="7.62" size="2.54" layer="94">1.0</text>
 </plain>
 <instances>
 <instance part="FRAME3" gate="G$1" x="0" y="0"/>
@@ -9250,6 +9431,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <instance part="D1" gate="G$1" x="67.31" y="60.96"/>
 <instance part="SUPPLY9" gate="G$1" x="191.77" y="99.06"/>
 <instance part="GND6" gate="1" x="172.72" y="83.82"/>
+<instance part="U$10" gate="G$1" x="157.48" y="119.38"/>
 </instances>
 <busses>
 </busses>
@@ -9392,6 +9574,11 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="JP1" gate="A" pin="3"/>
 <pinref part="GND6" gate="1" pin="GND"/>
 <wire x1="172.72" y1="90.17" x2="172.72" y2="86.36" width="0.1524" layer="91"/>
+<pinref part="U$10" gate="G$1" pin="GND"/>
+<wire x1="162.56" y1="104.14" x2="162.56" y2="90.17" width="0.1524" layer="91"/>
+<wire x1="162.56" y1="90.17" x2="172.72" y2="90.17" width="0.1524" layer="91"/>
+<junction x="172.72" y="90.17"/>
+<label x="162.56" y="100.33" size="1.016" layer="95" rot="R90"/>
 </segment>
 </net>
 <net name="I2CADDR_3V" class="0">
@@ -9604,6 +9791,25 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <pinref part="JP1" gate="A" pin="1"/>
 <pinref part="SUPPLY9" gate="G$1" pin="5V"/>
 <wire x1="191.77" y1="95.25" x2="191.77" y2="99.06" width="0.1524" layer="91"/>
+<pinref part="U$10" gate="G$1" pin="VCC"/>
+<wire x1="154.94" y1="104.14" x2="154.94" y2="95.25" width="0.1524" layer="91"/>
+<wire x1="154.94" y1="95.25" x2="191.77" y2="95.25" width="0.1524" layer="91"/>
+<junction x="191.77" y="95.25"/>
+<label x="154.94" y="101.6" size="1.016" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="TRIG" class="0">
+<segment>
+<pinref part="U$10" gate="G$1" pin="TRIG"/>
+<wire x1="157.48" y1="104.14" x2="157.48" y2="97.79" width="0.1524" layer="91"/>
+<label x="157.48" y="100.33" size="1.016" layer="95" rot="R90"/>
+</segment>
+</net>
+<net name="ECHO" class="0">
+<segment>
+<pinref part="U$10" gate="G$1" pin="ECHO"/>
+<wire x1="160.02" y1="104.14" x2="160.02" y2="97.79" width="0.1524" layer="91"/>
+<label x="160.02" y="100.33" size="1.016" layer="95" rot="R90"/>
 </segment>
 </net>
 </nets>
