@@ -8,6 +8,9 @@ int i;
 
 int rssi_lowpass = 0;
 float rssi_raw = 0;
+float rssi_raw_first =0;
+float rssi_raw_second =0;
+float rssi_raw_third =0;
 int rssi_error = 0;
 int analogPin = A0;
 byte PWM_PIN = 3;
@@ -21,11 +24,11 @@ void setup() {
   while (!Serial) {
     ; // wait for serial port to connect. Needed for Native USB only
   }
-  while ((Serial.available() <= 0) ) {
-        Serial.print('B');   // send a capital A
-        delay(500);
-      }
-      Serial.println(' ');
+  //while ((Serial.available() <= 0) ) {
+        //Serial.print('B');   // send a capital A
+        //delay(500);
+      //}
+      //Serial.println(' ');
 
   //Serial.println("Goodnight moon!\n");
   // set the data rate for the SoftwareSerial port
@@ -38,14 +41,21 @@ void setup() {
 void loop() {
   if (mySerial.available() > 0) {
     received = mySerial.read();
-    Serial.write(received);
+    //Serial.write(received);
 
     //pwm_value_high = pulseIn(PWM_PIN, HIGH);
     //pwm_value_low = pulseIn(PWM_PIN, LOW);
-    delay(10);
-    rssi_raw = analogRead(analogPin)*5.0/1024.0;
+    
+    rssi_raw_first = analogRead(analogPin)*100.0*5.0/1024.0;
 
-    Serial.println("rssi_raw " + String(rssi_raw));
+    delay(2);
+
+    rssi_raw_second = analogRead(analogPin)*100.0*5.0/1024.0;
+
+    delay(5);
+
+    rssi_raw_third = analogRead(analogPin)*100.0*5.0/1024.0;
+    Serial.println("rssi_raw_first " + String(rssi_raw_first) + " rssi_raw_second " + String(rssi_raw_second) + " rssi_raw_third " + String(rssi_raw_third));
 
     //rssi_raw = analogRead(analogPin)*5.0*1000/1024;
     //rssi_lowpass = (rssi_lowpass*90.0 + rssi_raw*10.0)/100.0;
@@ -54,12 +64,16 @@ void loop() {
     
   }
 
-  if (Serial.available() > 0){
-      received = Serial.read();
+  if (millis()%500 == 0){
+    mySerial.write("a");
+  }
+
+  //if (Serial.available() > 0){
+      //received = Serial.read();
       
-      mySerial.write(received);
+      //mySerial.write(received);
       
-   }
+   //}
     
     if (received == 'a'){
       digitalWrite(led, HIGH);
