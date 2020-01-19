@@ -6,9 +6,7 @@
 #include "realTimer.h"
 #include "loggingFunctions.h"
 #include "miscFunctions.h"
-#include <SoftwareSerial.h>
 
-SoftwareSerial mySerial(3, 2); // RX, TX
 
 class commRoutine {
   private:

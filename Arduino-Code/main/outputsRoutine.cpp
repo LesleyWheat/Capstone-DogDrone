@@ -11,3 +11,7 @@ void outputsRoutine::init(int debugPrioritySetting){
     //Create objects
     
 };
+
+void outputsRoutine::run(){
+  
+};

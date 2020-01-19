@@ -6,6 +6,7 @@
 #include <ros.h>
 #include <std_msgs/String.h>
 #include "arduino.h"
+#include <SoftwareSerial.h>
 
 //Modules
 #include "inputsRoutine.h"
@@ -32,6 +33,8 @@ controlRoutine control;
 commRoutine comm;
 diagnoticsRoutine diagnotics;
 outputsRoutine outputs;
+
+SoftwareSerial mySerial(3, 2); // RX, TX
 
 //Set input pins
 #define batteryMotorPin A1
