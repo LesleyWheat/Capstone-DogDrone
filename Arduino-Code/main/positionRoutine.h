@@ -2,6 +2,8 @@
 #ifndef POSITION_CLASS_H
 #define POSITION_CLASS_H
 
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
 #include <Adafruit_FXAS21002C.h>
 #include <Adafruit_FXOS8700.h>
 

@@ -3,8 +3,6 @@
 */
 
 //External libraries
-#include <ros.h>
-#include <std_msgs/String.h>
 #include "arduino.h"
 #include <SoftwareSerial.h>
 
@@ -20,13 +18,6 @@
 #include "realTimer.h"
 #include "loggingFunctions.h"
 
-//ros::NodeHandle nh;
-
-//std_msgs::String str_msg;
-//ros::Publisher chatter("chatter", &str_msg);
-
-//char hello[13] = "hello world!";
-
 //Declare Objects
 inputsRoutine inputs;
 controlRoutine control;
@@ -34,17 +25,27 @@ commRoutine comm;
 diagnoticsRoutine diagnotics;
 outputsRoutine outputs;
 
-SoftwareSerial mySerial(3, 2); // RX, TX
-
 //Set input pins
 #define batteryMotorPin A1
 #define batteryCompPin A2
 #define rssiInPin A0
 #define encoderAPin 8
 #define encoderBPin 9
+#define serialRX 3
+#define serialTX 2
+#define sonerTrig 13
 
 //Set output pins
-//#define 
+#define motorIn1 4
+#define motorIn2 7
+#define motorPWMA 5
+#define motorPWMB 6
+#define servoPWM 11
+#define sonarEcho 12
+
+//Define global objects
+SoftwareSerial mySerial(serialRX, serialTX); // RX, TX
+realTimer blinkTimer;
 
 //Define system variables
 #define targetCycleTime 50
@@ -56,15 +57,10 @@ byte blinkState = 0;
 int const debugPrioritySetting = 5;
 float filterFrequency = 5;
 
-//global objects for main
-realTimer blinkTimer;
-
   
 // the setup function runs once when you press reset or power the board
 //Runs only once at setup
 void setup() {
-  //nh.initNode();
-  //nh.advertise(chatter);
 
   //Serial.println(F("Adafruit AHRS Fusion Example"));
   //debugPrint(debugPrioritySetting, "setup", 5, "Starting...");

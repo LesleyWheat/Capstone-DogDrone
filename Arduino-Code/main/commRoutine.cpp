@@ -30,7 +30,15 @@ void commRoutine::init(int debugPrioritySetting){
   
   establishContact();  // send a byte to establish contact until receiver responds
   
+  //ros::NodeHandle nh;
+
+  //std_msgs::String str_msg;
+  //ros::Publisher chatter("chatter", &str_msg);
   
+  //char hello[13] = "hello world!";
+  //nh.initNode();
+  //nh.advertise(chatter);
+    
 };
 
 //main run loop

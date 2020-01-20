@@ -1,10 +1,6 @@
 //Header here
 #include "positionRoutine.h"
 
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include "arduino.h"
-
 void positionRoutine::init(){
 
   gyro = Adafruit_FXAS21002C(0x0021002C);
@@ -29,18 +25,18 @@ void positionRoutine::updatedof(){
   // See the image in this sketch folder for the values used
   // below.
   
-// Offsets applied to raw x/y/z mag values
-float mag_offsets[3]            = { 9.48F, -20.76F, -251.61F };
-
-// Soft iron error compensation matrix
-float mag_softiron_matrix[3][3] = { {  0.982,  -0.012,  0.019 },
-                                    {  -0.012,  0.973, 0.013 },
-                                    {  0.019, 0.013,  1.048 } };
-
-float mag_field_strength        = 39.48F;
-
-// Offsets applied to compensate for gyro zero-drift error for x/y/z
-float gyro_zero_offsets[3]      = { 0.0F, 0.0F, 0.0F };
+  // Offsets applied to raw x/y/z mag values
+  float mag_offsets[3]            = { 9.48F, -20.76F, -251.61F };
+  
+  // Soft iron error compensation matrix
+  float mag_softiron_matrix[3][3] = { {  0.982,  -0.012,  0.019 },
+                                      {  -0.012,  0.973, 0.013 },
+                                      {  0.019, 0.013,  1.048 } };
+  
+  float mag_field_strength        = 39.48F;
+  
+  // Offsets applied to compensate for gyro zero-drift error for x/y/z
+  float gyro_zero_offsets[3]      = { 0.0F, 0.0F, 0.0F };
 
   // Get new data samples
   gyro.getEvent(&gyro_event);
