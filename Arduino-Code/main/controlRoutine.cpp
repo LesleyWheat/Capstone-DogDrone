@@ -1,6 +1,34 @@
 //Control module
 #include "controlRoutine.h"
 
+
+void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin){
+  //Set local variables
+  this->debugPrioritySetting=debugPrioritySetting;
+  this->motorInPin1=motorInPin1;
+  this->motorInPin2=motorInPin2;
+  this->motorPWMA_Pin=motorPWMA_Pin;
+  this->motorPWMB_Pin=motorPWMB_Pin;
+  this->servoPWM_Pin=servoPWM_Pin;
+  //Set starting variables
+
+  //Create PIDs for motors
+  pidA = new PID(&rpmA, &motorA_outPWM, &motorA_setRPM, KP, KI, KD, DIRECT);
+  pidB = new PID(&rpmB, &motorB_outPWM, &motorB_setRPM, KP, KI, KD, DIRECT);
+
+  //Configure PIDs
+  pidA->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
+  pidB->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
+  pidA->SetMode(AUTOMATIC);
+  pidB->SetMode(AUTOMATIC);
+
+  //set test timer to rotate states
+  timerTest.init(10000);
+  //set pid update timer, remember rpm only updates every cycle
+  pidTimer.init(PIDupdatePeriod);
+  
+};
+
 //Set target motor values
 void controlRoutine::setMotor(byte spd, byte dir, int accel){
   //debugPrint(5, routineName, 5, String("Motor set to: ") + String(spd));
@@ -48,32 +76,9 @@ void controlRoutine::testStateMachine(){
   };
 };
 
-void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin){
-  //Set local variables
-  this->debugPrioritySetting=debugPrioritySetting;
-  this->motorInPin1=motorInPin1;
-  this->motorInPin2=motorInPin2;
-  this->motorPWMA_Pin=motorPWMA_Pin;
-  this->motorPWMB_Pin=motorPWMB_Pin;
-  this->servoPWM_Pin=servoPWM_Pin;
-  //Set starting variables
-
-  //Create PIDs for motors
-  pidA = new PID(&rpmA, &motorA_outPWM, &motorA_setRPM, KP, KI, KD, DIRECT);
-  pidB = new PID(&rpmB, &motorB_outPWM, &motorB_setRPM, KP, KI, KD, DIRECT);
-
-  //Configure PIDs
-  pidA->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
-  pidB->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
-  pidA->SetMode(AUTOMATIC);
-  pidB->SetMode(AUTOMATIC);
-
-  //set test timer to rotate states
-  timerTest.init(10000);
-  //set pid update timer, remember rpm only updates every cycle
-  pidTimer.init(250);
+void controlRoutine::set(float angle, float targetSpeed){
   
-};
+}
 
 //Runs in main loop
 void controlRoutine::run(double rpmA, double rpmB){
@@ -84,14 +89,6 @@ void controlRoutine::run(double rpmA, double rpmB){
   //Update state
   //runMotor();
   //testStateMachine();
-
-  setMotor(5, 60, 1);
-
-  if(motorA_setRPM > 30){pidA->SetOutputLimits(40, OUTPUT_MAX);}
-  else{pidA->SetOutputLimits(OUTPUT_MIN, 100);}
-
-  if(motorB_setRPM > 30){pidB->SetOutputLimits(40, OUTPUT_MAX);}
-  else{pidB->SetOutputLimits(OUTPUT_MIN, 100);}
   
   //Update PID controllers
   if(pidTimer.check(true)){

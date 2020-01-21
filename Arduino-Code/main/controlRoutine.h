@@ -11,11 +11,12 @@
 #include "miscFunctions.h"
 
 //PID variables
-#define OUTPUT_MIN 30
-#define OUTPUT_MAX 250
+#define OUTPUT_MIN 20
+#define OUTPUT_MAX 100
 #define KP 1.5
 #define KI 0.7
 #define KD 0.1
+#define PIDupdatePeriod 100
 
 class controlRoutine {
   private:
@@ -30,8 +31,8 @@ class controlRoutine {
     byte motorPWMB_Pin;
     byte servoPWM_Pin;
 
-    double rpmA;
-    double rpmB;
+    double rpmA = 0;
+    double rpmB = 0;
 
     //Set variables for motor
     realTimer timerRampUp;
@@ -65,10 +66,13 @@ class controlRoutine {
     void testStateMachine();
     
   public:
+    //Public variables
+    
 
     //Public functions
     void init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin);
     void run(double rpmA, double rpmB);
+    void set(float angle, float targetSpeed);
 };
 
 #endif // CONTROL_CLASS_H
