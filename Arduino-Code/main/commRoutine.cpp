@@ -12,15 +12,17 @@ void commRoutine::establishContact() {
   Serial.println(' ');
 }
 
-void commRoutine::init(int debugPrioritySetting){
+void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial* ss){
   //set variables
   this->debugPrioritySetting=debugPrioritySetting;
+  this->rssiInPin=rssiInPin;
+  mySerial = ss;
 
   //Starting variables
-
   
   //create objects
   test.init(2000);
+  rssiUpdate.init(rssiUpdatePeriod);
 
   // start serial port at 9600 bps:
   Serial.begin(9600);
@@ -29,6 +31,9 @@ void commRoutine::init(int debugPrioritySetting){
   }
   
   establishContact();  // send a byte to establish contact until receiver responds
+
+  //Start xbee serial
+  mySerial->begin(9600);
   
   //ros::NodeHandle nh;
 
@@ -47,4 +52,20 @@ void commRoutine::run(){
     //debugPrint(5, routineName, 5, String("Fuzztest: ") + String(fuzzyNum(1000, 100)));
     //Serial1.println(String("Fuzztest: ") + String(fuzzyNum(1000, 100)));
   }
+
+  //send out echo signal
+  if(rssiUpdate.check(true)){
+    mySerial->write("a");
+  }
+
+  //Read echo from xbee target
+  if (mySerial->available() > 0) {
+    int received = mySerial->read();
+    
+    rssi_raw = analogRead(rssiInPin)*100.0*5.0/1024.0;
+    
+    debugPrint(5, routineName, 5, String(F("RSSI Raw * 100: ")) + String(rssi_raw));
+    
+  }
+  
 };

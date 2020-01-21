@@ -96,7 +96,7 @@ void setup() {
   //Initalize main routines
   pos.init(debugPrioritySetting);
   control.init(debugPrioritySetting, motorInPin1, motorInPin2, motorPWMA_Pin, motorPWMB_Pin, servoPWM_Pin);
-  comm.init(debugPrioritySetting);
+  comm.init(debugPrioritySetting, rssiInPin, &mySerial);
   diagnotics.init(debugPrioritySetting, targetCycleTime, batteryCompPin, batteryMotorPin);
 
   //Setup interupts
