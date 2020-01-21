@@ -80,3 +80,22 @@ void positionRoutine::updateAccel(float ax, float ay, float az){
   accelY_lowpass = ay;
   accelZ_lowpass = az;
 }
+
+void positionRoutine::init(int debugPrioritySetting, byte motorEncoderA_Pin, byte motorEncoderB_Pin){
+    //Set local variables
+    this->debugPrioritySetting=debugPrioritySetting;
+    this->motorEncoderA_Pin=motorEncoderA_Pin;
+    this->motorEncoderB_Pin=motorEncoderB_Pin;
+
+    //Set starting variables
+    
+    //Create objects
+    
+};
+
+
+//runs in main loop
+void positionRoutine::run(){
+
+}
+  

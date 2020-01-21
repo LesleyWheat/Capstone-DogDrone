@@ -19,7 +19,7 @@ void controlRoutine::testStateMachine(){
     testState = ((testState + 1)%5);
 
     //Set motor settings
-    switch(testState){
+    /*switch(testState){
       case 0:
         setMotor(SPEED_FAST, STRAIGHT, ACCEL_NORMAL);
         break;
@@ -37,20 +37,25 @@ void controlRoutine::testStateMachine(){
         break;
       default:
         setMotor(SPEED_BRAKE, STRAIGHT, ACCEL_MIN);
-    };
+    };*/
 
     //output for reference
     debugPrint(5, routineName, 5, String("Test state: ") + String(testState));
-    debugPrint(5, routineName, 5, String("Left speed running at: ") + String(motorOptionPin1_PWM/255.0*100));
-    debugPrint(5, routineName, 5, String("Right speed running at: ") + String(motorOptionPin2_PWM/255.0*100));
+    //debugPrint(5, routineName, 5, String("Left speed running at: ") + String(motorOptionPin1_PWM/255.0*100));
+    //debugPrint(5, routineName, 5, String("Right speed running at: ") + String(motorOptionPin2_PWM/255.0*100));
     debugPrint(5, routineName, 5, String("Left set at running at: ") + String(left_setPWM));
     debugPrint(5, routineName, 5, String("Right set at running at: ") + String(right_setPWM));
   };
 };
 
-void controlRoutine::init(int debugPrioritySetting){
+void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin){
   //Set local variables
   this->debugPrioritySetting=debugPrioritySetting;
+  this->motorInPin1=motorInPin1;
+  this->motorInPin2=motorInPin2;
+  this->motorPWMA_Pin=motorPWMA_Pin;
+  this->motorPWMB_Pin=motorPWMB_Pin;
+  this->servoPWM_Pin=servoPWM_Pin;
 
   //Set starting variables
 
@@ -72,9 +77,8 @@ void controlRoutine::init(int debugPrioritySetting){
 };
 
 //Runs in main loop
-void controlRoutine::run(float batteryVoltage, double rpmA, double rpmB){
+void controlRoutine::run(double rpmA, double rpmB){
   //Read inputs
-  this->batteryVoltage=batteryVoltage;
   this->rpmA=rpmA;
   this->rpmB=rpmB;
 
@@ -82,7 +86,7 @@ void controlRoutine::run(float batteryVoltage, double rpmA, double rpmB){
   //runMotor();
   //testStateMachine();
 
-  setMotor(SPEED_NORMAL, LEFT_SLIGHT, ACCEL_NORMAL);
+  setMotor(5, 60, 1);
 
   if(motorA_setRPM > 30){pidA->SetOutputLimits(40, OUTPUT_MAX);}
   else{pidA->SetOutputLimits(OUTPUT_MIN, 100);}
@@ -99,6 +103,6 @@ void controlRoutine::run(float batteryVoltage, double rpmA, double rpmB){
   //debugPrint(5, routineName, 5, String("rpmA: ") + String(rpmA) + String(" rpmA_out: ") + String(motorA_outPWM)+ String(" rpmA_set: ") + String(motorA_setRPM));
   //debugPrint(5, routineName, 5, String("rpmB: ") + String(rpmB) + String(" rpmB_out: ") + String(motorB_outPWM)+ String(" rpmB_set: ") + String(motorB_setRPM));
 
-  motorOptionPin1_PWM = (byte) motorA_outPWM;
-  motorOptionPin2_PWM = (byte) motorB_outPWM;
+  //motorOptionPin1_PWM = (byte) motorA_outPWM;
+  //motorOptionPin2_PWM = (byte) motorB_outPWM;
 };

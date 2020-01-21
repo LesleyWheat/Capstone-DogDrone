@@ -9,19 +9,27 @@
 
 //Internal libraries
 #include "realTimer.h"
-#include "loggingFunctions.h"
+#include "miscFunctions.h"
 #include "miscFunctions.h"
 
 
 class commRoutine {
   private:
+    //Private variables
     int debugPrioritySetting;
+    String routineName = "Comm";
+
+    //Objects
     realTimer contactTimeout;
     realTimer test;
-    String routineName = "Comm";
+
+    //Private functions
     void establishContact();
     
   public:
+    //Public variables
+
+    //Public functions
     void init(int debugPrioritySetting);
     void run();
 };

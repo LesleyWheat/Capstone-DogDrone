@@ -7,23 +7,20 @@
 #include <SoftwareSerial.h>
 
 //Modules
-#include "inputsRoutine.h"
 #include "positionRoutine.h"
 #include "controlRoutine.h"
 #include "diagnosticsRoutine.h"
 #include "commRoutine.h"
-#include "outputsRoutine.h"
 
 //Include functions
 #include "realTimer.h"
-#include "loggingFunctions.h"
+#include "miscFunctions.h"
 
 //Declare Objects
-inputsRoutine inputs;
+positionRoutine pos;
 controlRoutine control;
 commRoutine comm;
 diagnoticsRoutine diagnotics;
-outputsRoutine outputs;
 
 //Set input pins
 #define batteryMotorPin A1
@@ -36,19 +33,19 @@ outputsRoutine outputs;
 #define sonerTrig 13
 
 //Set output pins
-#define motorIn1 4
-#define motorIn2 7
-#define motorPWMA 5
-#define motorPWMB 6
-#define servoPWM 11
-#define sonarEcho 12
+#define motorInPin1 4
+#define motorInPin2 7
+#define motorPWMA_Pin 5
+#define motorPWMB_Pin 6
+#define servoPWM_Pin 11
+#define sonarEchoPin 12
 
 //Define global objects
 SoftwareSerial mySerial(serialRX, serialTX); // RX, TX
 realTimer blinkTimer;
 
 //Define system variables
-#define targetCycleTime 50
+#define targetCycleTime 5000
 
 //global variables for main
 byte blinkState = 0;
@@ -69,11 +66,10 @@ void setup() {
   blinkTimer.init(100);
   
   //Initalize main routines
-  inputs.init(debugPrioritySetting, batteryCompPin, encoderAPin, encoderBPin);
-  control.init(debugPrioritySetting);
+  pos.init(debugPrioritySetting, encoderAPin, encoderBPin);
+  control.init(debugPrioritySetting, motorInPin1, motorInPin2, motorPWMA_Pin, motorPWMB_Pin, servoPWM_Pin);
   comm.init(debugPrioritySetting);
-  diagnotics.init(debugPrioritySetting, targetCycleTime);
-  outputs.init(debugPrioritySetting);
+  diagnotics.init(debugPrioritySetting, targetCycleTime, batteryCompPin, batteryMotorPin);
 
   //Finish setup
   debugPrint(debugPrioritySetting, "setup", 5, "Startup complete");
@@ -106,15 +102,13 @@ void loop() {
   };
 
   // Delay so CPU doesn't run at 100% all the time
-  delay(5);
 
   
   //Run main routines
-  inputs.run();
-  control.run(inputs.batteryVoltage, inputs.rpmA, inputs.rpmB);
+  pos.run();
+  control.run(pos.rpmA, pos.rpmB);
   comm.run();
-  diagnotics.run(inputs.batteryVoltage, inputs.rpmA, inputs.rpmB);
-  outputs.run();
+  diagnotics.run();
 }
 
 void inputsRead(){  
@@ -135,27 +129,5 @@ void outputWrite(){
   
   //Motor PWM
 
-  
-}
-
-void printOutPlot(){
-   
-  //Serial.print(millis());
-  Serial.print("Heading: ");
-  //Serial.print(inputDOF.heading);
-  //Serial.print(" Heading1 ");
-  //Serial.print(inputDOF.headingAdj);
-  Serial.print(" Pitch: ");
-  //Serial.print(inputDOF.pitch);
-  Serial.print(" Roll: ");
-  //Serial.print(inputDOF.roll);
-  Serial.print(" AccelX: ");
-  //Serial.print(inputDOF.accelX*10 );
-  Serial.print(" AccelY: ");
-  //Serial.print(inputDOF.accelY*10 );
-  Serial.print(" AccelZ: ");
-  //Serial.println(inputDOF.accelZ*10 );
-  //Serial.print(" Total Force ");
-  //Serial.println(pow(pow(corrected_ax ,2) +pow(corrected_ay,2) +pow(corrected_az,2) , 0.5));
   
 }

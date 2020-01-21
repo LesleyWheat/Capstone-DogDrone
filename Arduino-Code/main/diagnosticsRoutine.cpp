@@ -2,85 +2,94 @@
 
 #include "diagnosticsRoutine.h"
 
-//Print out state of memory
- void diagnoticsRoutine::printMemStats(){
-  debugPrint(5, routineName, 5, String("Current state of the memory----------------"));
-  //debugPrint(5, routineName, 5, MEMORY_PRINT_START);
-  //debugPrint(5, routineName, 5, MEMORY_PRINT_HEAPSTART);
-  //debugPrint(5, routineName, 5, MEMORY_PRINT_HEAPEND);
-  //debugPrint(5, routineName, 5, MEMORY_PRINT_STACKSTART);
-  //debugPrint(5, routineName, 5, MEMORY_PRINT_END);
-  //debugPrint(5, routineName, 5, MEMORY_PRINT_HEAPSIZE);
-  //debugPrint(5, routineName, 5, FREERAM_PRINT);
-
-  debugPrint(5, routineName, 5, String("End current state of the memory----------------"));
-  };
-
 
 //output other stats and information
 void diagnoticsRoutine::otherStats(){
- //add delay to meet target cycle time
- int delayTime = (int)(targetCycleTime- (millis()- cycleStartTime)-0.4);
-  if (millis()- cycleStartTime < targetCycleTime){
-    delay(delayTime);
-  }
 
+};
+  
+    
+void diagnoticsRoutine::init(int debugPrioritySetting, int targetCycleTime, byte batteryCompPin, byte batteryMotorPin){
+  //Set local variables
+  this->debugPrioritySetting=debugPrioritySetting;
+  this->targetCycleTime=targetCycleTime;
+  this->batteryCompPin=batteryCompPin;
+  this->batteryMotorPin=batteryMotorPin;
+
+  //Set starting variables
+  
+  //Create objects
+  cyclePrintOut.init(10000);
+  batteryPrintOut.init(600000);
+  batteryPoll.init(20000);
+};
+
+void diagnoticsRoutine::batteryMonitor(){
+  batteryLogCount++;
+  
+  batteryVoltageComp_Avg = batteryVoltageComp_Avg * (batteryLogCount-1)/batteryLogCount + analogRead(batteryCompPin)/batteryLogCount;
+  batteryVoltageMotor_Avg = batteryVoltageMotor_Avg * (batteryLogCount-1)/batteryLogCount + analogRead(batteryMotorPin)*12.0/batteryLogCount;
+
+  if(batteryLogCount > logSizeBattery){
+    batteryLogCount=1;
+  }
+  
+  if(batteryPrintOut.check(true)){
+    debugPrint(5, routineName, 5, String("Average computer battery voltage: ") + String(batteryVoltageComp_Avg) + String(" Average motor battery voltage: ") + String(batteryVoltageMotor_Avg)  );
+  };
+}
+
+void diagnoticsRoutine::cycleStats(){
+  //add delay to meet target cycle time
+  //add 200us for overhead
+  if (((unsigned long)(micros()- cycleStartTime)) < (targetCycleTime - 300)){
+    delayTime = targetCycleTime- (unsigned long)(micros()- cycleStartTime)- 200;
+    delayMicroseconds(delayTime);
+  }
   
   //Cycle finish
-  cycleEndTime = millis();
+  cycleEndTime = micros();
   cycleTime = cycleEndTime - cycleStartTime;
 
   
   //Read into memory
-  if(cycleCount == (logSize+1)){
+  if(cycleCount == (logSizeCycle+1)){
     //Check how much extra operating time there is to meet cycle time
-    float percentUse = (cycleTimeSum-downTimeSum)*100.0/(logSize*targetCycleTime);
-    debugPrint(5, routineName, 5, String("Average cycle time: ") + String((cycleTimeSum/logSize))+ String(", Percent Use: ") + String(percentUse));
-    debugPrint(5, routineName, 5, String("Average battery voltage: ") + String((batteryVoltageSum/logSize)));
+    avgCycleTime = cycleTimeSum/logSizeCycle;
+    percentUse = (cycleTimeSum-downTimeSum)*(100.0/targetCycleTime)/logSizeCycle;
     
     //Reset loop
     cycleCount =0;
-    batteryVoltageSum=0;
     cycleTimeSum =0;
     downTimeSum =0;
   }else{
     cycleCount += 1;
   }
 
+  if(cyclePrintOut.check(true)){
+    debugPrint(5, routineName, 5, String("Average cycle time: ") + String(avgCycleTime));
+    debugPrint(5, routineName, 5, String("Percent Use: ") + String(percentUse));
+  };
+
   //Add sums
-  batteryVoltageSum += batteryVoltage;
   cycleTimeSum += cycleTime;
   downTimeSum += delayTime;
   
   //End cycle
   cycleStartTime = cycleEndTime;
-};
-  
-    
-void diagnoticsRoutine::init(int debugPrioritySetting, int targetCycleTime){
-  //Set local variables
-  this->debugPrioritySetting=debugPrioritySetting;
-  this->targetCycleTime=targetCycleTime;
-
-  //Set starting variables
-  cycleStartTime = 0;
-  cycleEndTime = 0;
-  cycleTime = 0;
-  
-  //Create objects
-  memStats.init(60000);
-};
+}
 
 //runs in main loop
-void diagnoticsRoutine::run(float batteryVoltage, double rpmA, double rpmB){
+void diagnoticsRoutine::run(){
   //Read inputs
-  this->batteryVoltage=batteryVoltage;
 
-  
-  if(memStats.check(true)){
-    //printMemStats();
+  if(batteryPoll.check(true)){
+    batteryMonitor();
   };
 
-  //Cycle finish
+  
   otherStats();
+
+  //Cycle finish
+  cycleStats();
 };

@@ -8,7 +8,7 @@
 
 //local functions
 #include "realTimer.h"
-#include "loggingFunctions.h"
+#include "miscFunctions.h"
 
 //PID variables
 #define OUTPUT_MIN 30
@@ -23,8 +23,13 @@ class controlRoutine {
     int debugPrioritySetting;
     String routineName = "cont";
 
-    
-    float batteryVoltage;
+    //Input pins
+    byte motorInPin1;
+    byte motorInPin2;
+    byte motorPWMA_Pin;
+    byte motorPWMB_Pin;
+    byte servoPWM_Pin;
+
     double rpmA;
     double rpmB;
 
@@ -55,47 +60,15 @@ class controlRoutine {
       TEST = 1
     }; 
 
-    //Plain text settings for speed - needs more calibration
-    enum speed{
-      SPEED_BRAKE = 0,
-      SPEED_VERY_SLOW = 20,
-      SPEED_SLOW = 25,
-      SPEED_NORMAL = 30,
-      SPEED_FAST = 40,
-      SPEED_MAX = 50
-    };
-
-    //Plain text settings for direction - needs calibration
-    enum direction{
-      LEFT_MAX = 0,
-      LEFT_HARD = 10,
-      LEFT_SLIGHT = 40,
-      STRAIGHT = 50,
-      RIGHT_SLIGHT = 60,
-      RIGHT_HARD = 90,
-      RIGHT_MAX = 100
-    };
-
-    //Plain text settings for acceleration - needs calibration
-    enum acceleration{
-      ACCEL_MIN = 60,
-      ACCEL_SLOW = 30,
-      ACCEL_NORMAL = 10,
-      ACCEL_FAST = 5,
-      ACCEL_MAX = 2
-    };
-
     //Private functions
     void setMotor(byte spd, byte dir, int accel);
     void testStateMachine();
     
   public:
-    byte motorOptionPin1_PWM = 0;
-    byte motorOptionPin2_PWM = 0;
 
     //Public functions
-    void init(int debugPrioritySetting);
-    void run(float batteryVoltage, double rpmA, double rpmB);
+    void init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin);
+    void run(double rpmA, double rpmB);
 };
 
 #endif // CONTROL_CLASS_H
