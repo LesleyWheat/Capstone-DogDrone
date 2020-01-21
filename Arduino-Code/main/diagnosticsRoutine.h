@@ -6,6 +6,11 @@
 #include "realTimer.h"
 #include "miscFunctions.h"
 
+#define cycleOverhead 200
+#define cyclePrintOut_Period 10000
+#define batteryPrintOut_Period 600000
+#define batteryPoll_Period 20000
+
 class diagnoticsRoutine {
   private:
     //Private Variables
@@ -22,7 +27,7 @@ class diagnoticsRoutine {
     unsigned long cycleStartTime = 0;
     unsigned long cycleEndTime = 0;
     unsigned long cycleTime = 0;
-    double avgCycleTime =0;
+    int avgCycleTime =0;
     float percentUse = 0;
     double downtime = 0;
     int targetCycleTime;

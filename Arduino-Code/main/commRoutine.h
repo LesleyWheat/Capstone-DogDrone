@@ -13,6 +13,7 @@
 #include "miscFunctions.h"
 
 
+
 class commRoutine {
   private:
     //Private variables

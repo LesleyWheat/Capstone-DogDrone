@@ -40,11 +40,11 @@ void controlRoutine::testStateMachine(){
     };*/
 
     //output for reference
-    debugPrint(5, routineName, 5, String("Test state: ") + String(testState));
+    debugPrint(5, routineName, 5, String(F("Test state: ")) + String(testState));
     //debugPrint(5, routineName, 5, String("Left speed running at: ") + String(motorOptionPin1_PWM/255.0*100));
     //debugPrint(5, routineName, 5, String("Right speed running at: ") + String(motorOptionPin2_PWM/255.0*100));
-    debugPrint(5, routineName, 5, String("Left set at running at: ") + String(left_setPWM));
-    debugPrint(5, routineName, 5, String("Right set at running at: ") + String(right_setPWM));
+    //debugPrint(5, routineName, 5, String("Left set at running at: ") + String(left_setPWM));
+    //debugPrint(5, routineName, 5, String("Right set at running at: ") + String(right_setPWM));
   };
 };
 
@@ -56,7 +56,6 @@ void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motor
   this->motorPWMA_Pin=motorPWMA_Pin;
   this->motorPWMB_Pin=motorPWMB_Pin;
   this->servoPWM_Pin=servoPWM_Pin;
-
   //Set starting variables
 
   //Create PIDs for motors

@@ -19,9 +19,9 @@ void diagnoticsRoutine::init(int debugPrioritySetting, int targetCycleTime, byte
   //Set starting variables
   
   //Create objects
-  cyclePrintOut.init(10000);
-  batteryPrintOut.init(600000);
-  batteryPoll.init(20000);
+  cyclePrintOut.init(cyclePrintOut_Period);
+  batteryPrintOut.init(batteryPrintOut_Period);
+  batteryPoll.init(batteryPoll_Period);
 };
 
 void diagnoticsRoutine::batteryMonitor(){
@@ -35,15 +35,14 @@ void diagnoticsRoutine::batteryMonitor(){
   }
   
   if(batteryPrintOut.check(true)){
-    debugPrint(5, routineName, 5, String("Average computer battery voltage: ") + String(batteryVoltageComp_Avg) + String(" Average motor battery voltage: ") + String(batteryVoltageMotor_Avg)  );
+    debugPrint(5, routineName, 5, String(F("Average computer battery voltage: ")) + String(batteryVoltageComp_Avg) + String(F(" Average motor battery voltage: ")) + String(batteryVoltageMotor_Avg)  );
   };
 }
 
 void diagnoticsRoutine::cycleStats(){
   //add delay to meet target cycle time
-  //add 200us for overhead
-  if (((unsigned long)(micros()- cycleStartTime)) < (targetCycleTime - 300)){
-    delayTime = targetCycleTime- (unsigned long)(micros()- cycleStartTime)- 200;
+  if (((unsigned long)(micros()- cycleStartTime)) < (targetCycleTime - cycleOverhead - 100)){
+    delayTime = targetCycleTime- (unsigned long)(micros()- cycleStartTime)- cycleOverhead;
     delayMicroseconds(delayTime);
   }
   
@@ -55,7 +54,7 @@ void diagnoticsRoutine::cycleStats(){
   //Read into memory
   if(cycleCount == (logSizeCycle+1)){
     //Check how much extra operating time there is to meet cycle time
-    avgCycleTime = cycleTimeSum/logSizeCycle;
+    avgCycleTime = (int)(cycleTimeSum/logSizeCycle);
     percentUse = (cycleTimeSum-downTimeSum)*(100.0/targetCycleTime)/logSizeCycle;
     
     //Reset loop
@@ -66,9 +65,11 @@ void diagnoticsRoutine::cycleStats(){
     cycleCount += 1;
   }
 
+
   if(cyclePrintOut.check(true)){
-    debugPrint(5, routineName, 5, String("Average cycle time: ") + String(avgCycleTime));
-    debugPrint(5, routineName, 5, String("Percent Use: ") + String(percentUse));
+    debugPrint(5, routineName, 5, String(F("CPU Percent Use: ")) + String(percentUse));
+    debugPrint(5, routineName, 5, String(F("Average cycle time: ")) + String(avgCycleTime));
+    debugPrint(5, routineName, 5, String(F("Percent of sram memory free: ")) + String(100.0*freeMemory()/2048.0));
   };
 
   //Add sums

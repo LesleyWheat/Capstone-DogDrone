@@ -1,21 +1,31 @@
 //Header here
 #include "positionRoutine.h"
 
-void positionRoutine::init(){
+void positionRoutine::init(int debugPrioritySetting){
+  //Set local variables
+  this->debugPrioritySetting=debugPrioritySetting;
 
+  //Set starting variables
+  
+  //Create objects
+  speedUpdateTimer.init(speedCheckPeriod);
+  speedPrintOut.init(speedPrintOutPeriod);
+
+  #ifdef WIRED
   gyro = Adafruit_FXAS21002C(0x0021002C);
   accelmag = Adafruit_FXOS8700(0x8700A, 0x8700B);
   
   if(!gyro.begin()){
     /* There was a problem detecting the gyro ... check your connections */
-    Serial.println("Ooops, no gyro detected ... Check your wiring!");
+    Serial.println(F("Ooops, no gyro detected ... Check your wiring!"));
     while(1);
   }
   
   if(!accelmag.begin(ACCEL_RANGE_4G)){
-    Serial.println("Ooops, no FXOS8700 detected ... Check your wiring!");
+    Serial.println(F("Ooops, no FXOS8700 detected ... Check your wiring!"));
     while(1);
   }
+  #endif
   
 }
 
@@ -81,21 +91,25 @@ void positionRoutine::updateAccel(float ax, float ay, float az){
   accelZ_lowpass = az;
 }
 
-void positionRoutine::init(int debugPrioritySetting, byte motorEncoderA_Pin, byte motorEncoderB_Pin){
-    //Set local variables
-    this->debugPrioritySetting=debugPrioritySetting;
-    this->motorEncoderA_Pin=motorEncoderA_Pin;
-    this->motorEncoderB_Pin=motorEncoderB_Pin;
-
-    //Set starting variables
-    
-    //Create objects
-    
-};
-
 
 //runs in main loop
 void positionRoutine::run(){
-
+  if(speedUpdateTimer.check(true)){
+    updateSpeed();
+  }
+  if(speedPrintOut.check(true)){
+    debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA) + String(F(" rpmB: ")) + String(rpmB));
+  }
 }
-  
+
+void positionRoutine::updateSpeed(){
+  enA_tempCount = motorEncoderA_count;
+  enB_tempCount = motorEncoderB_count;
+
+  rpmA = ((unsigned long)(enA_tempCount - enA_lastCount) / (unsigned long)(micros() - lastCountCheckTime))/encoderPPR ;
+  rpmB = ((unsigned long)(enB_tempCount - enB_lastCount) / (unsigned long)(micros() - lastCountCheckTime))/encoderPPR;
+
+  lastCountCheckTime = micros();
+  enA_lastCount = enA_tempCount;
+  enB_lastCount = enB_tempCount;
+}
