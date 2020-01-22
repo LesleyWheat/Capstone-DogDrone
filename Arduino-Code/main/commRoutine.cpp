@@ -3,7 +3,8 @@
 
 //Make sure serial is active during setup
 void commRoutine::establishContact() {
-  contactTimeout.init(60000);
+  
+  contactTimeout.init(contactTimeoutPeriod);
   
   while ((Serial.available() <= 0) & (contactTimeout.check(true) == false)) {
     Serial.print('A');   // send a capital A
@@ -19,9 +20,9 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial*
   mySerial = ss;
 
   //Starting variables
+
   
   //create objects
-  test.init(2000);
   rssiUpdate.init(rssiUpdatePeriod);
 
   // start serial port at 9600 bps:
@@ -48,11 +49,6 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial*
 
 //main run loop
 void commRoutine::run(){
-  if(test.check(true)){
-    //debugPrint(5, routineName, 5, String("Fuzztest: ") + String(fuzzyNum(1000, 100)));
-    //Serial1.println(String("Fuzztest: ") + String(fuzzyNum(1000, 100)));
-  }
-
   //send out echo signal
   if(rssiUpdate.check(true)){
     mySerial->write("a");

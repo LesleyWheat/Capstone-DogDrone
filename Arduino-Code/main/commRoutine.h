@@ -14,7 +14,7 @@
 #include "miscFunctions.h"
 
 #define rssiUpdatePeriod 1000
-
+#define contactTimeoutPeriod 60000
 
 class commRoutine {
   private:
@@ -28,7 +28,6 @@ class commRoutine {
     //Objects
     SoftwareSerial* mySerial;
     realTimer contactTimeout;
-    realTimer test;
     realTimer rssiUpdate;
 
     //Private functions

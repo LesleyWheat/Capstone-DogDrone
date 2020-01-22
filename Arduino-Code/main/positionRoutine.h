@@ -16,8 +16,9 @@
 
 #define encoderSamples 4
 #define encoderPPR 120
-#define speedCheckPeriod 10
+#define speedCheckPeriod 50
 #define speedPrintOutPeriod 4000
+#define rpmLowBound 25
 
 class positionRoutine {
   private:

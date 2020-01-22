@@ -109,6 +109,9 @@ void positionRoutine::updateSpeed(){
   rpmA = ((unsigned long)(enA_tempCount - enA_lastCount) / (unsigned long)(micros() - lastCountCheckTime))/encoderPPR ;
   rpmB = ((unsigned long)(enB_tempCount - enB_lastCount) / (unsigned long)(micros() - lastCountCheckTime))/encoderPPR;
 
+  if(rpmA < rpmLowBound) rpmA = 0;
+  if(rpmB < rpmLowBound) rpmB = 0;
+
   lastCountCheckTime = micros();
   enA_lastCount = enA_tempCount;
   enB_lastCount = enB_tempCount;
