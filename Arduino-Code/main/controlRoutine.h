@@ -22,7 +22,7 @@ class controlRoutine {
   private:
     //Standard routine settings
     int debugPrioritySetting;
-    String routineName = "cont";
+    String routineName = "CON";
 
     //Input pins
     byte motorInPin1;

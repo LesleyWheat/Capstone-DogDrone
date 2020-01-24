@@ -8,16 +8,19 @@
 
 #define cycleOverhead 200
 #define cyclePrintOut_Period 10000
-#define batteryPrintOut_Period 600000
-#define batteryPoll_Period 20000
+#define batteryPrintOut_Period 10000
+#define batteryPoll_Period 5000
+#define cycleTimeWarning 10000
+#define targetCycleTime 5000
 
 class diagnoticsRoutine {
   private:
     //Private Variables
   
     //Standard variables
-    String routineName = "Diag";
+    String routineName = "DIA";
     int debugPrioritySetting;
+    byte printOutFlag = 0;
 
     //input pins
     byte batteryCompPin;
@@ -30,7 +33,6 @@ class diagnoticsRoutine {
     int avgCycleTime =0;
     float percentUse = 0;
     double downtime = 0;
-    int targetCycleTime;
     int cycleCount = 0;
     double cycleTimeSum;
     long downTimeSum;
@@ -56,7 +58,7 @@ class diagnoticsRoutine {
     //Public variables
 
     //Public functions
-    void init(int debugPrioritySetting, int targetCycleTime, byte batteryCompPin, byte batteryMotorPin);
+    void init(int debugPrioritySetting, byte batteryCompPin, byte batteryMotorPin);
     void run();
 };
 

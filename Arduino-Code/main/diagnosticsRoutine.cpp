@@ -9,10 +9,9 @@ void diagnoticsRoutine::otherStats(){
 };
   
     
-void diagnoticsRoutine::init(int debugPrioritySetting, int targetCycleTime, byte batteryCompPin, byte batteryMotorPin){
+void diagnoticsRoutine::init(int debugPrioritySetting, byte batteryCompPin, byte batteryMotorPin){
   //Set local variables
   this->debugPrioritySetting=debugPrioritySetting;
-  this->targetCycleTime=targetCycleTime;
   this->batteryCompPin=batteryCompPin;
   this->batteryMotorPin=batteryMotorPin;
 
@@ -22,6 +21,8 @@ void diagnoticsRoutine::init(int debugPrioritySetting, int targetCycleTime, byte
   cyclePrintOut.init(cyclePrintOut_Period);
   batteryPrintOut.init(batteryPrintOut_Period);
   batteryPoll.init(batteryPoll_Period);
+
+  debugPrint(5, routineName, 5, String(F("Sram free startup: ")) + String(freeMemory()));
 };
 
 void diagnoticsRoutine::batteryMonitor(){
@@ -35,11 +36,16 @@ void diagnoticsRoutine::batteryMonitor(){
   }
   
   if(batteryPrintOut.check(true)){
-    debugPrint(5, routineName, 5, String(F("Average computer battery voltage: ")) + String(batteryVoltageComp_Avg) + String(F(" Average motor battery voltage: ")) + String(batteryVoltageMotor_Avg)  );
+    debugPrint(5, routineName, 5, String(F("Avg compbattery V: ")) + String(batteryVoltageComp_Avg));
+    //debugPrint(5, routineName, 5, String(F("Avg motorbattery V: ")) + String(batteryVoltageMotor_Avg));
   };
 }
 
 void diagnoticsRoutine::cycleStats(){
+  if((unsigned long)(micros()- cycleStartTime) > cycleTimeWarning){
+    debugPrint(5, routineName, 3, String(F("Long cycle detected: ")) + String((unsigned long)(micros()- cycleStartTime)));
+  }
+  
   //add delay to meet target cycle time
   if (((unsigned long)(micros()- cycleStartTime)) < (targetCycleTime - cycleOverhead - 100)){
     delayTime = targetCycleTime- (unsigned long)(micros()- cycleStartTime)- cycleOverhead;
@@ -49,6 +55,7 @@ void diagnoticsRoutine::cycleStats(){
   //Cycle finish
   cycleEndTime = micros();
   cycleTime = cycleEndTime - cycleStartTime;
+
 
   
   //Read into memory
@@ -67,9 +74,10 @@ void diagnoticsRoutine::cycleStats(){
 
 
   if(cyclePrintOut.check(true)){
-    debugPrint(5, routineName, 5, String(F("CPU Percent Use: ")) + String(percentUse));
-    debugPrint(5, routineName, 5, String(F("Average cycle time: ")) + String(avgCycleTime));
-    debugPrint(5, routineName, 5, String(F("Percent of sram memory free: ")) + String(100.0*freeMemory()/2048.0));
+    if (printOutFlag == 0)debugPrint(5, routineName, 5, String(F("Sram free: ")) + String(freeMemory()));
+    if (printOutFlag == 1)debugPrint(5, routineName, 5, String(F("CPU Percent Use: ")) + String(percentUse));
+    if (printOutFlag == 2)debugPrint(5, routineName, 5, String(F("Average cycle time: ")) + String(avgCycleTime));
+    printOutFlag = (printOutFlag+1)%3;
   };
 
   //Add sums

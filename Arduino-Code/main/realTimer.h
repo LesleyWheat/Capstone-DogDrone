@@ -10,8 +10,8 @@ class realTimer{
   private:
     //Private variables
     unsigned long accum;
-    double lastCheck;
-    double enable;
+    unsigned long lastCheck;
+    bool enable;
     unsigned long targetTime;
 
     //Private variables
@@ -20,7 +20,7 @@ class realTimer{
     //Public variables
     
     //Public functions
-    void init(double setTime);
+    void init(unsigned long setTime);
     bool check(bool condition);
 };
 

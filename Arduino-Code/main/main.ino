@@ -32,7 +32,7 @@ diagnoticsRoutine diagnotics;
 #define encoderBPin_QB 13
 #define serialRX 3
 #define serialTX 2
-#define sonerTrig A3
+#define sonarTrig A3
 
 //Set output pins
 #define motorInPin1 4
@@ -45,18 +45,20 @@ diagnoticsRoutine diagnotics;
 //Define global objects
 SoftwareSerial mySerial(serialRX, serialTX); // RX, TX
 realTimer blinkTimer;
+realTimer echoTimer;
 
 //Define system variables
 #define DEBUG 1
-#define WIRED 0
-#define targetCycleTime 5000
+#define WIRED 1
 #define blinkPeriod 1000
+#define echoPeriod 5000
 // 5 is all msgs, higher filters out lower priority msgs
 #define debugPrioritySetting 5
 
 //global variables for main
 byte blinkState = 0;
-
+byte echoFlag = 0;
+int echoDuration = 0;
   
 // the setup function runs once when you press reset or power the board
 //Runs only once at setup
@@ -77,7 +79,7 @@ void setup() {
   pinMode(encoderBPin_QA, INPUT_PULLUP);
   pinMode(encoderAPin_QB, INPUT_PULLUP);
   pinMode(encoderBPin_QB, INPUT_PULLUP);
-  pinMode(sonerTrig, INPUT);
+  pinMode(sonarEchoPin, INPUT);
 
   //Outputs
   pinMode(motorInPin1, OUTPUT);
@@ -85,28 +87,31 @@ void setup() {
   pinMode(motorPWMA_Pin, OUTPUT);
   pinMode(motorPWMB_Pin, OUTPUT);
   pinMode(servoPWM_Pin, OUTPUT);
-  pinMode(sonarEchoPin, OUTPUT);
-  pinMode(sonerTrig, OUTPUT);
+  pinMode(sonarTrig, OUTPUT);
+
+  //Motor setup
+  digitalWrite(motorInPin1, HIGH);
+  digitalWrite(motorInPin2, LOW);
+  analogWrite(motorPWMA_Pin, 100);
 
   //Declare objects
   blinkTimer.init(blinkPeriod);
+  echoTimer.init(echoPeriod);
 
-
-  
   //Initalize main routines
+  comm.init(debugPrioritySetting, rssiInPin, &mySerial);
   pos.init(debugPrioritySetting);
   control.init(debugPrioritySetting, motorInPin1, motorInPin2, motorPWMA_Pin, motorPWMB_Pin, servoPWM_Pin);
-  comm.init(debugPrioritySetting, rssiInPin, &mySerial);
-  diagnotics.init(debugPrioritySetting, targetCycleTime, batteryCompPin, batteryMotorPin);
+  diagnotics.init(debugPrioritySetting, batteryCompPin, batteryMotorPin);
 
   //Setup interupts
   attachInterrupt(encoderAPin_QA, encoderIntermediateA, CHANGE);
   attachInterrupt(encoderBPin_QA, encoderIntermediateB, CHANGE);
   attachInterrupt(encoderAPin_QB, encoderIntermediateA, CHANGE);
   attachInterrupt(encoderBPin_QB, encoderIntermediateB, CHANGE);
-
+  
   //Finish setup
-  debugPrint(debugPrioritySetting, F("setup"), 5, F("Startup complete"));
+  debugPrint(debugPrioritySetting, F("SET"), 5, F("Startup complete"));
 }
 
 // the loop function runs over and over again forever
@@ -135,7 +140,18 @@ void loop() {
       blinkState = ((blinkState + 1)%2);    
   };
 
-  // Delay so CPU doesn't run at 100% all the time
+  //Run echo on conditions
+  if(echoTimer.check(true) || echoFlag == 1){
+    if (echoFlag == 0){
+      digitalWrite(sonarTrig, HIGH);
+      echoFlag = 1;
+    }else{
+      echoFlag = 0;
+      digitalWrite(sonarTrig, LOW);
+      echoDuration = pulseIn(sonarEchoPin, HIGH, 10000);
+      debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Echo duration: ")) + String(echoDuration));
+    }
+  }
 
   
   //Run main routines
@@ -143,6 +159,7 @@ void loop() {
   control.run(pos.rpmA, pos.rpmB);
   comm.run();
   diagnotics.run();
+  //Diagnostics includes delay to target cycle time
 }
 
 
@@ -156,24 +173,3 @@ void encoderIntermediateB(){
 }
 
 //Additional I/O
-
-void inputsRead(){  
-  //Read inputs and translate into readable format
-  
-}
-
-void outputSetup(){
-  //Setup output pins
-
-}
-
-
-void outputWrite(){
-  
-  //Set outputs
-  //Motor state
-  
-  //Motor PWM
-
-  
-}

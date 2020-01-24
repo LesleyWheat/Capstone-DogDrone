@@ -14,13 +14,14 @@
 #include "miscFunctions.h"
 
 #define rssiUpdatePeriod 1000
+#define rssiReadPeriod 100
 #define contactTimeoutPeriod 60000
 
 class commRoutine {
   private:
     //Private variables
     int debugPrioritySetting;
-    String routineName = "Comm";
+    String routineName = "COM";
 
     //Pins
     byte rssiInPin;
@@ -29,6 +30,7 @@ class commRoutine {
     SoftwareSerial* mySerial;
     realTimer contactTimeout;
     realTimer rssiUpdate;
+    realTimer rssiRead;
 
     //Private functions
     void establishContact();

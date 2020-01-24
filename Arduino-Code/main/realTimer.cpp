@@ -8,7 +8,7 @@
 
 
 //Set up, store starting time and timer duration
-void realTimer::init(double setTime){
+void realTimer::init(unsigned long setTime){
   targetTime = setTime;
   accum = 0;
   lastCheck= millis();

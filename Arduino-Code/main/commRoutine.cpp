@@ -24,6 +24,7 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial*
   
   //create objects
   rssiUpdate.init(rssiUpdatePeriod);
+  rssiRead.init(rssiReadPeriod);
 
   // start serial port at 9600 bps:
   Serial.begin(9600);
@@ -57,11 +58,14 @@ void commRoutine::run(){
   //Read echo from xbee target
   if (mySerial->available() > 0) {
     int received = mySerial->read();
+
     
-    rssi_raw = analogRead(rssiInPin)*100.0*5.0/1024.0;
-    
-    debugPrint(5, routineName, 5, String(F("RSSI Raw * 100: ")) + String(rssi_raw));
-    
+    if(rssiRead.check(true)){
+      //analogReference(EXTERNAL);
+      rssi_raw = ((analogRead(rssiInPin)*1000.0)/1024.0)*5.0;
+      debugPrint(5, routineName, 5, String(F("RSSI Raw * 1000: ")) + String(rssi_raw));
+      //analogReference(DEFAULT);
+    }
   }
   
 };

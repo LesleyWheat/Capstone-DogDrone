@@ -19,14 +19,16 @@
 #define speedCheckPeriod 50
 #define speedPrintOutPeriod 4000
 #define rpmLowBound 25
+#define IMUUpdatePeriod 50
 
 class positionRoutine {
   private:
     //Private variables
 
     //Standard variables
-    String routineName = "position";
+    String routineName = "POS";
     int debugPrioritySetting;
+    byte posPrintFlag = 0;
 
     //IMU objects
     Adafruit_FXAS21002C gyro;
@@ -34,6 +36,19 @@ class positionRoutine {
     sensors_event_t gyro_event;
     sensors_event_t accel_event;
     sensors_event_t mag_event;
+
+    //Calibration settings for IMU
+    // Offsets applied to raw x/y/z mag values
+    float mag_offsets[3]            = { 9.48F, -20.76F, -251.61F };
+    // Soft iron error compensation matrix
+    float mag_softiron_matrix[3][3] = { {  0.982,  -0.012,  0.019 },
+                                        {  -0.012,  0.973, 0.013 },
+                                        {  0.019, 0.013,  1.048 } };
+    
+    float mag_field_strength        = 39.48F;
+    // Offsets applied to compensate for gyro zero-drift error for x/y/z
+    float gyro_zero_offsets[3]      = { 0.0F, 0.0F, 0.0F };
+
 
     //pins
     byte motorEncoderA_Pin;
@@ -49,10 +64,12 @@ class positionRoutine {
     //timers
     realTimer speedUpdateTimer;
     realTimer speedPrintOut;
-    
+    realTimer IMUUpdate;
 
     //Private functions
-    
+    void updatedof(void);
+    void updateSpeed(void);
+    void updateAccel(void);
     
   public:
     //Public variables
@@ -74,9 +91,6 @@ class positionRoutine {
     //Public functions
     void init(int debugPrioritySetting);
     void run();
-    void updatedof(void);
-    void updateAccel(float ax, float ay, float az);
-    void updateSpeed();
 
 };
 
