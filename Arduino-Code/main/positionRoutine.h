@@ -84,8 +84,8 @@ class positionRoutine {
     float accelZ_lowpass;
     
     //encoder
-    unsigned long motorEncoderA_count = 0;
-    unsigned long motorEncoderB_count = 0;
+    volatile unsigned long motorEncoderA_count = 0;
+    volatile unsigned long motorEncoderB_count = 0;
     double rpmA = 0;
     double rpmB = 0;
 

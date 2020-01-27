@@ -53,6 +53,10 @@ realTimer echoTimer;
 byte blinkState = 0;
 byte echoFlag = 0;
 int echoDuration = 0;
+
+//Variables for interupt
+volatile byte encoderAPinState = LOW;
+volatile byte encoderBPinState = LOW;
   
 // the setup function runs once when you press reset or power the board
 //Runs only once at setup
@@ -156,12 +160,14 @@ void loop() {
 
 //Encoder interrupt routines
 void encoderInterrupt(void){
-  if(digitalRead(encoderAPin) == HIGH){
+  if(digitalRead(encoderAPin) != encoderAPinState){
+    encoderAPinState = digitalRead(encoderAPin);
     //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt A triggered")));
     pos.motorEncoderA_count++;
   }
   
-  if(digitalRead(encoderBPin) == HIGH){
+  if(digitalRead(encoderBPin) != encoderBPinState){
+    encoderBPinState = digitalRead(encoderBPin);
     //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt B triggered")));
     pos.motorEncoderB_count++;
   }
