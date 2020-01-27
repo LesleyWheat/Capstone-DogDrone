@@ -8,8 +8,8 @@
 
 #define cycleOverhead 200
 #define cyclePrintOut_Period 10000
-#define batteryPrintOut_Period 10000
-#define batteryPoll_Period 5000
+#define batteryPrintOut_Period 5000
+#define batteryPoll_Period 1000
 #define cycleTimeWarning 10000
 #define targetCycleTime 5000
 
@@ -40,10 +40,8 @@ class diagnoticsRoutine {
     int delayTime=0;
 
     //Battery monitor variables
-    int batteryLogCount =0;
     double batteryVoltageComp_Avg=0;
     double batteryVoltageMotor_Avg=0;
-    byte logSizeBattery = 10;
     
     //Objects
     realTimer cyclePrintOut;

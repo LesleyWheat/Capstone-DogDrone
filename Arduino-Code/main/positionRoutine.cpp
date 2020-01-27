@@ -18,12 +18,12 @@ void positionRoutine::init(int debugPrioritySetting){
   if(!gyro.begin()){
     /* There was a problem detecting the gyro ... check your connections */
     Serial.println(F("Ooops, no gyro detected ... Check your wiring!"));
-    while(1);
+    //while(1);
   }
   
   if(!accelmag.begin(ACCEL_RANGE_4G)){
     Serial.println(F("Ooops, no FXOS8700 detected ... Check your wiring!"));
-    while(1);
+    //while(1);
   }
   
 }
@@ -88,8 +88,10 @@ void positionRoutine::run(){
   if(speedUpdateTimer.check(true)){
     updateSpeed();
   }
+  
   if(speedPrintOut.check(true)){
     if(posPrintFlag==0) {debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA) + String(F(" rpmB: ")) + String(rpmB));};
+    //if(posPrintFlag==0) {debugPrint(5, routineName, 5, String(F("en A count: ")) + String(motorEncoderA_count) + String(F(" en B count: ")) + String(motorEncoderB_count));};
     
     if(posPrintFlag==1) {debugPrint(5, routineName, 5, String(F("ax: ")) + String(accelX_lowpass));};
     
@@ -102,16 +104,22 @@ void positionRoutine::run(){
 }
 
 void positionRoutine::updateSpeed(void){
-  enA_tempCount = motorEncoderA_count;
-  enB_tempCount = motorEncoderB_count;
+  enA_tempCount = (unsigned long)(motorEncoderA_count - enA_lastCount);
+  enB_tempCount = (unsigned long)(motorEncoderB_count - enB_lastCount);
 
-  rpmA = ((unsigned long)(enA_tempCount - enA_lastCount) / (unsigned long)(micros() - lastCountCheckTime))/encoderPPR ;
-  rpmB = ((unsigned long)(enB_tempCount - enB_lastCount) / (unsigned long)(micros() - lastCountCheckTime))/encoderPPR;
+  timePeriod = (unsigned long)(micros() - lastCountCheckTime)/(1000000.0);
 
-  if(rpmA < rpmLowBound) rpmA = 0;
-  if(rpmB < rpmLowBound) rpmB = 0;
+  
+
+  rpmA = (enA_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmA*(1.0/10) ;
+  rpmB = (enB_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmB*(1.0/10) ;
+
+  //debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA));
+
+  //if(rpmA < rpmLowBound) rpmA = 0;
+  //if(rpmB < rpmLowBound) rpmB = 0;
 
   lastCountCheckTime = micros();
-  enA_lastCount = enA_tempCount;
-  enB_lastCount = enB_tempCount;
+  enA_lastCount = motorEncoderA_count;
+  enB_lastCount = motorEncoderB_count;
 }

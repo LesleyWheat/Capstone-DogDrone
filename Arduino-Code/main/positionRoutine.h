@@ -16,8 +16,8 @@
 
 #define encoderSamples 4
 #define encoderPPR 120
-#define speedCheckPeriod 50
-#define speedPrintOutPeriod 4000
+#define speedCheckPeriod 250
+#define speedPrintOutPeriod 1000
 #define rpmLowBound 25
 #define IMUUpdatePeriod 50
 
@@ -59,6 +59,7 @@ class positionRoutine {
     unsigned long enA_tempCount = 0;
     unsigned long enB_lastCount = 0;
     unsigned long enB_tempCount = 0;
+    float timePeriod = 0;
     unsigned long lastCountCheckTime = 0;
 
     //timers
@@ -85,8 +86,8 @@ class positionRoutine {
     //encoder
     unsigned long motorEncoderA_count = 0;
     unsigned long motorEncoderB_count = 0;
-    float rpmA = 0;
-    float rpmB = 0;
+    double rpmA = 0;
+    double rpmB = 0;
 
     //Public functions
     void init(int debugPrioritySetting);

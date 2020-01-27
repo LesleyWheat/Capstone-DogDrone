@@ -26,18 +26,14 @@ void diagnoticsRoutine::init(int debugPrioritySetting, byte batteryCompPin, byte
 };
 
 void diagnoticsRoutine::batteryMonitor(){
-  batteryLogCount++;
   
-  batteryVoltageComp_Avg = batteryVoltageComp_Avg * (batteryLogCount-1)/batteryLogCount + analogRead(batteryCompPin)/batteryLogCount;
-  batteryVoltageMotor_Avg = batteryVoltageMotor_Avg * (batteryLogCount-1)/batteryLogCount + analogRead(batteryMotorPin)*12.0/batteryLogCount;
+  batteryVoltageComp_Avg = batteryVoltageComp_Avg/2.0+ analogRead(batteryCompPin)*5.0/(1024.0*2.0);
+  batteryVoltageMotor_Avg = batteryVoltageMotor_Avg/2.0 + 3.33*analogRead(batteryMotorPin)*5.0/(2.0*1024.0);
 
-  if(batteryLogCount > logSizeBattery){
-    batteryLogCount=1;
-  }
   
   if(batteryPrintOut.check(true)){
     debugPrint(5, routineName, 5, String(F("Avg compbattery V: ")) + String(batteryVoltageComp_Avg));
-    //debugPrint(5, routineName, 5, String(F("Avg motorbattery V: ")) + String(batteryVoltageMotor_Avg));
+    debugPrint(5, routineName, 5, String(F("Avg motorbattery V: ")) + String(batteryVoltageMotor_Avg));
   };
 }
 

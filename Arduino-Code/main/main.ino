@@ -4,7 +4,6 @@
 
 //External libraries
 #include "arduino.h"
-#include <SoftwareSerial.h>
 
 //Modules
 #include "positionRoutine.h"
@@ -23,27 +22,22 @@ commRoutine comm;
 diagnoticsRoutine diagnotics;
 
 //Set input pins
+#define servoFeedback A2
 #define batteryMotorPin A1
-#define batteryCompPin A2
-#define rssiInPin A0
-#define encoderAPin_QA 8
-#define encoderBPin_QA 9
-#define encoderAPin_QB 10
-#define encoderBPin_QB 13
-#define serialRX 3
-#define serialTX 2
-#define sonarTrig A3
+#define batteryCompPin A0
+#define encoderAPin 2
+#define encoderBPin 3
+#define sonarTrig 7
 
 //Set output pins
-#define motorInPin1 4
-#define motorInPin2 7
-#define motorPWMA_Pin 5
-#define motorPWMB_Pin 6
+#define motorInPin1 12
+#define motorInPin2 13
+#define motorPWMA_Pin 9
+#define motorPWMB_Pin 10
 #define servoPWM_Pin 11
-#define sonarEchoPin 12
+#define sonarEchoPin 4
 
 //Define global objects
-SoftwareSerial mySerial(serialRX, serialTX); // RX, TX
 realTimer blinkTimer;
 realTimer echoTimer;
 
@@ -74,11 +68,9 @@ void setup() {
   //Input pins
   pinMode(batteryMotorPin, INPUT);
   pinMode(batteryCompPin, INPUT);
-  pinMode(rssiInPin, INPUT);
-  pinMode(encoderAPin_QA, INPUT_PULLUP);
-  pinMode(encoderBPin_QA, INPUT_PULLUP);
-  pinMode(encoderAPin_QB, INPUT_PULLUP);
-  pinMode(encoderBPin_QB, INPUT_PULLUP);
+  pinMode(servoFeedback, INPUT);
+  pinMode(encoderAPin, INPUT);
+  pinMode(encoderBPin, INPUT);
   pinMode(sonarEchoPin, INPUT);
 
   //Outputs
@@ -91,24 +83,22 @@ void setup() {
 
   //Motor setup
   digitalWrite(motorInPin1, HIGH);
+  //digitalWrite(motorInPin1, LOW);
   digitalWrite(motorInPin2, LOW);
-  analogWrite(motorPWMA_Pin, 100);
 
   //Declare objects
   blinkTimer.init(blinkPeriod);
   echoTimer.init(echoPeriod);
 
   //Initalize main routines
-  comm.init(debugPrioritySetting, rssiInPin, &mySerial);
+  comm.init(debugPrioritySetting);
   pos.init(debugPrioritySetting);
   control.init(debugPrioritySetting, motorInPin1, motorInPin2, motorPWMA_Pin, motorPWMB_Pin, servoPWM_Pin);
   diagnotics.init(debugPrioritySetting, batteryCompPin, batteryMotorPin);
 
   //Setup interupts
-  attachInterrupt(encoderAPin_QA, encoderIntermediateA, CHANGE);
-  attachInterrupt(encoderBPin_QA, encoderIntermediateB, CHANGE);
-  attachInterrupt(encoderAPin_QB, encoderIntermediateA, CHANGE);
-  attachInterrupt(encoderBPin_QB, encoderIntermediateB, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(encoderAPin), encoderInterrupt, RISING);
+  attachInterrupt(digitalPinToInterrupt(encoderBPin), encoderInterrupt, RISING);
   
   //Finish setup
   debugPrint(debugPrioritySetting, F("SET"), 5, F("Startup complete"));
@@ -130,6 +120,7 @@ void loop() {
 
   //Change led state to show board is running
   if(blinkState == 0){
+    //If this runs then it stops the motor
     digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
   }else{
     digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
@@ -137,7 +128,7 @@ void loop() {
   
   if(blinkTimer.check(true)){
       //Next state
-      blinkState = ((blinkState + 1)%2);    
+      //blinkState = ((blinkState + 1)%2);    
   };
 
   //Run echo on conditions
@@ -164,12 +155,18 @@ void loop() {
 
 
 //Encoder interrupt routines
-void encoderIntermediateA(){
-  pos.motorEncoderA_count++;
+void encoderInterrupt(void){
+  if(digitalRead(encoderAPin) == HIGH){
+    //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt A triggered")));
+    pos.motorEncoderA_count++;
+  }
+  
+  if(digitalRead(encoderBPin) == HIGH){
+    //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt B triggered")));
+    pos.motorEncoderB_count++;
+  }
+  
 }
 
-void encoderIntermediateB(){
-  pos.motorEncoderB_count++;
-}
 
 //Additional I/O

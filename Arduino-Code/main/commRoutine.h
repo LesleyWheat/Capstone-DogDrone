@@ -6,15 +6,12 @@
 #include "arduino.h"
 #include <ros.h>
 #include <std_msgs/String.h>
-#include <SoftwareSerial.h>
 
 //Internal libraries
 #include "realTimer.h"
 #include "miscFunctions.h"
 #include "miscFunctions.h"
 
-#define rssiUpdatePeriod 1000
-#define rssiReadPeriod 100
 #define contactTimeoutPeriod 60000
 
 class commRoutine {
@@ -24,23 +21,18 @@ class commRoutine {
     String routineName = "COM";
 
     //Pins
-    byte rssiInPin;
 
     //Objects
-    SoftwareSerial* mySerial;
     realTimer contactTimeout;
-    realTimer rssiUpdate;
-    realTimer rssiRead;
 
     //Private functions
     void establishContact();
     
   public:
     //Public variables
-    float rssi_raw = 0;
 
     //Public functions
-    void init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial* ss);
+    void init(int debugPrioritySetting);
     void run();
 };
 

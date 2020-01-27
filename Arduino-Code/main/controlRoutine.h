@@ -10,13 +10,15 @@
 #include "realTimer.h"
 #include "miscFunctions.h"
 
+//Minimum motor voltage is 9.75 or it will stall, pwm of approx 70/255
+
 //PID variables
-#define OUTPUT_MIN 20
-#define OUTPUT_MAX 100
-#define KP 1.5
-#define KI 0.7
-#define KD 0.1
-#define PIDupdatePeriod 100
+#define OUTPUT_MIN 40
+#define OUTPUT_MAX 200
+#define KP 0.2
+#define KI 0.2
+#define KD 0
+#define PIDupdatePeriod 500
 
 class controlRoutine {
   private:
@@ -43,8 +45,8 @@ class controlRoutine {
     byte left_currentPWM;
     byte right_currentPWM;
 
-    double motorA_setRPM =0;
-    double motorB_setRPM =0;
+    double motorA_setRPM = 200;
+    double motorB_setRPM = 200;
     double motorA_outPWM =0;
     double motorB_outPWM =0;
     byte testState = 0;
