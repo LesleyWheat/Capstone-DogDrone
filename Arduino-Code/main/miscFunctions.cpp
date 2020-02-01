@@ -19,7 +19,7 @@ void debugPrint(int debugPrioritySetting, String routine, int priority, String i
   
   if (Serial.available() > 0) {
     if(debugPrioritySetting >= priority){
-      message = String(F("debugPrint - ")) + String(priority) + F(" - ") + String(routine) + F(" - ") + String(info) + F(" - ") + String(freeMemory());
+      message = String( F("debugPrint - ")) + String(priority) + F(" - ") + String(routine) + F(" - ") + String(info);
       Serial.println(message);
     }
   }

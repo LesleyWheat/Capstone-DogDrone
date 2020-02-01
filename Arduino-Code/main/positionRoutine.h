@@ -2,6 +2,8 @@
 #ifndef POSITION_CLASS_H
 #define POSITION_CLASS_H
 
+//------------------------------------------------------
+
 //External libraries
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
@@ -13,6 +15,7 @@
 #include "realTimer.h"
 #include "miscFunctions.h"
 
+//-------------------------------------------------------
 
 #define encoderSamples 4
 #define encoderPPR 120
@@ -86,6 +89,8 @@ class positionRoutine {
     //encoder
     volatile unsigned long motorEncoderA_count = 0;
     volatile unsigned long motorEncoderB_count = 0;
+
+    //speed
     double rpmA = 0;
     double rpmB = 0;
 

@@ -1,14 +1,7 @@
 // Alarm/warning detection and monitoring
-
 #include "diagnosticsRoutine.h"
 
-
-//output other stats and information
-void diagnoticsRoutine::otherStats(){
-
-};
-  
-    
+     
 void diagnoticsRoutine::init(int debugPrioritySetting, byte batteryCompPin, byte batteryMotorPin){
   //Set local variables
   this->debugPrioritySetting=debugPrioritySetting;
@@ -25,6 +18,8 @@ void diagnoticsRoutine::init(int debugPrioritySetting, byte batteryCompPin, byte
   debugPrint(5, routineName, 5, String(F("Sram free startup: ")) + String(freeMemory()));
 };
 
+//-------------------------------------------------------------------------------------------------------------------
+
 void diagnoticsRoutine::batteryMonitor(){
   
   batteryVoltageComp_Avg = batteryVoltageComp_Avg/2.0+ analogRead(batteryCompPin)*5.0/(1024.0*2.0);
@@ -32,10 +27,13 @@ void diagnoticsRoutine::batteryMonitor(){
 
   
   if(batteryPrintOut.check(true)){
-    debugPrint(5, routineName, 5, String(F("Avg compbattery V: ")) + String(batteryVoltageComp_Avg));
-    debugPrint(5, routineName, 5, String(F("Avg motorbattery V: ")) + String(batteryVoltageMotor_Avg));
+    if(printOutBatt == 0) debugPrint(5, routineName, 5, String(F("Avg compbattery V: ")) + String(batteryVoltageComp_Avg));
+    if(printOutBatt == 1) debugPrint(5, routineName, 5, String(F("Avg motorbattery V: ")) + String(batteryVoltageMotor_Avg));
+    printOutBatt = (printOutBatt+1)%2;
   };
 }
+
+//--------------------------------------------------------------------------------------------------------------------
 
 void diagnoticsRoutine::cycleStats(){
   if((unsigned long)(micros()- cycleStartTime) > cycleTimeWarning){
@@ -84,6 +82,12 @@ void diagnoticsRoutine::cycleStats(){
   cycleStartTime = cycleEndTime;
 }
 
+//output other stats and information
+void diagnoticsRoutine::otherStats(){
+
+};
+
+//---------------------------------------------------------------------------------------------------------
 //runs in main loop
 void diagnoticsRoutine::run(){
   //Read inputs
