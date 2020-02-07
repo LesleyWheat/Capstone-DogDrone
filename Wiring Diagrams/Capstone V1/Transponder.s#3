@@ -7791,9 +7791,9 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <attribute name="NAME" x="98.044" y="30.861" size="1.778" layer="95" font="vector"/>
 <attribute name="VALUE" x="98.044" y="25.781" size="1.778" layer="96" font="vector"/>
 </instance>
-<instance part="S1" gate="1" x="66.04" y="124.46" smashed="yes" rot="R270">
-<attribute name="NAME" x="64.135" y="132.715" size="1.778" layer="95"/>
-<attribute name="VALUE" x="68.58" y="130.175" size="1.778" layer="96"/>
+<instance part="S1" gate="1" x="66.04" y="127" smashed="yes" rot="R270">
+<attribute name="NAME" x="64.135" y="135.255" size="1.778" layer="95"/>
+<attribute name="VALUE" x="68.58" y="132.715" size="1.778" layer="96"/>
 </instance>
 </instances>
 <busses>
@@ -8188,7 +8188,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <junction x="111.76" y="139.7"/>
 <pinref part="S1" gate="1" pin="P"/>
 <wire x1="60.96" y1="139.7" x2="111.76" y2="139.7" width="0.1524" layer="91"/>
-<wire x1="60.96" y1="124.46" x2="60.96" y2="139.7" width="0.1524" layer="91"/>
+<wire x1="60.96" y1="127" x2="60.96" y2="139.7" width="0.1524" layer="91"/>
 <junction x="60.96" y="139.7"/>
 </segment>
 </net>
@@ -8314,7 +8314,12 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <segment>
 <pinref part="C1" gate="G$1" pin="2"/>
 <pinref part="BT1" gate="G$1" pin="+"/>
-<wire x1="96.52" y1="127" x2="86.36" y2="127" width="0.1524" layer="91"/>
+<wire x1="96.52" y1="127" x2="91.44" y2="127" width="0.1524" layer="91"/>
+<pinref part="S1" gate="1" pin="O"/>
+<wire x1="91.44" y1="127" x2="86.36" y2="127" width="0.1524" layer="91"/>
+<wire x1="71.12" y1="129.54" x2="91.44" y2="129.54" width="0.1524" layer="91"/>
+<wire x1="91.44" y1="129.54" x2="91.44" y2="127" width="0.1524" layer="91"/>
+<junction x="91.44" y="127"/>
 </segment>
 </net>
 </nets>
@@ -8323,7 +8328,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <errors>
 <approved hash="102,1,160.02,121.92,VCC,3.3V,,,,"/>
 <approved hash="104,1,96.52,116.84,BT1,-,GND,,,"/>
-<approved hash="104,1,96.52,127,BT1,+,V_BATT,,,"/>
+<approved hash="104,1,96.52,127,BT1,+,N$1,,,"/>
 <approved hash="208,1,96.52,152.4,3.3V,out,,,,"/>
 <approved hash="208,1,101.6,157.48,3.3V,sup,,,,"/>
 <approved hash="208,1,160.02,121.92,3.3V,sup,,,,"/>

@@ -7599,6 +7599,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </variantdefs>
 <classes>
 <class number="0" name="default" width="0" drill="0">
+<clearance class="0" value="0.205"/>
 </class>
 </classes>
 <parts>
@@ -7768,7 +7769,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <junction x="91.44" y="106.68"/>
 </segment>
 </net>
-<net name="N$1" class="0">
+<net name="RXA" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="RX"/>
 <wire x1="68.58" y1="66.04" x2="68.58" y2="78.74" width="0.1524" layer="91"/>
@@ -7779,9 +7780,10 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <junction x="68.58" y="78.74"/>
 <pinref part="U1" gate="G$1" pin="B2"/>
 <wire x1="101.6" y1="83.82" x2="86.36" y2="83.82" width="0.1524" layer="91"/>
+<label x="83.82" y="81.28" size="1.778" layer="95" rot="R180"/>
 </segment>
 </net>
-<net name="N$3" class="0">
+<net name="DIN" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="DIN"/>
 <wire x1="160.02" y1="116.84" x2="154.94" y2="116.84" width="0.1524" layer="91"/>
@@ -7791,9 +7793,10 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <pinref part="JP2" gate="A" pin="8"/>
 <wire x1="154.94" y1="116.84" x2="142.24" y2="116.84" width="0.1524" layer="91"/>
 <junction x="154.94" y="116.84"/>
+<label x="142.24" y="81.28" size="1.778" layer="95" rot="R180"/>
 </segment>
 </net>
-<net name="N$2" class="0">
+<net name="TXA" class="0">
 <segment>
 <wire x1="88.9" y1="71.12" x2="71.12" y2="71.12" width="0.1524" layer="91"/>
 <pinref part="U$1" gate="G$1" pin="TX"/>
@@ -7804,6 +7807,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <pinref part="U1" gate="G$1" pin="B1"/>
 <wire x1="101.6" y1="81.28" x2="88.9" y2="81.28" width="0.1524" layer="91"/>
 <wire x1="88.9" y1="81.28" x2="88.9" y2="71.12" width="0.1524" layer="91"/>
+<label x="88.9" y="73.66" size="1.778" layer="95" rot="R180"/>
 </segment>
 </net>
 <net name="5V" class="0">
@@ -7839,7 +7843,8 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </segment>
 <segment>
 <pinref part="U1" gate="G$1" pin="VCCA"/>
-<wire x1="119.38" y1="66.04" x2="149.86" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="119.38" y1="66.04" x2="132.08" y2="66.04" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="66.04" x2="149.86" y2="66.04" width="0.1524" layer="91"/>
 <wire x1="149.86" y1="66.04" x2="149.86" y2="121.92" width="0.1524" layer="91"/>
 <pinref part="U$2" gate="G$1" pin="VCC"/>
 <wire x1="160.02" y1="121.92" x2="149.86" y2="121.92" width="0.1524" layer="91"/>
@@ -7848,6 +7853,9 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <junction x="149.86" y="121.92"/>
 <pinref part="JP2" gate="A" pin="10"/>
 <wire x1="142.24" y1="121.92" x2="149.86" y2="121.92" width="0.1524" layer="91"/>
+<pinref part="U1" gate="G$1" pin="OE"/>
+<wire x1="132.08" y1="76.2" x2="132.08" y2="66.04" width="0.1524" layer="91"/>
+<junction x="132.08" y="66.04"/>
 </segment>
 </net>
 <net name="N$4" class="0">
@@ -8059,7 +8067,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <wire x1="38.1" y1="20.32" x2="38.1" y2="40.64" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$27" class="0">
+<net name="DOUT" class="0">
 <segment>
 <pinref part="U1" gate="G$1" pin="A2"/>
 <wire x1="152.4" y1="83.82" x2="132.08" y2="83.82" width="0.1524" layer="91"/>
@@ -8069,6 +8077,7 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <pinref part="JP2" gate="A" pin="9"/>
 <wire x1="152.4" y1="119.38" x2="142.24" y2="119.38" width="0.1524" layer="91"/>
 <junction x="152.4" y="119.38"/>
+<label x="142.24" y="86.36" size="1.778" layer="95" rot="R180"/>
 </segment>
 </net>
 <net name="V_BATT" class="0">

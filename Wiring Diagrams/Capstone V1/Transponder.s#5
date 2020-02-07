@@ -7612,8 +7612,8 @@ This footprint was designed to help hold the alignment of a through-hole compone
 <part name="GND2" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="SparkFun-PowerSymbols" deviceset="5V" device=""/>
 <part name="LED1" library="led" deviceset="LED" device="5MM" value="POWERLED"/>
-<part name="R3" library="resistor" deviceset="R-US_" device="0207/12"/>
-<part name="R4" library="resistor" deviceset="R-US_" device="0207/12"/>
+<part name="R3" library="resistor" deviceset="R-US_" device="0207/12" value="47k"/>
+<part name="R4" library="resistor" deviceset="R-US_" device="0207/12" value="10k"/>
 <part name="GND3" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="J1" library="SparkFun-Connectors" deviceset="CONN_17" device="" value="ARD_H1"/>
 <part name="J2" library="SparkFun-Connectors" deviceset="CONN_17" device="" value="ARD_H2"/>
@@ -8239,6 +8239,8 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </sheets>
 <errors>
 <approved hash="102,1,160.02,121.92,VCC,3.3V,,,,"/>
+<approved hash="104,1,96.52,116.84,BT1,-,GND,,,"/>
+<approved hash="104,1,96.52,127,BT1,+,V_BATT,,,"/>
 <approved hash="208,1,96.52,152.4,3.3V,out,,,,"/>
 <approved hash="208,1,101.6,157.48,3.3V,sup,,,,"/>
 <approved hash="208,1,160.02,121.92,3.3V,sup,,,,"/>

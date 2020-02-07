@@ -7603,27 +7603,27 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </classes>
 <parts>
 <part name="FRAME1" library="SparkFun-Aesthetics" deviceset="FRAME-LETTER" device=""/>
-<part name="BT1" library="SparkFun-Batteries" deviceset="BATTERY" device="-20MM_SMD_4LEGS"/>
+<part name="BT1" library="SparkFun-Batteries" deviceset="BATTERY" device="-20MM_SMD_4LEGS" value="3.0"/>
 <part name="U$1" library="adafruit" deviceset="ARDUINOMICRO" device=""/>
 <part name="U$2" library="adafruit" deviceset="XBEE" device=""/>
 <part name="C1" library="SparkFun-Capacitors" deviceset="10NF" device="-PTH-10MM-10000V-1-%" value="10nF"/>
 <part name="GND1" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="GND2" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="SparkFun-PowerSymbols" deviceset="5V" device=""/>
-<part name="LED1" library="led" deviceset="LED" device="5MM"/>
+<part name="LED1" library="led" deviceset="LED" device="5MM" value="POWERLED"/>
 <part name="R3" library="resistor" deviceset="R-US_" device="0207/12"/>
 <part name="R4" library="resistor" deviceset="R-US_" device="0207/12"/>
 <part name="GND3" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
-<part name="J1" library="SparkFun-Connectors" deviceset="CONN_17" device=""/>
-<part name="J2" library="SparkFun-Connectors" deviceset="CONN_17" device=""/>
-<part name="U1" library="adafruit" deviceset="TXS0102" device=""/>
+<part name="J1" library="SparkFun-Connectors" deviceset="CONN_17" device="" value="ARD_H1"/>
+<part name="J2" library="SparkFun-Connectors" deviceset="CONN_17" device="" value="ARD_H2"/>
+<part name="U1" library="adafruit" deviceset="TXS0102" device="" value="LLC"/>
 <part name="U2" library="MIC5211-LXYM6-TR" deviceset="MIC5211-LXYM6-TR" device=""/>
 <part name="SUPPLY4" library="SparkFun-PowerSymbols" deviceset="3.3V" device=""/>
 <part name="SUPPLY1" library="SparkFun-PowerSymbols" deviceset="5V" device=""/>
 <part name="SUPPLY2" library="SparkFun-PowerSymbols" deviceset="3.3V" device=""/>
 <part name="SUPPLY5" library="SparkFun-PowerSymbols" deviceset="V_BATT" device=""/>
-<part name="JP1" library="pinhead-2" deviceset="PINHD-1X10" device="_2.00"/>
-<part name="JP2" library="pinhead-2" deviceset="PINHD-1X10" device="_2.00"/>
+<part name="JP1" library="pinhead-2" deviceset="PINHD-1X10" device="_2.00" value="XBEE_H2"/>
+<part name="JP2" library="pinhead-2" deviceset="PINHD-1X10" device="_2.00" value="XBEE_H1"/>
 <part name="C2" library="SparkFun-Capacitors" deviceset="10NF" device="-PTH-10MM-10000V-1-%" value="10nF"/>
 </parts>
 <sheets>
@@ -8228,6 +8228,16 @@ This footprint was designed to help hold the alignment of a through-hole compone
 </nets>
 </sheet>
 </sheets>
+<errors>
+<approved hash="102,1,160.02,121.92,VCC,3.3V,,,,"/>
+<approved hash="208,1,96.52,152.4,3.3V,out,,,,"/>
+<approved hash="208,1,101.6,157.48,3.3V,sup,,,,"/>
+<approved hash="208,1,160.02,121.92,3.3V,sup,,,,"/>
+<approved hash="208,1,149.86,127,3.3V,sup,,,,"/>
+<approved hash="208,1,88.9,43.18,5V,sup,,,,"/>
+<approved hash="208,1,96.52,149.86,5V,out,,,,"/>
+<approved hash="208,1,109.22,157.48,5V,sup,,,,"/>
+</errors>
 </schematic>
 </drawing>
 </eagle>
