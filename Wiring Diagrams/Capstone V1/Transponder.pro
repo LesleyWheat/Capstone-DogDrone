@@ -2,24 +2,24 @@ EAGLE AutoRouter Statistics:
 
 Job           : C:/Users/Lesley/Git_Repos/Capstone-DogDrone/Wiring Diagrams/Capstone V1/Transponder.brd
 
-Start at      : 22:43:38 (2020-02-02)
-End at        : 22:43:41 (2020-02-02)
-Elapsed time  : 00:00:01
+Start at      : 01:11:21 (2020-02-07)
+End at        : 01:11:29 (2020-02-07)
+Elapsed time  : 00:00:05
 
-Signals       :    54   RoutingGrid: 19.685 mil  Layers: 1
-Connections   :    83   predefined:  42 ( 0 Vias )
+Signals       :    55   RoutingGrid: 12 mil  Layers: 2
+Connections   :    87   predefined:  42 ( 0 Vias )
 
-Router memory :   91388
+Router memory :   662316
 
-Passname          :    Busses     Route Optimize1 Optimize2 Optimize3 Optimize4
+Passname          : TopRouter     Route Optimize1 Optimize2 Optimize3 Optimize4
 
-Time per pass     :  00:00:00  00:00:01  00:00:00  00:00:00  00:00:00  00:00:00
-Number of Ripups  :         0       127         0         0         0         0
-max. Level        :         0         4         0         0         0         0
-max. Total        :         0        13         0         0         0         0
+Time per pass     :  00:00:03  00:00:00  00:00:01  00:00:00  00:00:00  00:00:01
+Number of Ripups  :         0         0         0         0         0         0
+max. Level        :         0         0         0         0         0         0
+max. Total        :         0         0         0         0         0         0
 
-Routed            :         3        40        41        41        41        41
-Vias              :         0         0         0         0         0         0
-Resolution        :    54.2 %    98.8 %   100.0 %   100.0 %   100.0 %   100.0 %
+Routed            :        37        45        45        45        45        45
+Vias              :         0         0         2         2         2         0
+Resolution        :    90.8 %   100.0 %   100.0 %   100.0 %   100.0 %   100.0 %
 
-Final             : 96.4% finished. Polygons may have fallen apart.
+Final             : 100.0% finished
