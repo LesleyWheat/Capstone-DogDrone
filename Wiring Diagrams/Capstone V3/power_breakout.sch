@@ -4049,82 +4049,6 @@ CAP-09321</description>
 </deviceset>
 </devicesets>
 </library>
-<library name="jos-ph">
-<packages>
-<package name="POWERBOOST500">
-<wire x1="0" y1="18.75019375" x2="0" y2="2.54" width="0.127" layer="21"/>
-<wire x1="0" y1="2.54" x2="2.54" y2="0" width="0.127" layer="21" curve="90"/>
-<wire x1="2.54" y1="0" x2="11.938" y2="0" width="0.127" layer="21"/>
-<wire x1="11.938" y1="0" x2="33.02" y2="0" width="0.127" layer="21"/>
-<wire x1="33.02" y1="0" x2="35.56" y2="2.54" width="0.127" layer="21" curve="90"/>
-<wire x1="35.56" y1="2.54" x2="35.56" y2="18.75019375" width="0.127" layer="21"/>
-<wire x1="35.56" y1="18.75019375" x2="32.72019375" y2="21.59" width="0.127" layer="21" curve="90"/>
-<wire x1="32.72019375" y1="21.59" x2="2.83980625" y2="21.59" width="0.127" layer="21"/>
-<wire x1="2.83980625" y1="21.59" x2="0" y2="18.75019375" width="0.127" layer="21" curve="90"/>
-<pad name="4" x="17.78" y="20.32" drill="1.016"/>
-<pad name="5" x="20.32" y="20.32" drill="1.016"/>
-<pad name="6" x="22.86" y="20.32" drill="1.016"/>
-<pad name="3" x="15.24" y="20.32" drill="1.016"/>
-<pad name="2" x="12.7" y="20.32" drill="1.016"/>
-<pad name="7" x="25.4" y="20.32" drill="1.016"/>
-<pad name="8" x="27.94" y="20.32" drill="1.016"/>
-<pad name="1" x="10.16" y="20.32" drill="1.016"/>
-<hole x="2.54" y="19.05" drill="2.54"/>
-<hole x="2.54" y="2.54" drill="2.54"/>
-<hole x="33.02" y="17.78" drill="2.54"/>
-<hole x="33.02" y="3.81" drill="2.54"/>
-<text x="14.478" y="15.494" size="1.27" layer="21">LiPo Charger 500C</text>
-<wire x1="11.938" y1="0" x2="11.938" y2="2.032" width="0.127" layer="21"/>
-<wire x1="0.254" y1="10.668" x2="2.286" y2="10.668" width="0.127" layer="21"/>
-</package>
-</packages>
-<symbols>
-<symbol name="POWERBOOST500">
-<description>Adafruit PowerBoost</description>
-<pin name="USBIN" x="-15.24" y="-7.62" length="middle"/>
-<pin name="GND1" x="-15.24" y="-5.08" length="middle"/>
-<pin name="BAT" x="-15.24" y="-2.54" length="middle"/>
-<pin name="EN" x="-15.24" y="0" length="middle"/>
-<pin name="GND2" x="-15.24" y="2.54" length="middle"/>
-<pin name="LB" x="-15.24" y="5.08" length="middle"/>
-<pin name="GND3" x="-15.24" y="7.62" length="middle"/>
-<pin name="5V" x="-15.24" y="10.16" length="middle"/>
-<wire x1="-10.16" y1="12.7" x2="-10.16" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="-10.16" y1="-10.16" x2="5.08" y2="-10.16" width="0.254" layer="94"/>
-<wire x1="5.08" y1="-10.16" x2="5.08" y2="12.7" width="0.254" layer="94"/>
-<wire x1="5.08" y1="12.7" x2="-10.16" y2="12.7" width="0.254" layer="94"/>
-<text x="-11.43" y="-13.97" size="1.778" layer="95">POWERBOOST</text>
-</symbol>
-</symbols>
-<devicesets>
-<deviceset name="POWERBOOST500C">
-<description>Adafruit PowerBoost 500c
-
-https://www.adafruit.com/products/1944
-*UNPROVEN*</description>
-<gates>
-<gate name="G$1" symbol="POWERBOOST500" x="2.54" y="0"/>
-</gates>
-<devices>
-<device name="" package="POWERBOOST500">
-<connects>
-<connect gate="G$1" pin="5V" pad="8"/>
-<connect gate="G$1" pin="BAT" pad="3"/>
-<connect gate="G$1" pin="EN" pad="4"/>
-<connect gate="G$1" pin="GND1" pad="2"/>
-<connect gate="G$1" pin="GND2" pad="5"/>
-<connect gate="G$1" pin="GND3" pad="7"/>
-<connect gate="G$1" pin="LB" pad="6"/>
-<connect gate="G$1" pin="USBIN" pad="1"/>
-</connects>
-<technologies>
-<technology name=""/>
-</technologies>
-</device>
-</devices>
-</deviceset>
-</devicesets>
-</library>
 <library name="led">
 <description>&lt;b&gt;LEDs&lt;/b&gt;&lt;p&gt;
 &lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;&lt;br&gt;
@@ -6258,7 +6182,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="FRAME1" library="SparkFun-Aesthetics" deviceset="FRAME-LETTER" device="NO_PACKAGE" value="FRAME-LETTERNO_PACKAGE">
 <attribute name="DESIGNER" value="Lesley Wheat"/>
 </part>
-<part name="U$1" library="jos-ph" deviceset="POWERBOOST500C" device=""/>
 <part name="SUPPLY4" library="SparkFun-PowerSymbols" deviceset="5V" device=""/>
 <part name="GND5" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="S1" library="adafruit" deviceset="EG1213" device=""/>
@@ -6305,7 +6228,6 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="DRAWING_NAME" x="162.814" y="17.78" size="2.7432" layer="94" font="vector"/>
 <attribute name="DESIGNER" x="170.434" y="11.176" size="2.7432" layer="94" font="vector"/>
 </instance>
-<instance part="U$1" gate="G$1" x="196.85" y="167.64" smashed="yes" rot="R90"/>
 <instance part="SUPPLY4" gate="G$1" x="144.78" y="157.48" smashed="yes">
 <attribute name="VALUE" x="144.78" y="160.274" size="1.778" layer="96" align="bottom-center"/>
 </instance>
@@ -6486,11 +6408,9 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <junction x="99.06" y="175.26"/>
 </segment>
 <segment>
-<pinref part="U$1" gate="G$1" pin="GND3"/>
-<wire x1="189.23" y1="152.4" x2="189.23" y2="115.57" width="0.1524" layer="91"/>
+<wire x1="189.23" y1="179.07" x2="189.23" y2="115.57" width="0.1524" layer="91"/>
 <wire x1="201.93" y1="115.57" x2="189.23" y2="115.57" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="GND1"/>
-<wire x1="201.93" y1="152.4" x2="201.93" y2="115.57" width="0.1524" layer="91"/>
+<wire x1="201.93" y1="179.07" x2="201.93" y2="115.57" width="0.1524" layer="91"/>
 <pinref part="R3" gate="G$1" pin="1"/>
 <wire x1="163.83" y1="107.95" x2="182.88" y2="107.95" width="0.1524" layer="91"/>
 <wire x1="182.88" y1="107.95" x2="189.23" y2="107.95" width="0.1524" layer="91"/>
@@ -6500,11 +6420,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="182.88" y1="105.41" x2="182.88" y2="107.95" width="0.1524" layer="91"/>
 <junction x="182.88" y="107.95"/>
 <pinref part="JP2" gate="A" pin="2"/>
-<wire x1="189.23" y1="152.4" x2="189.23" y2="179.07" width="0.1524" layer="91"/>
-<junction x="189.23" y="152.4"/>
 <pinref part="JP2" gate="A" pin="7"/>
-<wire x1="201.93" y1="152.4" x2="201.93" y2="179.07" width="0.1524" layer="91"/>
-<junction x="201.93" y="152.4"/>
 </segment>
 </net>
 <net name="5V" class="0">
@@ -6625,26 +6541,20 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <segment>
 <pinref part="S1" gate="1" pin="O"/>
 <wire x1="186.69" y1="139.7" x2="180.34" y2="139.7" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="5V"/>
-<wire x1="186.69" y1="139.7" x2="186.69" y2="152.4" width="0.1524" layer="91"/>
 <pinref part="JP2" gate="A" pin="1"/>
-<wire x1="186.69" y1="152.4" x2="186.69" y2="179.07" width="0.1524" layer="91"/>
-<junction x="186.69" y="152.4"/>
+<wire x1="186.69" y1="139.7" x2="186.69" y2="179.07" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="V_BATT" class="0">
 <segment>
 <pinref part="SUPPLY8" gate="G$1" pin="V_BATT"/>
-<pinref part="U$1" gate="G$1" pin="BAT"/>
-<wire x1="199.39" y1="152.4" x2="199.39" y2="151.13" width="0.1524" layer="91"/>
 <wire x1="199.39" y1="151.13" x2="199.39" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="199.39" y1="139.7" x2="217.17" y2="139.7" width="0.1524" layer="91"/>
 <wire x1="217.17" y1="139.7" x2="217.17" y2="154.94" width="0.1524" layer="91"/>
 <wire x1="199.39" y1="151.13" x2="111.76" y2="151.13" width="0.1524" layer="91"/>
 <label x="111.76" y="153.67" size="1.778" layer="95" rot="R90"/>
 <pinref part="JP2" gate="A" pin="6"/>
-<wire x1="199.39" y1="152.4" x2="199.39" y2="179.07" width="0.1524" layer="91"/>
-<junction x="199.39" y="152.4"/>
+<wire x1="199.39" y1="151.13" x2="199.39" y2="179.07" width="0.1524" layer="91"/>
 <pinref part="JP1" gate="A" pin="3"/>
 <wire x1="104.14" y1="177.8" x2="104.14" y2="172.72" width="0.1524" layer="91"/>
 <wire x1="104.14" y1="172.72" x2="111.76" y2="172.72" width="0.1524" layer="91"/>
@@ -6728,28 +6638,24 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </net>
 <net name="N$4" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="LB"/>
 <pinref part="JP2" gate="A" pin="3"/>
 <wire x1="191.77" y1="152.4" x2="191.77" y2="179.07" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$5" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="GND2"/>
 <pinref part="JP2" gate="A" pin="4"/>
 <wire x1="194.31" y1="152.4" x2="194.31" y2="179.07" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$6" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="EN"/>
 <pinref part="JP2" gate="A" pin="5"/>
 <wire x1="196.85" y1="152.4" x2="196.85" y2="179.07" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$7" class="0">
 <segment>
-<pinref part="U$1" gate="G$1" pin="USBIN"/>
 <pinref part="JP2" gate="A" pin="8"/>
 <wire x1="204.47" y1="152.4" x2="204.47" y2="179.07" width="0.1524" layer="91"/>
 </segment>

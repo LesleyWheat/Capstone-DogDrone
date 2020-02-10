@@ -196,6 +196,7 @@
 <dimension x1="90.17" y1="6.35" x2="99.06" y2="6.35" x3="94.615" y3="-10.16" textsize="1.778" layer="47"/>
 <dimension x1="99.06" y1="-10.16" x2="116.84" y2="-10.16" x3="107.95" y3="-10.16" textsize="1.778" layer="47"/>
 <text x="35.56" y="39.37" size="1.778" layer="16" rot="MR0">BATIN</text>
+<text x="53.34" y="39.37" size="1.778" layer="16" rot="MR0">POW</text>
 </plain>
 <libraries>
 <library name="SparkFun-Capacitors">
