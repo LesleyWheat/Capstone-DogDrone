@@ -8458,6 +8458,7 @@ Comments, suggestions and bug reports please send to: &lt;b&gt;&lt;a href="mailt
 <sheet>
 <plain>
 <text x="166.37" y="11.43" size="2.54" layer="94">Lesley Wheat</text>
+<text x="238.76" y="7.62" size="2.54" layer="94">1.0</text>
 </plain>
 <instances>
 <instance part="FRAME1" gate="G$1" x="0" y="0"/>
@@ -8612,6 +8613,8 @@ Comments, suggestions and bug reports please send to: &lt;b&gt;&lt;a href="mailt
 </sheet>
 <sheet>
 <plain>
+<text x="165.1" y="11.43" size="2.54" layer="94">Lesley Wheat</text>
+<text x="237.49" y="7.62" size="2.54" layer="94">1.0</text>
 </plain>
 <instances>
 <instance part="FRAME2" gate="G$1" x="0" y="0"/>
@@ -9377,6 +9380,8 @@ Comments, suggestions and bug reports please send to: &lt;b&gt;&lt;a href="mailt
 </sheet>
 <sheet>
 <plain>
+<text x="166.37" y="11.43" size="2.54" layer="94">Lesley Wheat</text>
+<text x="238.76" y="7.62" size="2.54" layer="94">1.0</text>
 </plain>
 <instances>
 <instance part="FRAME3" gate="G$1" x="0" y="0"/>

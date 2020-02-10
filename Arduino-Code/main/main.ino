@@ -20,10 +20,10 @@
 //---------------------------------------------------------------------------------
 //PIN MAP
 //INPUT
-#define servoFeedback A2
-#define batteryMotorPin A1
-#define batteryCompPin A0
-#define sonarEchoPin 48
+#define servoFeedback A1
+#define batteryMotorPin 
+#define batteryCompPin A2
+#define sonarEchoPin 23
 #define rssiInPin A3
 
 //Interupts
