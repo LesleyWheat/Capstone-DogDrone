@@ -8099,7 +8099,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="160.02" y1="106.68" x2="142.24" y2="106.68" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$48" class="0">
+<net name="RSSI" class="0">
 <segment>
 <pinref part="U$2" gate="G$1" pin="PWM0/RSSI"/>
 <pinref part="JP2" gate="A" pin="5"/>
@@ -8117,6 +8117,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <wire x1="96.52" y1="38.1" x2="45.72" y2="38.1" width="0.1524" layer="91"/>
 <junction x="96.52" y="38.1"/>
 <junction x="45.72" y="38.1"/>
+<label x="99.06" y="38.1" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$49" class="0">

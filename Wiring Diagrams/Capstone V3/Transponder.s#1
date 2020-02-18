@@ -7508,8 +7508,8 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="GND2" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="SUPPLY3" library="SparkFun-PowerSymbols" deviceset="5V" device=""/>
 <part name="LED1" library="led" deviceset="LED" device="5MM" value="POWERLED"/>
-<part name="R3" library="resistor" deviceset="R-US_" device="0207/12" value="47k"/>
-<part name="R4" library="resistor" deviceset="R-US_" device="0207/12" value="10k"/>
+<part name="R3" library="resistor" deviceset="R-US_" device="0207/12" value="47"/>
+<part name="R4" library="resistor" deviceset="R-US_" device="0207/12" value="10"/>
 <part name="GND3" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="J1" library="SparkFun-Connectors" deviceset="CONN_17" device="NOSILK" value="ARD_H1"/>
 <part name="J2" library="SparkFun-Connectors" deviceset="CONN_17" device="NOSILK" value="ARD_H2"/>

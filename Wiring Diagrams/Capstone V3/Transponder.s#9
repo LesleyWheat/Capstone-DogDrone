@@ -7490,6 +7490,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </libraries>
 <attributes>
 <attribute name="CNAME" value="Lesley Wheat"/>
+<attribute name="VERSION" value="v1.2"/>
 </attributes>
 <variantdefs>
 </variantdefs>
@@ -7618,7 +7619,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <attribute name="SHEET" x="233.68" y="1.27" size="2.54" layer="94" font="vector"/>
 <attribute name="DRAWING_NAME" x="162.814" y="17.78" size="2.7432" layer="94" font="vector"/>
 <attribute name="DESIGNER" x="167.894" y="11.176" size="2.7432" layer="94" font="vector"/>
-<attribute name="VERSION" x="147.32" y="0" size="1.778" layer="96"/>
+<attribute name="VERSION" x="147.32" y="0" size="1.778" layer="96" display="off"/>
 </instance>
 <instance part="IC1" gate="1" x="22.86" y="144.78" smashed="yes" rot="R90">
 <attribute name="NAME" x="30.48" y="147.32" size="1.778" layer="95" rot="R90"/>

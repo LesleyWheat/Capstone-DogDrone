@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE eagle SYSTEM "eagle.dtd">
-<eagle version="9.5.1">
+<eagle version="9.5.2">
 <drawing>
 <settings>
 <setting alwaysvectorfont="no"/>
@@ -7500,7 +7500,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 </class>
 </classes>
 <parts>
-<part name="BT1" library="SparkFun-Batteries" deviceset="BATTERY" device="-20MM_SMD_4LEGS" value="3.0"/>
+<part name="BT1" library="SparkFun-Batteries" deviceset="BATTERY" device="-20MM_SMD_4LEGS" value="6.0"/>
 <part name="U$1" library="adafruit" deviceset="ARDUINOMICRO" device=""/>
 <part name="U$2" library="adafruit" deviceset="XBEE" device=""/>
 <part name="C1" library="SparkFun-Capacitors" deviceset="10NF" device="-PTH-10MM-10000V-1-%" value="10nF"/>
@@ -7509,7 +7509,7 @@ You are welcome to use this library for commercial purposes. For attribution, we
 <part name="SUPPLY3" library="SparkFun-PowerSymbols" deviceset="5V" device=""/>
 <part name="LED1" library="led" deviceset="LED" device="5MM" value="POWERLED"/>
 <part name="R3" library="resistor" deviceset="R-US_" device="0207/12" value="47"/>
-<part name="R4" library="resistor" deviceset="R-US_" device="0207/12" value="10"/>
+<part name="R4" library="resistor" deviceset="R-US_" device="0207/12" value="47"/>
 <part name="GND3" library="SparkFun-PowerSymbols" deviceset="GND" device=""/>
 <part name="J1" library="SparkFun-Connectors" deviceset="CONN_17" device="NOSILK" value="ARD_H1"/>
 <part name="J2" library="SparkFun-Connectors" deviceset="CONN_17" device="NOSILK" value="ARD_H2"/>

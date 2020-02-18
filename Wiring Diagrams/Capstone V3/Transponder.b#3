@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="1" unitdist="inch" unit="inch" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
+<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="16" fill="1" visible="no" active="no"/>
@@ -161,10 +161,10 @@
 </layers>
 <board>
 <plain>
-<wire x1="0" y1="0" x2="44.755" y2="0" width="0" layer="20"/>
-<wire x1="44.755" y1="0" x2="44.755" y2="80" width="0" layer="20"/>
-<wire x1="44.755" y1="80" x2="0" y2="80" width="0" layer="20"/>
-<wire x1="0" y1="80" x2="0" y2="0" width="0" layer="20"/>
+<wire x1="0" y1="0" x2="39.675" y2="0" width="0" layer="20"/>
+<wire x1="39.675" y1="0" x2="39.675" y2="72.38" width="0" layer="20"/>
+<wire x1="39.675" y1="72.38" x2="0" y2="72.38" width="0" layer="20"/>
+<wire x1="0" y1="72.38" x2="0" y2="0" width="0" layer="20"/>
 <text x="17.78" y="64.77" size="1.778" layer="16" rot="MR0">Xbee</text>
 <text x="12.7" y="2.54" size="1.778" layer="16" rot="MR0">ARD</text>
 </plain>
