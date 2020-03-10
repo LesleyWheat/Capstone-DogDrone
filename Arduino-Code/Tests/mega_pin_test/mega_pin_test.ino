@@ -31,16 +31,16 @@
 //Motor Driver
 #define motorOp1 12
 #define motorOp2 13
-#define motorRearA_PWM 9
-#define motorRearB_PWM 8
-#define motorFrontA_PWM 11
-#define motorFrontB_PWM 10
+#define motorFrontA_PWM 9
+#define motorFrontB_PWM 8
+#define motorRearA_PWM 11
+#define motorRearB_PWM 10
 
 //Motor Encoders
-#define motorRearA_Encoder 3
-#define motorRearB_Encoder 2
-#define motorFrontA_Encoder 19
-#define motorFrontB_Encoder 18
+#define motorFrontA_Encoder 3
+#define motorFrontB_Encoder 2
+#define motorRearA_Encoder 19
+#define motorRearB_Encoder 18
 
 //Servo pins
 
@@ -60,6 +60,12 @@ float batMV = 0;
     sensors_event_t mag_event;
 
 void setup() {
+  //Pin setup
+  pinMode(motorFrontA_PWM, OUTPUT);
+  pinMode(motorFrontB_PWM, OUTPUT);
+  pinMode(motorRearA_PWM, OUTPUT);
+  pinMode(motorRearB_PWM, OUTPUT);
+  
   // put your setup code here, to run once:
   Serial.begin(115200);
   while (!Serial) {
@@ -73,6 +79,14 @@ void setup() {
   
   Serial2.begin(9600);
   Serial3.begin(9600);
+
+  digitalWrite(motorOp1, LOW);
+  digitalWrite(motorOp2, HIGH);
+
+  analogWrite(motorFrontA_PWM, 155);
+  analogWrite(motorFrontB_PWM, 155);
+  analogWrite(motorRearA_PWM, 155);
+  analogWrite(motorRearB_PWM, 155);
 
   digitalWrite(sonarTrig, LOW);
 }
