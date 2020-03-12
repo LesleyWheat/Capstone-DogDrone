@@ -80,8 +80,8 @@ void setup() {
   Serial2.begin(9600);
   Serial3.begin(9600);
 
-  digitalWrite(motorOp1, LOW);
-  digitalWrite(motorOp2, HIGH);
+  digitalWrite(motorOp1, HIGH);
+  digitalWrite(motorOp2, LOW);
 
   analogWrite(motorFrontA_PWM, 155);
   analogWrite(motorFrontB_PWM, 155);
