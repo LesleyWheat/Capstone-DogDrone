@@ -1,9 +1,11 @@
 /*
-  
+  DogDrone Arduino Mega Pins
 */
 
+//------------------------------------------------------------------------------
 //External libraries
 #include "arduino.h"
+#include <SoftwareSerial.h>
 
 //Modules
 #include "positionRoutine.h"
@@ -11,36 +13,51 @@
 #include "diagnosticsRoutine.h"
 #include "commRoutine.h"
 
-//Include functions
+//Functions
 #include "realTimer.h"
 #include "miscFunctions.h"
 
-//Declare Objects
+//---------------------------------------------------------------------------------
+//PIN MAP
+//INPUT
+#define servoFeedback A1
+#define batteryMotorPin 
+#define batteryCompPin A2
+#define sonarEchoPin 23
+#define rssiInPin A3
+
+//Interupts
+#define encoderAPin 12
+#define encoderBPin 13
+
+//Serial comm
+#define serialRX 3
+#define serialTX 2
+
+//OUTPUT
+#define motorInPin1 12
+#define motorInPin2 13
+#define sonarTrig 49
+
+//PWM
+#define motorPWMA_Pin 5
+#define motorPWMB_Pin 6
+#define servoPWM_Pin 7
+
+//-------------------------------------------------------------------------------
+//OBJECTS
+//Object Routines
 positionRoutine pos;
 controlRoutine control;
 commRoutine comm;
 diagnoticsRoutine diagnotics;
 
-//Set input pins
-#define servoFeedback A2
-#define batteryMotorPin A1
-#define batteryCompPin A0
-#define encoderAPin 2
-#define encoderBPin 3
-#define sonarTrig 7
-
-//Set output pins
-#define motorInPin1 12
-#define motorInPin2 13
-#define motorPWMA_Pin 9
-#define motorPWMB_Pin 10
-#define servoPWM_Pin 11
-#define sonarEchoPin 4
-
-//Define global objects
+//Loop objects
+SoftwareSerial mySerial(serialRX, serialTX); // RX, TX
 realTimer blinkTimer;
 realTimer echoTimer;
 
+//-----------------------------------------------------------------------------
 //Define system variables
 #define DEBUG 1
 #define WIRED 1
@@ -49,17 +66,20 @@ realTimer echoTimer;
 // 5 is all msgs, higher filters out lower priority msgs
 #define debugPrioritySetting 5
 
+//-----------------------------------------------------------------------------
+//VARIABLES
 //global variables for main
 byte blinkState = 0;
 byte echoFlag = 0;
 int echoDuration = 0;
 
-//Variables for interupt
+//Interupts
 volatile byte encoderAPinState = LOW;
 volatile byte encoderBPinState = LOW;
-  
+
+//----------------------------------------------------------------------------
+//SETUP
 // the setup function runs once when you press reset or power the board
-//Runs only once at setup
 void setup() {
   #ifdef DEBUG
   #endif
@@ -73,6 +93,8 @@ void setup() {
   pinMode(batteryMotorPin, INPUT);
   pinMode(batteryCompPin, INPUT);
   pinMode(servoFeedback, INPUT);
+  
+  pinMode(rssiInPin, INPUT);
   pinMode(encoderAPin, INPUT);
   pinMode(encoderBPin, INPUT);
   pinMode(sonarEchoPin, INPUT);
@@ -80,22 +102,23 @@ void setup() {
   //Outputs
   pinMode(motorInPin1, OUTPUT);
   pinMode(motorInPin2, OUTPUT);
+  pinMode(sonarTrig, OUTPUT);
+  
   pinMode(motorPWMA_Pin, OUTPUT);
   pinMode(motorPWMB_Pin, OUTPUT);
   pinMode(servoPWM_Pin, OUTPUT);
-  pinMode(sonarTrig, OUTPUT);
 
   //Motor setup
   digitalWrite(motorInPin1, HIGH);
   //digitalWrite(motorInPin1, LOW);
   digitalWrite(motorInPin2, LOW);
 
-  //Declare objects
+  //Declare objects for loop routine
   blinkTimer.init(blinkPeriod);
   echoTimer.init(echoPeriod);
 
   //Initalize main routines
-  comm.init(debugPrioritySetting);
+  comm.init(debugPrioritySetting, rssiInPin, &mySerial);
   pos.init(debugPrioritySetting);
   control.init(debugPrioritySetting, motorInPin1, motorInPin2, motorPWMA_Pin, motorPWMB_Pin, servoPWM_Pin, servoFeedback);
   diagnotics.init(debugPrioritySetting, batteryCompPin, batteryMotorPin);
@@ -108,7 +131,8 @@ void setup() {
   debugPrint(debugPrioritySetting, F("SET"), 5, F("Startup complete"));
 }
 
-// the loop function runs over and over again forever
+//----------------------------------------------------------------------------------------
+//LOOP
 void loop() {
   
   //str_msg.data = hello;
@@ -132,20 +156,12 @@ void loop() {
   
   if(blinkTimer.check(true)){
       //Next state
-      //blinkState = ((blinkState + 1)%2);    
+      blinkState = ((blinkState + 1)%2);    
   };
 
   //Run echo on conditions
-  if(echoTimer.check(true) || echoFlag == 1){
-    if (echoFlag == 0){
-      digitalWrite(sonarTrig, HIGH);
-      echoFlag = 1;
-    }else{
-      echoFlag = 0;
-      digitalWrite(sonarTrig, LOW);
-      echoDuration = pulseIn(sonarEchoPin, HIGH, 10000);
-      debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Echo duration: ")) + String(echoDuration));
-    }
+  if(echoTimer.check(true)){
+    echo();
   }
 
   
@@ -157,6 +173,7 @@ void loop() {
   //Diagnostics includes delay to target cycle time
 }
 
+//-----------------------------------------------------------------------------------------
 
 //Encoder interrupt routines
 void encoderInterrupt(void){
@@ -176,3 +193,14 @@ void encoderInterrupt(void){
 
 
 //Additional I/O
+void echo(void){
+  if (echoFlag == 0){
+      digitalWrite(sonarTrig, HIGH);
+      echoFlag = 1;
+    }else{
+      echoFlag = 0;
+      digitalWrite(sonarTrig, LOW);
+      echoDuration = pulseIn(sonarEchoPin, HIGH, 8000);
+      debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Echo duration: ")) + String(echoDuration));
+    }
+}

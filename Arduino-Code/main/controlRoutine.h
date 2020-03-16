@@ -2,6 +2,8 @@
 #ifndef CONTROL_CLASS_H
 #define CONTROL_CLASS_H
 
+//-----------------------------------------------
+
 //Libraries
 #include "arduino.h"
 #include <PID_v1.h>
@@ -9,6 +11,8 @@
 //local functions
 #include "realTimer.h"
 #include "miscFunctions.h"
+
+//-----------------------------------------------
 
 //Minimum motor voltage is 9.75 or it will stall, pwm of approx 70/255
 
@@ -19,6 +23,8 @@
 #define KI 0.2
 #define KD 0
 #define PIDupdatePeriod 500
+
+//-----------------------------------------------
 
 class controlRoutine {
   private:

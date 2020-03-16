@@ -1,7 +1,6 @@
 //Control module
 #include "controlRoutine.h"
 
-
 void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin, byte servoFeedback){
   //Set local variables
   this->debugPrioritySetting=debugPrioritySetting;
@@ -35,6 +34,7 @@ void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motor
   
 };
 
+//------------------------------------------------------------------------------------------------
 //Set target motor values
 void controlRoutine::setMotor(byte spd, byte dir, int accel){
   //debugPrint(5, routineName, 5, String("Motor set to: ") + String(spd));
@@ -46,6 +46,7 @@ void controlRoutine::setMotor(byte spd, byte dir, int accel){
   motorB_setRPM = (spd + (50-(100-dir))*spd/50);
 };
 
+//-----------------------------------------------------------------------------------------------
 //Set up tests to cycle through modes
 void controlRoutine::testStateMachine(){
   if(timerTest.check(true)){
@@ -82,10 +83,12 @@ void controlRoutine::testStateMachine(){
   };
 };
 
+//----------------------------------------------------------------------------------------------
 void controlRoutine::set(float angle, float targetSpeed){
   
 }
 
+//----------------------------------------------------------------------------------------------
 //Runs in main loop
 void controlRoutine::run(double rpmA, double rpmB){
   //Read inputs

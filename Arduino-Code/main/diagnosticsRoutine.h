@@ -2,16 +2,24 @@
 #ifndef DIAG_CLASS_H
 #define DIAG_CLASS_H
 
+//---------------------------------------
+
+//Libraries
 #include "arduino.h"
+
+//local functions
 #include "realTimer.h"
 #include "miscFunctions.h"
 
+//---------------------------------------
+
 #define cycleOverhead 200
 #define cyclePrintOut_Period 10000
-#define batteryPrintOut_Period 5000
+#define batteryPrintOut_Period 10000
 #define batteryPoll_Period 1000
 #define cycleTimeWarning 10000
 #define targetCycleTime 5000
+
 
 class diagnoticsRoutine {
   private:
@@ -21,6 +29,7 @@ class diagnoticsRoutine {
     String routineName = "DIA";
     int debugPrioritySetting;
     byte printOutFlag = 0;
+    byte printOutBatt = 0;
 
     //input pins
     byte batteryCompPin;

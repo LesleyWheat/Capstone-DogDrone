@@ -24,11 +24,11 @@ void setup() {
   while (!Serial) {
     ; // wait for serial port to connect. Needed for Native USB only
   }
-  //while ((Serial.available() <= 0) ) {
-        //Serial.print('B');   // send a capital A
-        //delay(500);
-      //}
-      //Serial.println(' ');
+  while ((Serial.available() <= 0) ) {
+        Serial.print('B');   // send a capital A
+        delay(500);
+      }
+      Serial.println(' ');
 
   //Serial.println("Goodnight moon!\n");
   // set the data rate for the SoftwareSerial port
@@ -64,8 +64,9 @@ void loop() {
     
   }
 
-  if (millis()%500 == 0){
+  if (millis()%1000 == 0){
     mySerial.write("a");
+    Serial.println("a");
   }
 
   //if (Serial.available() > 0){

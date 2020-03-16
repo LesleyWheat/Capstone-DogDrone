@@ -28,6 +28,7 @@ void positionRoutine::init(int debugPrioritySetting){
   
 }
 
+//-------------------------------------------------------------------------------------------------------
 void positionRoutine::updatedof(void){
   // Mag calibration values are calculated via ahrs_calibration.
   // These values must be determined for each baord/environment.
@@ -71,13 +72,36 @@ void positionRoutine::updatedof(void){
                 
 }
 
+//-------------------------------------------------------------------------------------------------
 void positionRoutine::updateAccel(void){
   accelX_lowpass = accelX/2 + accelX_lowpass/2;
   accelY_lowpass = accelY/2 + accelY_lowpass/2;
   accelZ_lowpass = accelZ/2 + accelZ_lowpass/2;
 }
 
+//-------------------------------------------------------------------------------------------------
+void positionRoutine::updateSpeed(void){
+  enA_tempCount = (unsigned long)(motorEncoderA_count - enA_lastCount);
+  enB_tempCount = (unsigned long)(motorEncoderB_count - enB_lastCount);
 
+  timePeriod = (unsigned long)(micros() - lastCountCheckTime)/(1000000.0);
+
+  
+
+  rpmA = (enA_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmA*(1.0/10) ;
+  rpmB = (enB_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmB*(1.0/10) ;
+
+  //debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA));
+
+  //if(rpmA < rpmLowBound) rpmA = 0;
+  //if(rpmB < rpmLowBound) rpmB = 0;
+
+  lastCountCheckTime = micros();
+  enA_lastCount = motorEncoderA_count;
+  enB_lastCount = motorEncoderB_count;
+}
+
+//----------------------------------------------------------------------------------------------
 //runs in main loop
 void positionRoutine::run(){
   if(IMUUpdate.check(true)){
@@ -101,25 +125,4 @@ void positionRoutine::run(){
     
     posPrintFlag = (posPrintFlag +1)%4;
   }
-}
-
-void positionRoutine::updateSpeed(void){
-  enA_tempCount = (unsigned long)(motorEncoderA_count - enA_lastCount);
-  enB_tempCount = (unsigned long)(motorEncoderB_count - enB_lastCount);
-
-  timePeriod = (unsigned long)(micros() - lastCountCheckTime)/(1000000.0);
-
-  
-
-  rpmA = (enA_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmA*(1.0/10) ;
-  rpmB = (enB_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmB*(1.0/10) ;
-
-  //debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA));
-
-  //if(rpmA < rpmLowBound) rpmA = 0;
-  //if(rpmB < rpmLowBound) rpmB = 0;
-
-  lastCountCheckTime = micros();
-  enA_lastCount = motorEncoderA_count;
-  enB_lastCount = motorEncoderB_count;
 }
