@@ -386,5 +386,5 @@ int main()
 
 //3 COORDINATE SYSTEMS: CAMERA, ROVER, AND WORLD
 //Could implement own depth image -> cloud function, do pre-filtration
-//Potentional settings to change: disparity shift, depth units, exposure, 
+//Camera settings to potentially change: disparity shift, depth units, exposure, 
 //DOWNSAMPLING: INCREASE LEAF SIZE ALONG Z
