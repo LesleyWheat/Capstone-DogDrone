@@ -65,6 +65,17 @@ void setup() {
   pinMode(motorFrontB_PWM, OUTPUT);
   pinMode(motorRearA_PWM, OUTPUT);
   pinMode(motorRearB_PWM, OUTPUT);
+
+  //Motor Forwards
+  digitalWrite(motorOp1, HIGH);
+  digitalWrite(motorOp2, LOW);
+
+  analogWrite(motorFrontA_PWM, 155);
+  analogWrite(motorFrontB_PWM, 155);
+  analogWrite(motorRearA_PWM, 155);
+  analogWrite(motorRearB_PWM, 155);
+
+  digitalWrite(sonarTrig, LOW);
   
   // put your setup code here, to run once:
   Serial.begin(115200);
@@ -80,15 +91,6 @@ void setup() {
   Serial2.begin(9600);
   Serial3.begin(9600);
 
-  digitalWrite(motorOp1, HIGH);
-  digitalWrite(motorOp2, LOW);
-
-  analogWrite(motorFrontA_PWM, 155);
-  analogWrite(motorFrontB_PWM, 155);
-  analogWrite(motorRearA_PWM, 155);
-  analogWrite(motorRearB_PWM, 155);
-
-  digitalWrite(sonarTrig, LOW);
 }
 
 void loop() {
@@ -105,7 +107,7 @@ void loop() {
 
   Serial.println("Computer battery voltage: " + String(5.0*analogRead(batteryCompPin)/1024.0));
   delay(10);
-  Serial.println("Motor battery voltage: " + String(5.0*analogRead(batteryMotorPin)/1024.0));
+  Serial.println("Motor battery voltage: " + String((100/(330+100))*5.0*analogRead(batteryMotorPin)/1024.0));
   delay(10);
   Serial.println("RSSI voltage: " + String(5.0*analogRead(rssiInPin)/1024.0));
 
