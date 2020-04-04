@@ -60,6 +60,9 @@ struct Point{
     int xCoordinates;
     int yCoordinates;
     int icount;
+    float speedLeft;
+    float speedRight;
+
 
 void initialize(){
     for (int countX = 0; countX < numXPoints; countX = countX+1 ){
@@ -111,7 +114,59 @@ void nextPoint(Point pts){
     pts.pointNum = pts.pointNum + 1;
 };
 
+void move(Point start, Point end, Point previous){
+
+    int direction;
+    if (end.Source.x == previous.Source.X){
+        Direction(0); //striaght
+    }
+
+    else{
+        temp = (end.Source.y - previous.Source.y)/(end.Source.x - previous.Source.y);
+    
+        if (temp == 0){
+            Direction(0);
+        }
+        else if (temp < 0){
+                Direction(1);
+
+            }
+        else if (temp > 0){
+            Direction(2);
+        }
+    }
+};
+
+int Direction(int direction){
+    //0 - straight
+    //1 - left 
+    //2 - right
+
+    //I need criteria for turning, right now I used speed of left and right wheels
+    // left turn is 0 speed for left wheel, 1 for right wheel and so on.
+
+    if (direction == 0){
+        //Direction is straight
+
+        speedLeft = 1.0;
+        speedRight = 1.0;
+    }
+
+    else if (direction == 1){
+        speedLeft = 0.0;
+        speedRight = 1.0;
+
+    }
+
+    else if (direction == 2){
+        speedLeft = 1.0;
+        speedRight = 0.0;
+
+    }
+
+};
+
 int main()
 {
-   cout << "This is the main function";
+   cout << "Call moveVehicle from here";
 }
