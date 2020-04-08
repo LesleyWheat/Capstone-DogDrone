@@ -19,6 +19,7 @@
 #define rssiUpdatePeriod 1000
 #define rssiReadPeriod 100
 #define contactTimeoutPeriod 60000
+#define serialRate 38400
 
 class commRoutine {
   private:

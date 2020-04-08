@@ -14,8 +14,8 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial*
   rssiUpdate.init(rssiUpdatePeriod);
   rssiRead.init(rssiReadPeriod);
   
-  // start serial port at 9600 bps:
-  Serial.begin(115200);
+  // start serial port at preset rate:
+  Serial.begin(serialRate);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
@@ -23,7 +23,7 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial*
   establishContact();  // send a byte to establish contact until receiver responds
 
   //Start xbee serial
-  mySerial->begin(9600);
+  mySerial->begin(serialRate);
   
   //ros::NodeHandle nh;
 
