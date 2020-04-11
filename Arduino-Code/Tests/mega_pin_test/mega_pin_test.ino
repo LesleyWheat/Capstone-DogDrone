@@ -50,7 +50,7 @@ byte blinkState = 0;
 byte echoFlag = 0;
 float batCV = 0;
 float batMV = 0;
-
+int received;
 
 //IMU objects
     Adafruit_FXAS21002C gyro;
@@ -78,7 +78,7 @@ void setup() {
   digitalWrite(sonarTrig, LOW);
   
   // put your setup code here, to run once:
-  Serial.begin(115200);
+  Serial.begin(38400);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
@@ -88,8 +88,7 @@ void setup() {
   }
   Serial.println(' ');
   
-  Serial2.begin(9600);
-  Serial3.begin(9600);
+  Serial3.begin(38400);
 
 }
 
@@ -118,6 +117,16 @@ void loop() {
   digitalWrite(sonarTrig, LOW);
   Serial.println("sonar echo: " + String(digitalRead(sonarEchoPin)));
   Serial.println("Echo duration: " + String(pulseIn(sonarEchoPin, HIGH)));
+
+  while (Serial3.available() > 0) {
+    received = Serial3.read();
+    Serial.write(received);
+  }
+  while (Serial.available() > 0) {
+    received = Serial.read();
+    Serial3.write(received);
+    Serial.write(received);
+  }
 
   delay(1000);
 }

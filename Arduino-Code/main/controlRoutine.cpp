@@ -1,31 +1,26 @@
 //Control module
 #include "controlRoutine.h"
 
-void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin, byte servoFeedback){
+void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin){
   //Set local variables
   this->debugPrioritySetting=debugPrioritySetting;
-  this->servoFeedback=servoFeedback;
   this->motorInPin1=motorInPin1;
   this->motorInPin2=motorInPin2;
   this->motorPWMA_Pin=motorPWMA_Pin;
   this->motorPWMB_Pin=motorPWMB_Pin;
-  this->servoPWM_Pin=servoPWM_Pin;
   
   //Set starting variables
 
   //Create PIDs for motors
   pidA = new PID(&rpmA, &motorA_outPWM, &motorA_setRPM, KP, KI, KD, DIRECT);
   pidB = new PID(&rpmB, &motorB_outPWM, &motorB_setRPM, KP, KI, KD, DIRECT);
-  pidServo = new PID(&servoAngle, &servoPWM, &servoSetAngle, KP, KI, KD, DIRECT);
 
 
   //Configure PIDs
   pidA->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
   pidB->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
-  pidServo->SetOutputLimits(0, 255);
   pidA->SetMode(AUTOMATIC);
   pidB->SetMode(AUTOMATIC);
-  pidServo->SetMode(AUTOMATIC);
 
   //set test timer to rotate states
   timerTest.init(10000);
@@ -101,12 +96,10 @@ void controlRoutine::run(double rpmA, double rpmB){
   
   //Update PID controllers
   if(pidTimer.check(true)){
-    servoAngle = 180.0*analogRead(servoFeedback)/1024.0;
 
     
     pidA->Compute();
     pidB->Compute();
-    pidServo->Compute();
 
     //debugPrint(5, routineName, 5, String("rpmB: ") + String(rpmB) );
     //debugPrint(5, routineName, 5, String("PWM_out: ") + String(motorB_outPWM));
@@ -115,7 +108,6 @@ void controlRoutine::run(double rpmA, double rpmB){
 
     analogWrite(motorPWMA_Pin, motorA_outPWM);
     analogWrite(motorPWMB_Pin, motorB_outPWM);
-    analogWrite(servoPWM_Pin, servoPWM);
   }
   
 };

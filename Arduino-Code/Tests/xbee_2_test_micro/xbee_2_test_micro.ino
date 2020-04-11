@@ -47,6 +47,7 @@ void loop() {
   while (Serial.available() > 0) {
     received = Serial.read();
     Serial1.write(received);
+    Serial.write(received);
   }
 
 

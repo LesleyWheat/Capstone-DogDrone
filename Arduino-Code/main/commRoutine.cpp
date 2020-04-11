@@ -1,11 +1,10 @@
 //Communications module
 #include "commRoutine.h"
 
-void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial* ss){
+void commRoutine::init(int debugPrioritySetting, byte rssiInPin){
   //set variables
   this->debugPrioritySetting=debugPrioritySetting;
   this->rssiInPin=rssiInPin;
-  mySerial = ss;
 
   //Starting variables
 
@@ -13,26 +12,21 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial*
   //create objects
   rssiUpdate.init(rssiUpdatePeriod);
   rssiRead.init(rssiReadPeriod);
+
+  // serial for arduino connection
+  //serial serial1 for xbee
+  // both at serialrate
   
   // start serial port at preset rate:
   Serial.begin(serialRate);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
-  
-  establishContact();  // send a byte to establish contact until receiver responds
 
-  //Start xbee serial
-  mySerial->begin(serialRate);
+  //Start serial port
+  Serial1.begin(serialRate);
   
-  //ros::NodeHandle nh;
-
-  //std_msgs::String str_msg;
-  //ros::Publisher chatter("chatter", &str_msg);
-  
-  //char hello[13] = "hello world!";
-  //nh.initNode();
-  //nh.advertise(chatter);
+  //establishContact();  // send a byte to establish contact until receiver responds
     
 };
 
@@ -50,20 +44,22 @@ void commRoutine::establishContact() {
 
 //main run loop
 void commRoutine::run(){
-  //send out echo signal
-  if(rssiUpdate.check(true)){
-    mySerial->write("a");
-  }
+  //Read from pi to xbee
+  while (Serial.available() > 0){
+    received = Serial.read();
+    Serial1.write(received);
+    Serial.write(received);
 
-  //Read echo from xbee target
-  if (mySerial->available() > 0) {
-    int received = mySerial->read();
-
-    
     if(rssiRead.check(true)){
       rssi_raw = ((analogRead(rssiInPin)*1000.0)/1024.0)*5.0;
       debugPrint(5, routineName, 5, String(F("RSSI Raw * 1000: ")) + String(rssi_raw));
     }
+  }
+
+  //Read from xbee to pi
+  while (Serial1.available() > 0){
+    received = Serial1.read();
+    Serial.write(received);
   }
   
 };

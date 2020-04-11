@@ -17,10 +17,10 @@ double averageArray(int a[], int n) {
 void debugPrint(int debugPrioritySetting, String routine, int priority, String info){
   String message = " ";
   
-  if (Serial.available() > 0) {
+  if (Serial1.available() > 0) {
     if(debugPrioritySetting >= priority){
       message = String( F("debugPrint - ")) + String(priority) + F(" - ") + String(routine) + F(" - ") + String(info);
-      Serial.println(message);
+      Serial1.println(message);
     }
   }
 }

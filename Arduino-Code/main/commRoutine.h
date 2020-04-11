@@ -8,7 +8,6 @@
 #include "arduino.h"
 #include <ros.h>
 #include <std_msgs/String.h>
-#include <SoftwareSerial.h>
 
 //Internal libraries
 #include "realTimer.h"
@@ -26,12 +25,12 @@ class commRoutine {
     //Private variables
     int debugPrioritySetting;
     String routineName = "COM";
+    int received;
 
     //Pins
     byte rssiInPin;
     
     //Objects
-    SoftwareSerial* mySerial;
     realTimer contactTimeout;
     realTimer rssiUpdate;
     realTimer rssiRead;
@@ -44,7 +43,7 @@ class commRoutine {
     float rssi_raw = 0;
     
     //Public functions
-    void init(int debugPrioritySetting, byte rssiInPin, SoftwareSerial* ss);
+    void init(int debugPrioritySetting, byte rssiInPin);
     void run();
 };
 

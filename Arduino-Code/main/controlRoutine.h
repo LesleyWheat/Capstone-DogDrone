@@ -38,15 +38,10 @@ class controlRoutine {
     byte motorPWMA_Pin;
     byte motorPWMB_Pin;
     byte servoPWM_Pin;
-    byte servoFeedback;
-
+   
     double rpmA = 0;
     double rpmB = 0;
 
-    //Servo variables
-    double servoAngle = 0;
-    double servoPWM = 0;
-    double servoSetAngle = 0;
 
     //Set variables for motor
     realTimer timerRampUp;
@@ -85,7 +80,7 @@ class controlRoutine {
     
 
     //Public functions
-    void init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin, byte servoFeedback);
+    void init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin);
     void run(double rpmA, double rpmB);
     void set(float angle, float targetSpeed);
 };
