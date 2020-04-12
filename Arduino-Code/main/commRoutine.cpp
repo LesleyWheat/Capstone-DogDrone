@@ -59,7 +59,7 @@ void commRoutine::run(){
       //debugPrint(5, routineName, 5, String(F("RSSI Raw * 1000: ")) + String(rssi_raw));
     }
     
-    if (msg[msgCount] == 10){
+    if (msg[msgCount] == 10 || msgCount > 99){
       if (msg[0] == 'x' && msg[1] == 'x'){
           angle_set = (msg[3]-48)*100+(msg[4]-48)*10+(msg[5]-48)*1;
           rpm_set = (msg[7]-48)*100+(msg[8]-48)*10+(msg[9]-48)*1;
@@ -83,7 +83,7 @@ void commRoutine::run(){
     received = Serial2.read();
     msgPi[msgCountPi] = received;
     
-    if (msgPi[msgCountPi] == 10){
+    if (msgPi[msgCountPi] == 10 || msgCountPi > 99){
       if (msgPi[0] == 'x' && msgPi[1] == 'x'){
           angle_set = (msgPi[3]-48)*100+(msgPi[4]-48)*10+(msgPi[5]-48)*1;
           rpm_set = (msgPi[7]-48)*100+(msgPi[8]-48)*10+(msgPi[9]-48)*1;
