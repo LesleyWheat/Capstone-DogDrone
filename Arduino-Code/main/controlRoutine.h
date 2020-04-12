@@ -35,8 +35,10 @@ class controlRoutine {
     //Input pins
     byte motorInPin1;
     byte motorInPin2;
-    byte motorPWMA_Pin;
-    byte motorPWMB_Pin;
+    byte motorFrontAPWM_Pin;
+    byte motorFrontBPWM_Pin;
+    byte motorRearAPWM_Pin;
+    byte motorRearBPWM_Pin;
     byte servoPWM_Pin;
    
     double rpmA = 0;

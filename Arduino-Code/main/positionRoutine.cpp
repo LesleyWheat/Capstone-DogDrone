@@ -116,7 +116,8 @@ void positionRoutine::run(){
   if(speedPrintOut.check(true)){
     if(posPrintFlag==0) {debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA) + String(F(" rpmB: ")) + String(rpmB));};
     //if(posPrintFlag==0) {debugPrint(5, routineName, 5, String(F("en A count: ")) + String(motorEncoderA_count) + String(F(" en B count: ")) + String(motorEncoderB_count));};
-    
+
+    if(accelmag.begin(ACCEL_RANGE_4G)){
     if(posPrintFlag==1) {debugPrint(5, routineName, 5, String(F("ax: ")) + String(accelX_lowpass));};
     
     if(posPrintFlag==2) {debugPrint(5, routineName, 5, String(F("ay: ")) + String(accelY_lowpass));};
@@ -124,5 +125,6 @@ void positionRoutine::run(){
     if(posPrintFlag==3) {debugPrint(5, routineName, 5, String(F("az: ")) + String(accelZ_lowpass));};
     
     posPrintFlag = (posPrintFlag +1)%4;
+    }
   }
 }

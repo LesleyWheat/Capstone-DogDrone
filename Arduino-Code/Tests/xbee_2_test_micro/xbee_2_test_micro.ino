@@ -1,6 +1,6 @@
 
 
-#define serialRate 38400
+#define serialRate 9600
 
 int led = 13;
 int received = 0;
@@ -47,7 +47,6 @@ void loop() {
   while (Serial.available() > 0) {
     received = Serial.read();
     Serial1.write(received);
-    Serial.write(received);
   }
 
 

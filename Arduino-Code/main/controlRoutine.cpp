@@ -1,13 +1,13 @@
 //Control module
 #include "controlRoutine.h"
 
-void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin){
+void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorFrontAPWM_Pin, byte motorFrontBPWM_Pin){
   //Set local variables
   this->debugPrioritySetting=debugPrioritySetting;
   this->motorInPin1=motorInPin1;
   this->motorInPin2=motorInPin2;
-  this->motorPWMA_Pin=motorPWMA_Pin;
-  this->motorPWMB_Pin=motorPWMB_Pin;
+  this->motorFrontAPWM_Pin=motorFrontAPWM_Pin;
+  this->motorFrontBPWM_Pin=motorFrontBPWM_Pin;
   
   //Set starting variables
 
@@ -106,8 +106,8 @@ void controlRoutine::run(double rpmA, double rpmB){
     //debugPrint(5, routineName, 5,  String("rpmB_set: ") + String(motorB_setRPM));
     //debugPrint(5, routineName, 5, String("rpmB: ") + String(rpmB) + String(" rpmB_out: ") + String(motorB_outPWM)+ String(" rpmB_set: ") + String(motorB_setRPM));
 
-    analogWrite(motorPWMA_Pin, motorA_outPWM);
-    analogWrite(motorPWMB_Pin, motorB_outPWM);
+    analogWrite(motorFrontAPWM_Pin, motorA_outPWM);
+    analogWrite(motorFrontBPWM_Pin, motorB_outPWM);
   }
   
 };

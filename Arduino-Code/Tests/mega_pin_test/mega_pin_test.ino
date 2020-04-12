@@ -76,9 +76,12 @@ void setup() {
   analogWrite(motorRearB_PWM, 155);
 
   digitalWrite(sonarTrig, LOW);
+
   
   // put your setup code here, to run once:
   Serial.begin(38400);
+  Serial3.begin(9600);
+  Serial2.begin(38400);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
@@ -88,45 +91,21 @@ void setup() {
   }
   Serial.println(' ');
   
-  Serial3.begin(38400);
+  Serial3.println(' ');
 
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  if(!gyro.begin()){
-    /* There was a problem detecting the gyro ... check your connections */
-    Serial.println(F("Ooops, no gyro detected ... Check your wiring!"));
+
+  while (Serial2.available() > 0) {
+    received = Serial2.read();
+    Serial.write(received);
   }
   
-  if(!accelmag.begin(ACCEL_RANGE_4G)){
-    Serial.println(F("Ooops, no FXOS8700 detected ... Check your wiring!"));
-  }
-
-
-  Serial.println("Computer battery voltage: " + String(5.0*analogRead(batteryCompPin)/1024.0));
-  delay(10);
-  Serial.println("Motor battery voltage: " + String((100/(330+100))*5.0*analogRead(batteryMotorPin)/1024.0));
-  delay(10);
-  Serial.println("RSSI voltage: " + String(5.0*analogRead(rssiInPin)/1024.0));
-
-  //Sonar
-  Serial.println("sonar echo: " + String(digitalRead(sonarEchoPin)));
-  digitalWrite(sonarTrig, HIGH);
-  delay(100);
-  digitalWrite(sonarTrig, LOW);
-  Serial.println("sonar echo: " + String(digitalRead(sonarEchoPin)));
-  Serial.println("Echo duration: " + String(pulseIn(sonarEchoPin, HIGH)));
-
-  while (Serial3.available() > 0) {
-    received = Serial3.read();
-    Serial.write(received);
-  }
   while (Serial.available() > 0) {
     received = Serial.read();
-    Serial3.write(received);
+    Serial2.write(received);
     Serial.write(received);
   }
 
-  delay(1000);
 }

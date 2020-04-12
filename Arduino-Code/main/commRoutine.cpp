@@ -24,9 +24,13 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin){
   }
 
   //Start serial port
-  Serial1.begin(serialRate);
+  Serial2.begin(serialRate);
   
-  //establishContact();  // send a byte to establish contact until receiver responds
+  establishContact();  // send a byte to establish contact until receiver responds
+
+  Serial2.println("ubuntu");
+  delay(3000);
+  Serial2.println("pipipi4");
     
 };
 
@@ -44,22 +48,56 @@ void commRoutine::establishContact() {
 
 //main run loop
 void commRoutine::run(){
-  //Read from pi to xbee
+  
+  //Read from computer to pi
   while (Serial.available() > 0){
     received = Serial.read();
-    Serial1.write(received);
-    Serial.write(received);
+    msg[msgCount] = received;
 
     if(rssiRead.check(true)){
       rssi_raw = ((analogRead(rssiInPin)*1000.0)/1024.0)*5.0;
-      debugPrint(5, routineName, 5, String(F("RSSI Raw * 1000: ")) + String(rssi_raw));
+      //debugPrint(5, routineName, 5, String(F("RSSI Raw * 1000: ")) + String(rssi_raw));
     }
+    
+    if (msg[msgCount] == 10){
+      if (msg[0] == 'x' && msg[1] == 'x'){
+          angle_set = (msg[3]-48)*100+(msg[4]-48)*10+(msg[5]-48)*1;
+          rpm_set = (msg[7]-48)*100+(msg[8]-48)*10+(msg[9]-48)*1;
+          Serial.write(msg);
+          debugPrint(5, routineName, 5, String(F("Angle Set: ")) + String(angle_set));
+          debugPrint(5, routineName, 5, String(F("RPM Set: ")) + String(rpm_set));
+      }else{
+        Serial2.write(msg);
+      }
+      memset(&msg[0], 0, sizeof(msg));
+      msgCount = 0;
+    }else{
+      msgCount++;
+    }
+    
   }
+  
 
-  //Read from xbee to pi
-  while (Serial1.available() > 0){
-    received = Serial1.read();
-    Serial.write(received);
+  //Read from pi to computer
+  while (Serial2.available() > 0){
+    received = Serial2.read();
+    msgPi[msgCountPi] = received;
+    
+    if (msgPi[msgCountPi] == 10){
+      if (msgPi[0] == 'x' && msgPi[1] == 'x'){
+          angle_set = (msgPi[3]-48)*100+(msgPi[4]-48)*10+(msgPi[5]-48)*1;
+          rpm_set = (msgPi[7]-48)*100+(msgPi[8]-48)*10+(msgPi[9]-48)*1;
+          Serial.write(msgPi);
+          debugPrint(5, routineName, 5, String(F("Angle Set: ")) + String(angle_set));
+          debugPrint(5, routineName, 5, String(F("RPM Set: ")) + String(rpm_set));
+      }else{
+        Serial.write(msgPi);
+      }
+      memset(&msgPi[0], 0, sizeof(msgPi));
+      msgCountPi = 0;
+    }else{
+      msgCountPi++;
+    }
   }
   
 };

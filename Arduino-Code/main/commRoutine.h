@@ -26,6 +26,10 @@ class commRoutine {
     int debugPrioritySetting;
     String routineName = "COM";
     int received;
+    char msg[100] = "";
+    byte msgCount = 0;
+    char msgPi[100] = "";
+    byte msgCountPi = 0;
 
     //Pins
     byte rssiInPin;
@@ -41,6 +45,8 @@ class commRoutine {
   public:
     //Public variables
     float rssi_raw = 0;
+    int rpm_set = 0;
+    int angle_set = 0;
     
     //Public functions
     void init(int debugPrioritySetting, byte rssiInPin);
