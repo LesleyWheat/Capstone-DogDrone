@@ -54,14 +54,20 @@ class positionRoutine {
 
 
     //pins
-    byte motorEncoderA_Pin;
-    byte motorEncoderB_Pin;
+    byte motorEncoderFrontA_Pin;
+    byte motorEncoderFrontB_Pin;
+    byte motorEncoderRearA_Pin;
+    byte motorEncoderRearB_Pin;
 
     //Encoder counts
-    unsigned long enA_lastCount = 0;
-    unsigned long enA_tempCount = 0;
-    unsigned long enB_lastCount = 0;
-    unsigned long enB_tempCount = 0;
+    unsigned long enFrontA_lastCount = 0;
+    unsigned long enFrontA_tempCount = 0;
+    unsigned long enFrontB_lastCount = 0;
+    unsigned long enFrontB_tempCount = 0;
+    unsigned long enRearA_lastCount = 0;
+    unsigned long enRearA_tempCount = 0;
+    unsigned long enRearB_lastCount = 0;
+    unsigned long enRearB_tempCount = 0;
     float timePeriod = 0;
     unsigned long lastCountCheckTime = 0;
 
@@ -87,12 +93,16 @@ class positionRoutine {
     float accelZ_lowpass;
     
     //encoder
-    volatile unsigned long motorEncoderA_count = 0;
-    volatile unsigned long motorEncoderB_count = 0;
+    volatile unsigned long motorEncoderFrontA_count = 0;
+    volatile unsigned long motorEncoderFrontB_count = 0;
+    volatile unsigned long motorEncoderRearA_count = 0;
+    volatile unsigned long motorEncoderRearB_count = 0;
 
     //speed
-    double rpmA = 0;
-    double rpmB = 0;
+    double rpmFrontA = 0;
+    double rpmFrontB = 0;
+    double rpmRearA = 0;
+    double rpmRearB = 0;
 
     //Public functions
     void init(int debugPrioritySetting);

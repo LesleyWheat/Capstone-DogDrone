@@ -1,26 +1,34 @@
 //Control module
 #include "controlRoutine.h"
 
-void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorFrontAPWM_Pin, byte motorFrontBPWM_Pin){
+void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorFrontAPWM_Pin, byte motorFrontBPWM_Pin, byte motorRearAPWM_Pin, byte motorRearBPWM_Pin){
   //Set local variables
   this->debugPrioritySetting=debugPrioritySetting;
   this->motorInPin1=motorInPin1;
   this->motorInPin2=motorInPin2;
   this->motorFrontAPWM_Pin=motorFrontAPWM_Pin;
   this->motorFrontBPWM_Pin=motorFrontBPWM_Pin;
+  this->motorRearAPWM_Pin=motorRearAPWM_Pin;
+  this->motorRearBPWM_Pin=motorRearBPWM_Pin;
   
   //Set starting variables
+  
 
   //Create PIDs for motors
-  pidA = new PID(&rpmA, &motorA_outPWM, &motorA_setRPM, KP, KI, KD, DIRECT);
-  pidB = new PID(&rpmB, &motorB_outPWM, &motorB_setRPM, KP, KI, KD, DIRECT);
-
+  pidFrontA = new PID(&rpmFrontA, &frontA_outPWM, &frontA_setRPM, KP, KI, KD, DIRECT);
+  pidFrontB = new PID(&rpmFrontB, &frontB_outPWM, &frontB_setRPM, KP, KI, KD, DIRECT);
+  pidRearA = new PID(&rpmRearA, &rearA_outPWM, &rearA_setRPM, KP, KI, KD, DIRECT);
+  pidRearB = new PID(&rpmRearB, &rearB_outPWM, &rearB_setRPM, KP, KI, KD, DIRECT);
 
   //Configure PIDs
-  pidA->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
-  pidB->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
-  pidA->SetMode(AUTOMATIC);
-  pidB->SetMode(AUTOMATIC);
+  pidFrontA->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
+  pidFrontB->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
+  pidRearA->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
+  pidRearB->SetOutputLimits(OUTPUT_MIN, OUTPUT_MAX);
+  pidFrontA->SetMode(AUTOMATIC);
+  pidFrontB->SetMode(AUTOMATIC);
+  pidRearA->SetMode(AUTOMATIC);
+  pidRearB->SetMode(AUTOMATIC);
 
   //set test timer to rotate states
   timerTest.init(10000);
@@ -37,8 +45,8 @@ void controlRoutine::setMotor(byte spd, byte dir, int accel){
   //Accel not used at moment, integrate with PID k values later
   
   //Speed sets motor PWM based on direction and speed, Direction sets difference in wheel speed
-  motorA_setRPM = (spd + (50-dir)*spd/50);
-  motorB_setRPM = (spd + (50-(100-dir))*spd/50);
+  //motorA_setRPM = (spd + (50-dir)*spd/50);
+  //motorB_setRPM = (spd + (50-(100-dir))*spd/50);
 };
 
 //-----------------------------------------------------------------------------------------------
@@ -71,10 +79,14 @@ void controlRoutine::testStateMachine(){
 
     //output for reference
     debugPrint(5, routineName, 5, String(F("Test state: ")) + String(testState));
-    debugPrint(5, routineName, 5, String("Left speed running at: ") + String(rpmA));
-    debugPrint(5, routineName, 5, String("Right speed running at: ") + String(rpmB));
-    debugPrint(5, routineName, 5, String("Left set at running at: ") + String(motorA_outPWM));
-    debugPrint(5, routineName, 5, String("Right set at running at: ") + String(motorB_outPWM));
+    debugPrint(5, routineName, 5, String("Left front speed running at: ") + String(rpmFrontA));
+    debugPrint(5, routineName, 5, String("Right front speed running at: ") + String(rpmFrontB));
+    debugPrint(5, routineName, 5, String("Left rear speed running at: ") + String(rpmRearA));
+    debugPrint(5, routineName, 5, String("Right rear speed running at: ") + String(rpmRearB));
+    debugPrint(5, routineName, 5, String("Left front set at running at: ") + String(frontA_outPWM));
+    debugPrint(5, routineName, 5, String("Right front set at running at: ") + String(frontB_outPWM));
+    debugPrint(5, routineName, 5, String("Left back set at running at: ") + String(rearA_outPWM));
+    debugPrint(5, routineName, 5, String("Right back set at running at: ") + String(rearB_outPWM));
   };
 };
 
@@ -85,10 +97,19 @@ void controlRoutine::set(float angle, float targetSpeed){
 
 //----------------------------------------------------------------------------------------------
 //Runs in main loop
-void controlRoutine::run(double rpmA, double rpmB){
+void controlRoutine::run(double rpmFrontA, double rpmFrontB, double rpmRearA, double rpmRearB, double rpmSet, double angleSet){
   //Read inputs
-  this->rpmA=rpmA;
-  this->rpmB=rpmB;
+  this->rpmFrontA=rpmFrontA;
+  this->rpmFrontB=rpmFrontB;
+  this->rpmRearA=rpmRearA;
+  this->rpmRearB=rpmRearB;
+
+  
+  frontA_setRPM = rpmSet;
+  frontB_setRPM = rpmSet;
+  
+  rearA_setRPM = frontA_setRPM;
+  rearB_setRPM = frontB_setRPM;
 
   //Update state
   //runMotor();
@@ -96,18 +117,24 @@ void controlRoutine::run(double rpmA, double rpmB){
   
   //Update PID controllers
   if(pidTimer.check(true)){
-
-    
-    pidA->Compute();
-    pidB->Compute();
-
+    pidFrontA->Compute();
+    pidFrontB->Compute();
+    pidRearA->Compute();
+    pidRearB->Compute();
+  
     //debugPrint(5, routineName, 5, String("rpmB: ") + String(rpmB) );
     //debugPrint(5, routineName, 5, String("PWM_out: ") + String(motorB_outPWM));
     //debugPrint(5, routineName, 5,  String("rpmB_set: ") + String(motorB_setRPM));
-    //debugPrint(5, routineName, 5, String("rpmB: ") + String(rpmB) + String(" rpmB_out: ") + String(motorB_outPWM)+ String(" rpmB_set: ") + String(motorB_setRPM));
-
-    analogWrite(motorFrontAPWM_Pin, motorA_outPWM);
-    analogWrite(motorFrontBPWM_Pin, motorB_outPWM);
+    debugPrint(5, routineName, 5, String("rpmFrontA: ") + String(rpmFrontA) + String(" rpmFrontA_out: ") + String(frontA_outPWM)+ String(" frontA_setRPM: ") + String(frontA_setRPM));
+    debugPrint(5, routineName, 5, String("rpmFrontB: ") + String(rpmFrontB) + String(" rpmFrontB_out: ") + String(frontB_outPWM)+ String(" frontB_setRPM: ") + String(frontB_setRPM));
+    debugPrint(5, routineName, 5, String("rpmRearA: ") + String(rpmRearA) + String(" rpmRearA_out: ") + String(rearA_outPWM)+ String(" rearA_setRPM: ") + String(rearA_setRPM));
+    debugPrint(5, routineName, 5, String("rpmRearB: ") + String(rpmRearB) + String(" rpmRearB_out: ") + String(rearB_outPWM)+ String(" rearB_setRPM: ") + String(rearB_setRPM));
+    
+    analogWrite(motorFrontAPWM_Pin, frontA_outPWM);
+    analogWrite(motorFrontBPWM_Pin, frontB_outPWM);
+    analogWrite(motorRearAPWM_Pin, rearA_outPWM);
+    analogWrite(motorRearBPWM_Pin, rearB_outPWM);
+    
   }
   
 };
