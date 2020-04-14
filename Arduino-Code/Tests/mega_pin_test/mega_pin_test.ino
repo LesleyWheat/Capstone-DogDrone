@@ -50,7 +50,7 @@ byte blinkState = 0;
 byte echoFlag = 0;
 float batCV = 0;
 float batMV = 0;
-
+int received;
 
 //IMU objects
     Adafruit_FXAS21002C gyro;
@@ -65,21 +65,8 @@ void setup() {
   pinMode(motorFrontB_PWM, OUTPUT);
   pinMode(motorRearA_PWM, OUTPUT);
   pinMode(motorRearB_PWM, OUTPUT);
-  
-  // put your setup code here, to run once:
-  Serial.begin(115200);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
-  while ((Serial.available() <= 0)) {
-    Serial.print('A');   // send a capital A
-    delay(500);
-  }
-  Serial.println(' ');
-  
-  Serial2.begin(9600);
-  Serial3.begin(9600);
 
+  //Motor Forwards
   digitalWrite(motorOp1, HIGH);
   digitalWrite(motorOp2, LOW);
 
@@ -89,33 +76,36 @@ void setup() {
   analogWrite(motorRearB_PWM, 155);
 
   digitalWrite(sonarTrig, LOW);
+
+  
+  // put your setup code here, to run once:
+  Serial.begin(38400);
+  Serial3.begin(9600);
+  Serial2.begin(38400);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+  while ((Serial.available() <= 0)) {
+    Serial.print('A');   // send a capital A
+    delay(500);
+  }
+  Serial.println(' ');
+  
+  Serial3.println(' ');
+
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
-  if(!gyro.begin()){
-    /* There was a problem detecting the gyro ... check your connections */
-    Serial.println(F("Ooops, no gyro detected ... Check your wiring!"));
+
+  while (Serial2.available() > 0) {
+    received = Serial2.read();
+    Serial.write(received);
   }
   
-  if(!accelmag.begin(ACCEL_RANGE_4G)){
-    Serial.println(F("Ooops, no FXOS8700 detected ... Check your wiring!"));
+  while (Serial.available() > 0) {
+    received = Serial.read();
+    Serial2.write(received);
+    Serial.write(received);
   }
 
-
-  Serial.println("Computer battery voltage: " + String(5.0*analogRead(batteryCompPin)/1024.0));
-  delay(10);
-  Serial.println("Motor battery voltage: " + String(5.0*analogRead(batteryMotorPin)/1024.0));
-  delay(10);
-  Serial.println("RSSI voltage: " + String(5.0*analogRead(rssiInPin)/1024.0));
-
-  //Sonar
-  Serial.println("sonar echo: " + String(digitalRead(sonarEchoPin)));
-  digitalWrite(sonarTrig, HIGH);
-  delay(100);
-  digitalWrite(sonarTrig, LOW);
-  Serial.println("sonar echo: " + String(digitalRead(sonarEchoPin)));
-  Serial.println("Echo duration: " + String(pulseIn(sonarEchoPin, HIGH)));
-
-  delay(1000);
 }

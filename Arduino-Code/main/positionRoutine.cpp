@@ -81,15 +81,18 @@ void positionRoutine::updateAccel(void){
 
 //-------------------------------------------------------------------------------------------------
 void positionRoutine::updateSpeed(void){
-  enA_tempCount = (unsigned long)(motorEncoderA_count - enA_lastCount);
-  enB_tempCount = (unsigned long)(motorEncoderB_count - enB_lastCount);
+  enFrontA_tempCount = (unsigned long)(motorEncoderFrontA_count - enFrontA_lastCount);
+  enFrontB_tempCount = (unsigned long)(motorEncoderFrontB_count - enFrontB_lastCount);
+  enRearA_tempCount = (unsigned long)(motorEncoderRearA_count - enRearA_lastCount);
+  enRearB_tempCount = (unsigned long)(motorEncoderRearB_count - enRearB_lastCount);
 
   timePeriod = (unsigned long)(micros() - lastCountCheckTime)/(1000000.0);
-
   
 
-  rpmA = (enA_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmA*(1.0/10) ;
-  rpmB = (enB_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmB*(1.0/10) ;
+  rpmFrontA = (enFrontA_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmFrontA*(1.0/10) ;
+  rpmFrontB = (enFrontB_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmFrontB*(1.0/10) ;
+  rpmRearA = (enRearA_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmRearA*(1.0/10) ;
+  rpmRearB = (enRearB_tempCount*60.0)/(timePeriod * encoderPPR)*(9.0/10) + rpmRearB*(1.0/10) ;
 
   //debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA));
 
@@ -97,8 +100,10 @@ void positionRoutine::updateSpeed(void){
   //if(rpmB < rpmLowBound) rpmB = 0;
 
   lastCountCheckTime = micros();
-  enA_lastCount = motorEncoderA_count;
-  enB_lastCount = motorEncoderB_count;
+  enFrontA_lastCount = motorEncoderFrontA_count;
+  enFrontB_lastCount = motorEncoderFrontB_count;
+  enRearA_lastCount = motorEncoderRearA_count;
+  enRearB_lastCount = motorEncoderRearB_count;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -114,9 +119,10 @@ void positionRoutine::run(){
   }
   
   if(speedPrintOut.check(true)){
-    if(posPrintFlag==0) {debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmA) + String(F(" rpmB: ")) + String(rpmB));};
+    if(posPrintFlag==0) {debugPrint(5, routineName, 5, String(F("rpmA: ")) + String(rpmFrontA) + String(F(" rpmB: ")) + String(rpmFrontB));};
     //if(posPrintFlag==0) {debugPrint(5, routineName, 5, String(F("en A count: ")) + String(motorEncoderA_count) + String(F(" en B count: ")) + String(motorEncoderB_count));};
-    
+
+    if(accelmag.begin(ACCEL_RANGE_4G)){
     if(posPrintFlag==1) {debugPrint(5, routineName, 5, String(F("ax: ")) + String(accelX_lowpass));};
     
     if(posPrintFlag==2) {debugPrint(5, routineName, 5, String(F("ay: ")) + String(accelY_lowpass));};
@@ -124,5 +130,6 @@ void positionRoutine::run(){
     if(posPrintFlag==3) {debugPrint(5, routineName, 5, String(F("az: ")) + String(accelZ_lowpass));};
     
     posPrintFlag = (posPrintFlag +1)%4;
+    }
   }
 }

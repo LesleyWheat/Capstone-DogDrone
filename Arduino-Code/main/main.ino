@@ -20,29 +20,30 @@
 //---------------------------------------------------------------------------------
 //PIN MAP
 //INPUT
-#define servoFeedback A1
-#define batteryMotorPin 
-#define batteryCompPin A2
-#define sonarEchoPin 23
-#define rssiInPin A3
+#define batteryMotorPin A1
+#define batteryCompPin A3
+
+#define sonarEchoPin 7
+#define rssiInPin A0
 
 //Interupts
-#define encoderAPin 12
-#define encoderBPin 13
+#define motorFrontA_Encoder_Pin 3
+#define motorFrontB_Encoder_Pin 2
+#define motorRearA_Encoder_Pin 19
+#define motorRearB_Encoder_Pin 18
 
-//Serial comm
-#define serialRX 3
-#define serialTX 2
 
 //OUTPUT
-#define motorInPin1 12
-#define motorInPin2 13
-#define sonarTrig 49
+#define motorOp1 12
+#define motorOp2 13
+#define sonarTrig 6
 
 //PWM
-#define motorPWMA_Pin 5
-#define motorPWMB_Pin 6
-#define servoPWM_Pin 7
+#define motorFrontA_PWM_Pin 9
+#define motorFrontB_PWM_Pin 8
+#define motorRearA_PWM_Pin 11
+#define motorRearB_PWM_Pin 10
+
 
 //-------------------------------------------------------------------------------
 //OBJECTS
@@ -53,7 +54,6 @@ commRoutine comm;
 diagnoticsRoutine diagnotics;
 
 //Loop objects
-SoftwareSerial mySerial(serialRX, serialTX); // RX, TX
 realTimer blinkTimer;
 realTimer echoTimer;
 
@@ -74,8 +74,10 @@ byte echoFlag = 0;
 int echoDuration = 0;
 
 //Interupts
-volatile byte encoderAPinState = LOW;
-volatile byte encoderBPinState = LOW;
+volatile byte motorFrontA_EncoderState = LOW;
+volatile byte motorFrontB_EncoderState = LOW;
+volatile byte motorRearA_EncoderState = LOW;
+volatile byte motorRearB_EncoderState = LOW;
 
 //----------------------------------------------------------------------------
 //SETUP
@@ -92,40 +94,43 @@ void setup() {
   //Input pins
   pinMode(batteryMotorPin, INPUT);
   pinMode(batteryCompPin, INPUT);
-  pinMode(servoFeedback, INPUT);
   
   pinMode(rssiInPin, INPUT);
-  pinMode(encoderAPin, INPUT);
-  pinMode(encoderBPin, INPUT);
+  pinMode(motorFrontA_Encoder_Pin, INPUT);
+  pinMode(motorFrontB_Encoder_Pin, INPUT);
+  pinMode(motorRearA_Encoder_Pin, INPUT);
+  pinMode(motorRearB_Encoder_Pin, INPUT);
   pinMode(sonarEchoPin, INPUT);
 
   //Outputs
-  pinMode(motorInPin1, OUTPUT);
-  pinMode(motorInPin2, OUTPUT);
+  pinMode(motorOp1, OUTPUT);
+  pinMode(motorOp2, OUTPUT);
   pinMode(sonarTrig, OUTPUT);
   
-  pinMode(motorPWMA_Pin, OUTPUT);
-  pinMode(motorPWMB_Pin, OUTPUT);
-  pinMode(servoPWM_Pin, OUTPUT);
+  pinMode(motorFrontA_PWM_Pin, OUTPUT);
+  pinMode(motorFrontB_PWM_Pin, OUTPUT);
+  pinMode(motorRearA_PWM_Pin, OUTPUT);
+  pinMode(motorRearB_PWM_Pin, OUTPUT);
 
   //Motor setup
-  digitalWrite(motorInPin1, HIGH);
-  //digitalWrite(motorInPin1, LOW);
-  digitalWrite(motorInPin2, LOW);
+  digitalWrite(motorOp1, HIGH);
+  digitalWrite(motorOp2, LOW);
 
   //Declare objects for loop routine
   blinkTimer.init(blinkPeriod);
   echoTimer.init(echoPeriod);
 
   //Initalize main routines
-  comm.init(debugPrioritySetting, rssiInPin, &mySerial);
+  comm.init(debugPrioritySetting, rssiInPin);
   pos.init(debugPrioritySetting);
-  control.init(debugPrioritySetting, motorInPin1, motorInPin2, motorPWMA_Pin, motorPWMB_Pin, servoPWM_Pin, servoFeedback);
+  control.init(debugPrioritySetting, motorOp1, motorOp2, motorFrontA_PWM_Pin, motorFrontB_PWM_Pin, motorRearA_PWM_Pin, motorRearB_PWM_Pin);
   diagnotics.init(debugPrioritySetting, batteryCompPin, batteryMotorPin);
 
   //Setup interupts
-  attachInterrupt(digitalPinToInterrupt(encoderAPin), encoderInterrupt, RISING);
-  attachInterrupt(digitalPinToInterrupt(encoderBPin), encoderInterrupt, RISING);
+  attachInterrupt(digitalPinToInterrupt(motorFrontA_Encoder_Pin), encoderInterrupt, RISING);
+  attachInterrupt(digitalPinToInterrupt(motorFrontB_Encoder_Pin), encoderInterrupt, RISING);
+  attachInterrupt(digitalPinToInterrupt(motorRearA_Encoder_Pin), encoderInterrupt, RISING);
+  attachInterrupt(digitalPinToInterrupt(motorRearB_Encoder_Pin), encoderInterrupt, RISING);
   
   //Finish setup
   debugPrint(debugPrioritySetting, F("SET"), 5, F("Startup complete"));
@@ -146,14 +151,6 @@ void loop() {
 
   //Main sequence
 
-  //Change led state to show board is running
-  if(blinkState == 0){
-    //If this runs then it stops the motor
-    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  }else{
-    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  }
-  
   if(blinkTimer.check(true)){
       //Next state
       blinkState = ((blinkState + 1)%2);    
@@ -167,7 +164,7 @@ void loop() {
   
   //Run main routines
   pos.run();
-  control.run(pos.rpmA, pos.rpmB);
+  control.run(pos.rpmFrontA, pos.rpmFrontB, pos.rpmRearA, pos.rpmRearB, comm.rpm_set, comm.angle_set);
   comm.run();
   diagnotics.run();
   //Diagnostics includes delay to target cycle time
@@ -177,16 +174,28 @@ void loop() {
 
 //Encoder interrupt routines
 void encoderInterrupt(void){
-  if(digitalRead(encoderAPin) != encoderAPinState){
-    encoderAPinState = digitalRead(encoderAPin);
+  if(digitalRead(motorFrontA_Encoder_Pin) != motorFrontA_EncoderState){
+    motorFrontA_EncoderState = digitalRead(motorFrontA_Encoder_Pin);
     //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt A triggered")));
-    pos.motorEncoderA_count++;
+    pos.motorEncoderFrontA_count++;
   }
   
-  if(digitalRead(encoderBPin) != encoderBPinState){
-    encoderBPinState = digitalRead(encoderBPin);
+  if(digitalRead(motorFrontB_Encoder_Pin) != motorFrontB_EncoderState){
+    motorFrontB_EncoderState = digitalRead(motorFrontB_Encoder_Pin);
     //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt B triggered")));
-    pos.motorEncoderB_count++;
+    pos.motorEncoderFrontB_count++;
+  }
+
+  if(digitalRead(motorRearA_Encoder_Pin) != motorRearA_EncoderState){
+    motorRearA_EncoderState = digitalRead(motorRearA_Encoder_Pin);
+    //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt A triggered")));
+    pos.motorEncoderRearA_count++;
+  }
+  
+  if(digitalRead(motorRearB_Encoder_Pin) != motorRearB_EncoderState){
+    motorRearB_EncoderState = digitalRead(motorRearB_Encoder_Pin);
+    //debugPrint(debugPrioritySetting, F("MAI"), 5, String(F("Interupt B triggered")));
+    pos.motorEncoderRearB_count++;
   }
   
 }

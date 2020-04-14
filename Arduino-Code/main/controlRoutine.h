@@ -17,10 +17,10 @@
 //Minimum motor voltage is 9.75 or it will stall, pwm of approx 70/255
 
 //PID variables
-#define OUTPUT_MIN 40
+#define OUTPUT_MIN 0
 #define OUTPUT_MAX 200
 #define KP 0.2
-#define KI 0.2
+#define KI 0.1
 #define KD 0
 #define PIDupdatePeriod 500
 
@@ -35,40 +35,48 @@ class controlRoutine {
     //Input pins
     byte motorInPin1;
     byte motorInPin2;
-    byte motorPWMA_Pin;
-    byte motorPWMB_Pin;
+    byte motorFrontAPWM_Pin;
+    byte motorFrontBPWM_Pin;
+    byte motorRearAPWM_Pin;
+    byte motorRearBPWM_Pin;
     byte servoPWM_Pin;
-    byte servoFeedback;
-
-    double rpmA = 0;
-    double rpmB = 0;
-
-    //Servo variables
-    double servoAngle = 0;
-    double servoPWM = 0;
-    double servoSetAngle = 0;
+   
+    double rpmFrontA = 0;
+    double rpmFrontB = 0;
+    double rpmRearA = 0;
+    double rpmRearB = 0;
 
     //Set variables for motor
     realTimer timerRampUp;
-    byte left_setPWM;
-    byte right_setPWM;
-    int left_setRPM;
-    int right_setRPM;
-    byte left_currentPWM;
-    byte right_currentPWM;
+    byte frontA_setPWM;
+    byte frontB_setPWM;
+    byte rearA_setPWM;
+    byte rearB_setPWM;
+    
+    double frontA_currentPWM = 0;
+    double frontB_currentPWM = 0;
+    double rearA_currentPWM = 0;
+    double rearB_currentPWM = 0;
 
-    double motorA_setRPM = 200;
-    double motorB_setRPM = 200;
-    double motorA_outPWM =0;
-    double motorB_outPWM =0;
+    double frontA_setRPM = 0;
+    double frontB_setRPM = 0;
+    double rearA_setRPM = 0;
+    double rearB_setRPM = 0;
+    
+    double frontA_outPWM =0;
+    double frontB_outPWM =0;
+    double rearA_outPWM =0;
+    double rearB_outPWM =0;
+    
     byte testState = 0;
     realTimer timerTest;
     realTimer pidTimer;
 
     //Set objects for pid controllers
-    PID *pidA;
-    PID *pidB;
-    PID *pidServo;
+    PID *pidFrontA;
+    PID *pidFrontB;
+    PID *pidRearA;
+    PID *pidRearB;
 
     //Test state machine
     enum state{
@@ -85,8 +93,8 @@ class controlRoutine {
     
 
     //Public functions
-    void init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorPWMA_Pin, byte motorPWMB_Pin, byte servoPWM_Pin, byte servoFeedback);
-    void run(double rpmA, double rpmB);
+    void init(int debugPrioritySetting, byte motorInPin1, byte motorInPin2, byte motorFrontAPWM_Pin, byte motorFrontBPWM_Pin, byte motorRearAPWM_Pin, byte motorRearBPWM_Pin);
+    void run(double rpmFrontA, double rpmFrontB, double rpmRearA, double rpmRearB, double rpmSet, double angleSet);
     void set(float angle, float targetSpeed);
 };
 
