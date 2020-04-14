@@ -19,8 +19,8 @@
 //PID variables
 #define OUTPUT_MIN 0
 #define OUTPUT_MAX 200
-#define KP 0.05
-#define KI 0.01
+#define KP 0.2
+#define KI 0.1
 #define KD 0
 #define PIDupdatePeriod 500
 

@@ -114,7 +114,6 @@ void setup() {
 
   //Motor setup
   digitalWrite(motorOp1, HIGH);
-  //digitalWrite(motorOp1, LOW);
   digitalWrite(motorOp2, LOW);
 
   //Declare objects for loop routine
@@ -152,14 +151,6 @@ void loop() {
 
   //Main sequence
 
-  //Change led state to show board is running
-  if(blinkState == 0){
-    //If this runs then it stops the motor
-    digitalWrite(LED_BUILTIN, HIGH);   // turn the LED on (HIGH is the voltage level)
-  }else{
-    digitalWrite(LED_BUILTIN, LOW);    // turn the LED off by making the voltage LOW
-  }
-  
   if(blinkTimer.check(true)){
       //Next state
       blinkState = ((blinkState + 1)%2);    

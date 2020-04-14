@@ -26,7 +26,7 @@ void commRoutine::init(int debugPrioritySetting, byte rssiInPin){
   //Start serial port
   Serial2.begin(serialRate);
   
-  establishContact();  // send a byte to establish contact until receiver responds
+  //establishContact();  // send a byte to establish contact until receiver responds
 
   Serial2.println("ubuntu");
   delay(3000);

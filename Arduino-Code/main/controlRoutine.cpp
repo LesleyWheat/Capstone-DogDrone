@@ -31,7 +31,7 @@ void controlRoutine::init(int debugPrioritySetting, byte motorInPin1, byte motor
   pidRearB->SetMode(AUTOMATIC);
 
   //set test timer to rotate states
-  timerTest.init(10000);
+  timerTest.init(5000);
   //set pid update timer, remember rpm only updates every cycle
   pidTimer.init(PIDupdatePeriod);
   
@@ -57,25 +57,43 @@ void controlRoutine::testStateMachine(){
     testState = ((testState + 1)%5);
 
     //Set motor settings
-    /*switch(testState){
+    switch(testState){
       case 0:
-        setMotor(SPEED_FAST, STRAIGHT, ACCEL_NORMAL);
+        analogWrite(motorFrontAPWM_Pin, 0);
+        analogWrite(motorFrontBPWM_Pin, 0);
+        analogWrite(motorRearAPWM_Pin, 0);
+        analogWrite(motorRearBPWM_Pin, 0);
         break;
       case 1:
-        setMotor(SPEED_BRAKE, STRAIGHT, ACCEL_NORMAL);
+        analogWrite(motorFrontAPWM_Pin, 100);
+        analogWrite(motorFrontBPWM_Pin, 100);
+        analogWrite(motorRearAPWM_Pin, 100);
+        analogWrite(motorRearBPWM_Pin, 100);
         break;
       case 2:
-        setMotor(SPEED_FAST, STRAIGHT, ACCEL_NORMAL);
+        analogWrite(motorFrontAPWM_Pin, 180);
+        analogWrite(motorFrontBPWM_Pin, 180);
+        analogWrite(motorRearAPWM_Pin, 180);
+        analogWrite(motorRearBPWM_Pin, 180);
         break;
       case 3:
-        setMotor(SPEED_SLOW, STRAIGHT, ACCEL_NORMAL);
+        analogWrite(motorFrontAPWM_Pin, 200);
+        analogWrite(motorFrontBPWM_Pin, 200);
+        analogWrite(motorRearAPWM_Pin, 200);
+        analogWrite(motorRearBPWM_Pin, 200);
         break;
       case 4:
-        setMotor(SPEED_SLOW, STRAIGHT, ACCEL_MIN);
+        analogWrite(motorFrontAPWM_Pin, 220);
+        analogWrite(motorFrontBPWM_Pin, 220);
+        analogWrite(motorRearAPWM_Pin, 220);
+        analogWrite(motorRearBPWM_Pin, 220);
         break;
       default:
-        setMotor(SPEED_BRAKE, STRAIGHT, ACCEL_MIN);
-    };*/
+        analogWrite(motorFrontAPWM_Pin, 0);
+        analogWrite(motorFrontBPWM_Pin, 0);
+        analogWrite(motorRearAPWM_Pin, 0);
+        analogWrite(motorRearBPWM_Pin, 0);
+    };
 
     //output for reference
     debugPrint(5, routineName, 5, String(F("Test state: ")) + String(testState));
@@ -113,7 +131,7 @@ void controlRoutine::run(double rpmFrontA, double rpmFrontB, double rpmRearA, do
 
   //Update state
   //runMotor();
-  //testStateMachine();
+  testStateMachine();
   
   //Update PID controllers
   if(pidTimer.check(true)){
@@ -130,10 +148,10 @@ void controlRoutine::run(double rpmFrontA, double rpmFrontB, double rpmRearA, do
     debugPrint(5, routineName, 5, String("rpmRearA: ") + String(rpmRearA) + String(" rpmRearA_out: ") + String(rearA_outPWM)+ String(" rearA_setRPM: ") + String(rearA_setRPM));
     debugPrint(5, routineName, 5, String("rpmRearB: ") + String(rpmRearB) + String(" rpmRearB_out: ") + String(rearB_outPWM)+ String(" rearB_setRPM: ") + String(rearB_setRPM));
     
-    analogWrite(motorFrontAPWM_Pin, frontA_outPWM);
-    analogWrite(motorFrontBPWM_Pin, frontB_outPWM);
-    analogWrite(motorRearAPWM_Pin, rearA_outPWM);
-    analogWrite(motorRearBPWM_Pin, rearB_outPWM);
+    //analogWrite(motorFrontAPWM_Pin, frontA_outPWM);
+    //analogWrite(motorFrontBPWM_Pin, frontB_outPWM);
+    //analogWrite(motorRearAPWM_Pin, rearA_outPWM);
+    //analogWrite(motorRearBPWM_Pin, rearB_outPWM);
     
   }
   
